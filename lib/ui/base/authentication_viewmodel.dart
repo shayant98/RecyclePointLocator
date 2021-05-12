@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';

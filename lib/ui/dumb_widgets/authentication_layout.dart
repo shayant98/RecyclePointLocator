@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rpl/ui/shared/ui_helpers.dart';
 
 class AuthenticationLayout extends StatelessWidget {
   final String title;
