@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "971814282313",
+    "project_id": "recyclepoint-9e58b",
+    "storage_bucket": "recyclepoint-9e58b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971814282313:android:8136240d3309865f75cb98",
+        "android_client_info": {
+          "package_name": "sr.recyclepoint.rpl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971814282313-h0luiljti9aerqe19r4r9k6gfuaj5o85.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sr.recyclepoint.rpl",
+            "certificate_hash": "4964e342463233290ca2e8c26cc7c896f28eeced"
+          }
+        },
+        {
+          "client_id": "971814282313-neksv3neln26crgs8bsic3e8ntplfu5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCic87VMt42EDtIpIGvFh5O_iV9vQZyt7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971814282313-neksv3neln26crgs8bsic3e8ntplfu5e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
