@@ -34,10 +34,14 @@ dependencies:
 
   cupertino_icons: ^1.0.3
   flutter_signin_button: ^2.0.0
+  json_annotation:
+  freezed_annotation:
 
 dev_dependencies:
   build_runner: ^2.0.2
   stacked_generator: ^0.4.1
+  json_serializable:
+  freezed:
   flutter_test:
     sdk: flutter
 flutter:

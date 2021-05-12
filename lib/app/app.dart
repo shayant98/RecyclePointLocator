@@ -16,5 +16,5 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: BottomSheetService),
   LazySingleton(classType: SnackbarService),
   Singleton(classType: FirebaseAuthenticationService)
-])
+], logger: StackedLogger())
 class AppSetup {}
