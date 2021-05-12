@@ -3,7 +3,7 @@ import 'package:rpl/ui/detail/detail_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class DetailView extends StatelessWidget {
-  const DetailView({Key key}) : super(key: key);
+  const DetailView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

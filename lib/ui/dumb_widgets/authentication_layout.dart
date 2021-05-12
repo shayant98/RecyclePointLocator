@@ -6,25 +6,25 @@ class AuthenticationLayout extends StatelessWidget {
   final String subtitle;
   final String mainButtonTitle;
   final Widget form;
-  final Function onMainAccountTapped;
-  final Function onCreateAccountTapped;
-  final Function onForgetPasswordTapped;
+  final Function? onMainAccountTapped;
+  final Function? onCreateAccountTapped;
+  final Function? onForgetPasswordTapped;
   final Function onBackPressed;
-  final String validationMessage;
-  final bool busy;
+  final String? validationMessage;
+  final bool? busy;
 
   const AuthenticationLayout(
-      {Key key,
-      this.title,
-      this.subtitle,
-      this.mainButtonTitle,
-      this.form,
+      {Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.mainButtonTitle,
+      required this.form,
       this.onMainAccountTapped,
       this.onCreateAccountTapped,
       this.onForgetPasswordTapped,
-      this.onBackPressed,
+      required this.onBackPressed,
       this.validationMessage,
-      this.busy})
+      this.busy = false})
       : super(key: key);
 
   @override
@@ -33,11 +33,9 @@ class AuthenticationLayout extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 25),
       child: ListView(
         children: [
-          onBackPressed == null ?? verticalSpaceLarge,
-          onBackPressed != null ?? verticalSpaceRegular,
-          onBackPressed != null ??
-              IconButton(
-                  icon: Icon(Icons.arrow_back_ios), onPressed: onBackPressed),
+          IconButton(
+              icon: Icon(Icons.arrow_back_ios), onPressed: onBackPressed()),
+          form,
         ],
       ),
     );

@@ -38,3 +38,13 @@ const Widget verticalSpaceLarge = SizedBox(
 const double paddingSmall = 15;
 const double paddingTiny = 12;
 const double paddingRegular = 25;
+
+// Screen Size Helpers
+double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
+double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
+
+double screenHeightPercentage(BuildContext context, {double percentage = 1}) =>
+    screenHeight(context) * percentage;
+
+double screenWidthPercentage(BuildContext context, {double percentage = 1}) =>
+    screenHeight(context) * percentage;
