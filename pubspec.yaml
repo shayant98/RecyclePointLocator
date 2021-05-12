@@ -21,10 +21,9 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  stacked_generator: ^0.4.1
   flutter_test:
     sdk: flutter
-
-   stacked_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
