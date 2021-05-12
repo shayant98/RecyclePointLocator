@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.router.dart';
 import 'package:stacked/stacked.dart';

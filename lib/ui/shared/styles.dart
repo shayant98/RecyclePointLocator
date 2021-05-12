@@ -7,6 +7,7 @@ const Color kOldLavendar = Color(0xFF685F74);
 const Color kPlatinum = Color(0xFFECECEC);
 const Color kDarkJungleGreen = Color(0xFF03120E);
 const Color kDangerRed = Color(0xFFFF6C6C);
+const Color kShadow = Colors.grey;
 
 // TextSize
 const double kTitleTextSize = 24;
@@ -14,20 +15,28 @@ const double kSubtitleTextSize = 12;
 const double kBodyTextSize = 14;
 const double kBody2TextSize = 9;
 
+// Padding Values
+const double paddingSmall = 15;
+const double paddingTiny = 12;
+const double paddingRegular = 25;
+const double paddingMedium = 35;
+
 // TextStyle
-const TextStyle titleTextStyle = TextStyle(
+const TextStyle kTitleTextStyle = TextStyle(
     color: kDarkJungleGreen,
     fontSize: kTitleTextSize,
     fontWeight: FontWeight.bold);
-const TextStyle titleSubtitleStyle = TextStyle(
+const TextStyle kSubtitleTextStyle = TextStyle(
     color: kOldLavendar,
     fontSize: kSubtitleTextSize,
     fontWeight: FontWeight.normal);
-const TextStyle titleBodyStyle = TextStyle(
+const TextStyle kBodyTextStyle = TextStyle(
     color: kDarkJungleGreen,
     fontSize: kBodyTextSize,
     fontWeight: FontWeight.normal);
-const TextStyle titleBody2Style = TextStyle(
+const TextStyle kBody2TextStyle = TextStyle(
     color: kDarkJungleGreen,
     fontSize: kBody2TextSize,
     fontWeight: FontWeight.normal);
+const TextStyle kButtonTextStyle = TextStyle(
+    color: kPlatinum, fontSize: kBodyTextSize, fontWeight: FontWeight.normal);

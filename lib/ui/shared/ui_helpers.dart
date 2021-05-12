@@ -34,11 +34,6 @@ const Widget verticalSpaceLarge = SizedBox(
   height: 50,
 );
 
-// Padding Values
-const double paddingSmall = 15;
-const double paddingTiny = 12;
-const double paddingRegular = 25;
-
 // Screen Size Helpers
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
