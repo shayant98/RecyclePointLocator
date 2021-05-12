@@ -17,6 +17,7 @@ const Widget horizontalSpaceLarge = SizedBox(
   width: 50,
 );
 
+//Vertical Spacing
 const Widget verticalSpaceTiny = SizedBox(
   height: 5,
 );
@@ -32,3 +33,8 @@ const Widget verticalSpaceMedium = SizedBox(
 const Widget verticalSpaceLarge = SizedBox(
   height: 50,
 );
+
+// Padding Values
+const double paddingSmall = 15;
+const double paddingTiny = 12;
+const double paddingRegular = 25;
