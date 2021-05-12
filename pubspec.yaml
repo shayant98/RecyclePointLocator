@@ -14,8 +14,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dio: ^4.0.0
+  url_launcher: ^6.0.3
+  image_picker: ^0.7.5
+
+  google_maps_flutter: ^2.0.3
+  location: ^4.1.1
+
+  flutter_geofire: ^2.0.0
+  flutter_polyline_points: ^1.0.0
+
   firebase_core: ^1.1.1
   firebase_auth: ^1.1.4
+  cloud_firestore: ^2.1.0
 
   stacked: ^2.1.1
   stacked_services: ^0.8.5
