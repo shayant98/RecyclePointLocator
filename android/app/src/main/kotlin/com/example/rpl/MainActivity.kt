@@ -1,4 +1,4 @@
-package com.example.rpl
+package sr.recyclepoint
 
 import io.flutter.embedding.android.FlutterActivity
 
