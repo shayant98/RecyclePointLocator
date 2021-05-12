@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.router.dart';
+import 'package:rpl/ui/shared/setup_bottom_sheet_ui.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,6 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupLocator();
+  setupBottomSheetUi();
   runApp(MyApp());
 }
 
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: 'Poppins',
           primaryColor: kEmeraldGreen,
+          accentColor: kEmeraldGreen,
           splashColor: kEmeraldGreen,
           backgroundColor: kPlatinum),
       navigatorKey: StackedService.navigatorKey,

@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -27,22 +24,22 @@ class HomeView extends StatelessWidget {
               zoomControlsEnabled: false,
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
+              scrollGesturesEnabled: false,
+              rotateGesturesEnabled: false,
               onMapCreated: _onMapCreated,
             ),
             Positioned(
-              top: paddingRegular,
+              top: 40,
               right: paddingRegular,
               child: IconButton(
-                onPressed: () {
-                  print(1234);
-                },
+                onPressed: model.navigatoToProfile,
                 splashColor: Colors.red,
                 iconSize: 32,
                 color: kEmeraldGreen,
                 icon: Icon(Icons.account_circle_outlined),
               ),
             ),
-            buildLocationsSheet(),
+            _LocationSheetWidget(),
             Positioned(
               bottom: paddingRegular,
               right: paddingRegular,
@@ -71,13 +68,15 @@ class HomeView extends StatelessWidget {
               left: paddingRegular,
               child: FloatingActionButton(
                 child: Text(
-                  "25km",
+                  '${model.radius.toInt()}km',
                   style: kBodyTextStyle.copyWith(
-                      fontWeight: FontWeight.bold, color: kEmeraldGreen),
+                      fontWeight: FontWeight.bold,
+                      color: kEmeraldGreen,
+                      fontSize: 12),
                 ),
                 foregroundColor: kPlatinum,
                 backgroundColor: kPlatinum,
-                onPressed: () {},
+                onPressed: model.showRadiusSlider,
               ),
             ),
             Positioned(
@@ -101,69 +100,6 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  DraggableScrollableSheet buildLocationsSheet() {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.3,
-      maxChildSize: 0.6,
-      minChildSize: 0.3,
-      builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-            decoration: BoxDecoration(
-                color: kPlatinum,
-                boxShadow: [
-                  BoxShadow(
-                    color: kShadow.withOpacity(0.5), //color of shadow
-                    spreadRadius: 5, //spread radius
-                    blurRadius: 10, // blur radius
-                    offset: Offset(0, 4), // changes position of shadow
-                  ),
-                ],
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: paddingRegular,
-                    left: paddingRegular,
-                  ),
-                  child: Text(
-                    'Places near you',
-                    style: kTitleTextStyle,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: paddingRegular,
-                  ),
-                  child: Text(
-                    'The following locations have been found',
-                    style: kSubtitleTextStyle,
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: 20,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: paddingRegular),
-                        child: ListTile(
-                          title: Text('Item $index'),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ));
-      },
-    );
-  }
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -173,4 +109,72 @@ class HomeView extends StatelessWidget {
     mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(pos.latitude!, pos.longitude!), zoom: 15)));
   }
+}
+
+class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
+  @override
+  Widget build(BuildContext context, HomeViewModel model) =>
+      DraggableScrollableSheet(
+        initialChildSize: 0.3,
+        maxChildSize: 0.6,
+        minChildSize: 0.3,
+        builder: (BuildContext context, ScrollController scrollController) =>
+            Container(
+          decoration: BoxDecoration(
+              color: kPlatinum,
+              boxShadow: [
+                BoxShadow(
+                  color: kShadow.withOpacity(0.5), //color of shadow
+                  spreadRadius: 5, //spread radius
+                  blurRadius: 10, // blur radius
+                  offset: Offset(0, 4), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          child: model.isBusy
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: paddingRegular,
+                        left: paddingRegular,
+                      ),
+                      child: Text(
+                        'Places near you',
+                        style: kTitleTextStyle,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: paddingRegular,
+                      ),
+                      child: Text(
+                        'The following locations have been found',
+                        style: kSubtitleTextStyle,
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        controller: scrollController,
+                        itemCount: 20,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: paddingRegular),
+                            child: ListTile(
+                              title: Text('Item $index'),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+        ),
+      );
 }

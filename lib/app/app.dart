@@ -13,6 +13,8 @@ import 'package:stacked_services/stacked_services.dart';
   MaterialRoute(page: RegisterView),
 ], dependencies: [
   LazySingleton(classType: NavigationService),
+  LazySingleton(classType: BottomSheetService),
+  LazySingleton(classType: SnackbarService),
   Singleton(classType: FirebaseAuthenticationService)
 ])
 class AppSetup {}

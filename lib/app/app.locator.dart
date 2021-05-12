@@ -14,5 +14,7 @@ final locator = StackedLocator.instance;
 
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => BottomSheetService());
+  locator.registerLazySingleton(() => SnackbarService());
   locator.registerSingleton(FirebaseAuthenticationService());
 }
