@@ -15,6 +15,7 @@ class LoginViewModel extends AuthenticationViewModel {
   void navigateToCreateAccount() =>
       _navigationService.navigateTo(Routes.registerView);
 
+  void navigateToHome() => _navigationService.navigateTo(Routes.homeView);
   @override
   Future<FirebaseAuthenticationResult> runAuthentication() {
     return _firebaseAuthService.loginWithEmail(

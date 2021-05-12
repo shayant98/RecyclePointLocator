@@ -8,9 +8,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(routes: [
   MaterialRoute(page: HomeView, initial: true),
-  MaterialRoute(page: DetailView),
-  MaterialRoute(page: LoginView),
-  MaterialRoute(page: RegisterView),
+  CupertinoRoute(page: DetailView),
+  CupertinoRoute(page: LoginView),
+  CupertinoRoute(page: RegisterView),
 ], dependencies: [
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: BottomSheetService),
