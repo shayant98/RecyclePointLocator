@@ -62,8 +62,11 @@ class StackedRouter extends RouterBase {
       );
     },
     RegisterView: (data) {
+      var args = data.getArgs<RegisterViewArguments>(
+        orElse: () => RegisterViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const RegisterView(),
+        builder: (context) => RegisterView(key: args.key),
         settings: data,
       );
     },
@@ -78,4 +81,10 @@ class StackedRouter extends RouterBase {
 class LoginViewArguments {
   final dynamic key;
   LoginViewArguments({this.key});
+}
+
+/// RegisterView arguments holder class
+class RegisterViewArguments {
+  final Key? key;
+  RegisterViewArguments({this.key});
 }

@@ -47,6 +47,7 @@ class LoginView extends StatelessWidget with $LoginView {
           ),
           onBackPressed: model.navigateToHome,
           onCreateAccountTapped: model.navigateToCreateAccount,
+          onSignInWithGoogle: model.useGoogleAuthentication,
         ),
       ),
       viewModelBuilder: () => LoginViewModel(),

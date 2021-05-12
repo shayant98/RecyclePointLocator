@@ -33,7 +33,6 @@ class HomeView extends StatelessWidget {
               right: paddingRegular,
               child: IconButton(
                 onPressed: model.navigatoToProfile,
-                splashColor: Colors.red,
                 iconSize: 32,
                 color: kEmeraldGreen,
                 icon: Icon(Icons.account_circle_outlined),
@@ -115,9 +114,9 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) =>
       DraggableScrollableSheet(
-        initialChildSize: 0.3,
+        initialChildSize: 0.2,
         maxChildSize: 0.6,
-        minChildSize: 0.3,
+        minChildSize: 0.2,
         builder: (BuildContext context, ScrollController scrollController) =>
             Container(
           decoration: BoxDecoration(

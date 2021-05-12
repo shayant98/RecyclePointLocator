@@ -5,6 +5,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 abstract class AuthenticationViewModel extends FormViewModel {
   final _navigationService = locator<NavigationService>();
+  final FirebaseAuthenticationService _firebaseAuthenticationService =
+      locator<FirebaseAuthenticationService>();
 
   final String successRoute;
   AuthenticationViewModel({required this.successRoute});
@@ -14,13 +16,22 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future saveData() async {
     final result = await runBusyFuture(runAuthentication());
+    _handleAuthenticationResponse(result);
+  }
 
-    if (!result.hasError) {
-      _navigationService.navigateTo(successRoute);
-    } else {
-      setValidationMessage(result.errorMessage);
-    }
+  Future<void> useGoogleAuthentication() async {
+    final result = await _firebaseAuthenticationService.signInWithGoogle();
+    _handleAuthenticationResponse(result);
   }
 
   Future<FirebaseAuthenticationResult> runAuthentication();
+
+  void _handleAuthenticationResponse(
+      FirebaseAuthenticationResult authenticationResult) {
+    if (!authenticationResult.hasError) {
+      _navigationService.navigateTo(successRoute);
+    } else {
+      setValidationMessage(authenticationResult.errorMessage);
+    }
+  }
 }

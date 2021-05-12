@@ -8,10 +8,11 @@ class AuthenticationLayout extends StatelessWidget {
   final String subtitle;
   final String mainButtonTitle;
   final Widget form;
-  final Function? onMainAccountTapped;
-  final Function? onCreateAccountTapped;
-  final Function? onForgetPasswordTapped;
-  final Function? onBackPressed;
+  final void Function()? onMainAccountTapped;
+  final void Function()? onSignInWithGoogle;
+  final void Function()? onCreateAccountTapped;
+  final void Function()? onForgetPasswordTapped;
+  final void Function()? onBackPressed;
   final String? validationMessage;
   final bool? busy;
 
@@ -26,7 +27,8 @@ class AuthenticationLayout extends StatelessWidget {
       this.onForgetPasswordTapped,
       required this.onBackPressed,
       this.validationMessage,
-      this.busy = false})
+      this.busy = false,
+      required this.onSignInWithGoogle})
       : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class AuthenticationLayout extends StatelessWidget {
               child: IconButton(
                   color: kEmeraldGreen,
                   icon: Icon(Icons.arrow_back_ios),
-                  onPressed: onBackPressed as void Function()),
+                  onPressed: onBackPressed),
             ),
           verticalSpaceSmall,
           Padding(
@@ -77,7 +79,7 @@ class AuthenticationLayout extends StatelessWidget {
                         ),
                       )
                     : Text(
-                        'LOGIN',
+                        mainButtonTitle,
                         style: kButtonTextStyle,
                       ),
               ),
@@ -97,7 +99,7 @@ class AuthenticationLayout extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: onSignInWithGoogle,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0)),
               color: Colors.white,

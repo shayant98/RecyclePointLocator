@@ -37,8 +37,8 @@ class _InputFieldState extends State<InputField> {
               : true
           : false,
       decoration: InputDecoration(
-        labelText: widget.label ?? "",
-        hintText: widget.hint ?? "",
+        labelText: widget.label,
+        hintText: widget.hint,
         fillColor: Colors.white,
         suffixIcon: (widget.isPassword == true)
             ? (_showPassword
