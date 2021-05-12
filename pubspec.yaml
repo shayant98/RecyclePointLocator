@@ -21,7 +21,7 @@ dependencies:
   google_maps_flutter: ^2.0.3
   location: ^4.1.1
 
-  flutter_geofire: ^2.0.0
+  geoflutterfire2: ^2.3.5
   flutter_polyline_points: ^1.0.0
 
   firebase_core: ^1.1.1
