@@ -144,9 +144,9 @@ class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: paddingSmall, vertical: paddingSmall),
+          MaterialButton(
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
+            onPressed: model.navigatoToProfile,
             child: Row(
               children: [
                 Icon(
@@ -159,11 +159,11 @@ class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "model.user.email!,",
+                      model.user!.name!,
                       style: kBodyTextStyle,
                     ),
                     Text(
-                      "shayant98@gmail.com",
+                      model.user!.email!,
                       style: kBody2TextStyle,
                     )
                   ],

@@ -17,6 +17,8 @@ class RegisterViewModel extends AuthenticationViewModel {
     // TODO: implement setFormStatus
   }
 
+  void navigateBack() => _navigationService.back();
+
   @override
   Future<FirebaseAuthenticationResult> runAuthentication() {
     return _firebaseAuthService.createAccountWithEmail(

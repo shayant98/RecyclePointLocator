@@ -34,16 +34,18 @@ class AuthenticationLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           if (onBackPressed != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
-              child: IconButton(
-                  color: kEmeraldGreen,
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: onBackPressed),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                    color: kEmeraldGreen,
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: onBackPressed),
+              ),
             ),
           verticalSpaceSmall,
           Padding(
@@ -60,7 +62,7 @@ class AuthenticationLayout extends StatelessWidget {
               style: kSubtitleTextStyle,
             ),
           ),
-          verticalSpaceLarge,
+          verticalSpaceMedium,
           form,
           verticalSpaceMedium,
           Padding(
@@ -85,27 +87,18 @@ class AuthenticationLayout extends StatelessWidget {
               ),
             ),
           ),
-          verticalSpaceLarge,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'OR',
-                style: kBodyTextStyle,
-              )
-            ],
-          ),
           verticalSpaceRegular,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: MaterialButton(
+              elevation: 2,
               onPressed: onSignInWithGoogle,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0)),
               color: Colors.white,
               height: 50,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Center(

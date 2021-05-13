@@ -25,7 +25,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
       builder: (context, model, child) => Scaffold(
         body: AuthenticationLayout(
           busy: model.isBusy,
-          onBackPressed: () {},
+          onBackPressed: model.navigateBack,
           onMainButtonTapped: model.saveData,
           onSignInWithGoogle: model.useGoogleAuthentication,
           form: Padding(
@@ -39,28 +39,28 @@ class RegisterView extends StatelessWidget with $RegisterView {
                       hint: 'Firstname',
                       label: 'Firstname',
                       isPassword: false),
-                  verticalSpaceMedium,
+                  verticalSpaceRegular,
                   InputField(
                       controller: lastNameController,
                       inputType: TextInputType.text,
                       hint: 'Lastname',
                       label: 'Lastname',
                       isPassword: false),
-                  verticalSpaceMedium,
+                  verticalSpaceRegular,
                   InputField(
                       controller: emailController,
                       inputType: TextInputType.emailAddress,
                       hint: 'Email',
                       label: 'Email',
                       isPassword: false),
-                  verticalSpaceMedium,
+                  verticalSpaceRegular,
                   InputField(
                       controller: passwordController,
                       inputType: TextInputType.visiblePassword,
                       hint: 'Enter Password',
                       label: 'Password',
                       isPassword: true),
-                  verticalSpaceMedium,
+                  verticalSpaceRegular,
                   InputField(
                       controller: confirmPasswordController,
                       inputType: TextInputType.visiblePassword,

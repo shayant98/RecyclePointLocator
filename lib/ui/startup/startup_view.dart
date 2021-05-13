@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/startup/startup_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,7 +14,12 @@ class StartupView extends StatelessWidget {
           SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
         model.runStartupLogic();
       }),
-      builder: (context, model, child) => Scaffold(),
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: kPlatinum,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
       viewModelBuilder: () => StartupViewModel(),
     );
   }
