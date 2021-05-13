@@ -50,6 +50,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
         user: User(
             id: user.uid,
             email: user.email,
+            image: user.photoURL,
             name: user.displayName ??
                 '${formValueMap['firstName']} ${formValueMap['lastName']}'),
       );

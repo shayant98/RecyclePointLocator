@@ -12,7 +12,8 @@ class UserService {
       locator<FirebaseAuthenticationService>();
 
   User? _currentUser;
-  User get currentUser => _currentUser!;
+  User? get currentUser => _currentUser;
+  bool get hasLoggedInUser => _firebaseAuthenticationService.hasUser;
 
   Future<void> syncUserAccount() async {
     final firebaseUserId =
@@ -33,7 +34,8 @@ class UserService {
     if (_currentUser == null) {
       log.v('No user found create new user...');
       await _firestoreApi.createUser(user: user);
-      log.v('User saved');
+      _currentUser = user;
+      log.v('_currentUser has been saved');
     }
   }
 }

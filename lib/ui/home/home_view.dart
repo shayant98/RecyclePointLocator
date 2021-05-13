@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
+import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
@@ -15,6 +16,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: [
@@ -31,11 +33,17 @@ class HomeView extends StatelessWidget {
             Positioned(
               top: 40,
               right: paddingRegular,
-              child: IconButton(
-                onPressed: model.navigatoToProfile,
-                iconSize: 32,
-                color: kEmeraldGreen,
-                icon: Icon(Icons.account_circle_outlined),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: model.showExpandedMenuOrLogin,
+                    iconSize: 32,
+                    color: kEmeraldGreen,
+                    icon: Icon(Icons.account_circle_outlined),
+                  ),
+                  if (model.showMenu) _BuildExpandedMenu()
+                ],
               ),
             ),
             _LocationSheetWidget(),
@@ -110,6 +118,136 @@ class HomeView extends StatelessWidget {
   }
 }
 
+class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
+  const _BuildExpandedMenu({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, HomeViewModel model) {
+    return Container(
+      width: screenWidthPercentage(context, percentage: 0.3),
+      height: screenHeightPercentage(context, percentage: 0.3),
+      decoration: BoxDecoration(
+        color: kPlatinum,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: Offset(0, 4),
+            color: kShadow.withOpacity(0.5),
+          )
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: paddingSmall, vertical: paddingSmall),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.account_circle_outlined,
+                  size: 32,
+                  color: kEmeraldGreen,
+                ),
+                horizontalSpaceSmall,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "model.user.email!,",
+                      style: kBodyTextStyle,
+                    ),
+                    Text(
+                      "shayant98@gmail.com",
+                      style: kBody2TextStyle,
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(
+            color: kShadow,
+          ),
+          MaterialButton(
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
+            onPressed: () {},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.settings,
+                  color: kEmeraldGreen,
+                ),
+                horizontalSpaceSmall,
+                Text(
+                  'Settings',
+                  style: kBodyTextStyle,
+                )
+              ],
+            ),
+          ),
+          MaterialButton(
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
+            onPressed: () {},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.support,
+                  color: kEmeraldGreen,
+                ),
+                horizontalSpaceSmall,
+                Text(
+                  'Support',
+                  style: kBodyTextStyle,
+                )
+              ],
+            ),
+          ),
+          MaterialButton(
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
+            onPressed: () {},
+            child: Row(
+              children: [
+                Icon(
+                  Icons.logout,
+                  color: kEmeraldGreen,
+                ),
+                horizontalSpaceSmall,
+                Text(
+                  'Logout',
+                  style: kBodyTextStyle,
+                )
+              ],
+            ),
+          ),
+          Divider(
+            color: kShadow,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Privacy Policy',
+                style: kBody2TextStyle,
+              ),
+              horizontalSpaceSmall,
+              Text(
+                'Who are we?',
+                style: kBody2TextStyle,
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) =>
@@ -144,7 +282,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                         left: paddingRegular,
                       ),
                       child: Text(
-                        'Places near you',
+                        'Points near you',
                         style: kTitleTextStyle,
                       ),
                     ),
