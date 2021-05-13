@@ -28,7 +28,7 @@ class HomeViewModel extends BaseViewModel {
   void navigatoToQuickFind() =>
       _navigationService.navigateTo(Routes.detailView);
   void navigatoToProfile() => _navigationService.navigateTo(Routes.loginView);
-  void navigatoToLogin() => _navigationService.navigateTo(Routes.loginView);
+  void navigatoToLogin() => _navigationService.navigateTo(Routes.profileView);
 
   void showExpandedMenuOrLogin() {
     if (_userService.hasLoggedInUser) {
