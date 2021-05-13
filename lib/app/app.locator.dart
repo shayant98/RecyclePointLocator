@@ -10,11 +10,16 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../api/firestore_api.dart';
+import '../service/user_service.dart';
+
 final locator = StackedLocator.instance;
 
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => SnackbarService());
+  locator.registerLazySingleton(() => FirestoreApi());
+  locator.registerLazySingleton(() => UserService());
   locator.registerSingleton(FirebaseAuthenticationService());
 }

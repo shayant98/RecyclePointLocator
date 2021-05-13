@@ -7,8 +7,7 @@ part 'application_models.g.dart';
 abstract class User with _$User {
   factory User({
     required String id,
-    String? lastName,
-    String? firstName,
+    String? name,
     String? email,
   }) = _User;
 

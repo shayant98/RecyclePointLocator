@@ -8,7 +8,7 @@ class AuthenticationLayout extends StatelessWidget {
   final String subtitle;
   final String mainButtonTitle;
   final Widget form;
-  final void Function()? onMainAccountTapped;
+  final void Function()? onMainButtonTapped;
   final void Function()? onSignInWithGoogle;
   final void Function()? onCreateAccountTapped;
   final void Function()? onForgetPasswordTapped;
@@ -22,7 +22,7 @@ class AuthenticationLayout extends StatelessWidget {
       required this.subtitle,
       required this.mainButtonTitle,
       required this.form,
-      this.onMainAccountTapped,
+      this.onMainButtonTapped,
       this.onCreateAccountTapped,
       this.onForgetPasswordTapped,
       required this.onBackPressed,
@@ -68,7 +68,7 @@ class AuthenticationLayout extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: onMainButtonTapped,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,

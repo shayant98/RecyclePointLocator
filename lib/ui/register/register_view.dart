@@ -12,6 +12,8 @@ import 'package:stacked/stacked_annotations.dart';
   FormTextField(name: 'email'),
   FormTextField(name: 'password'),
   FormTextField(name: 'confirmPassword'),
+  FormTextField(name: 'firstName'),
+  FormTextField(name: 'lastName'),
 ])
 class RegisterView extends StatelessWidget with $RegisterView {
   RegisterView({Key? key}) : super(key: key);
@@ -19,51 +21,54 @@ class RegisterView extends StatelessWidget with $RegisterView {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<RegisterViewModel>.reactive(
+      onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => Scaffold(
         body: AuthenticationLayout(
           busy: model.isBusy,
           onBackPressed: () {},
-          onMainAccountTapped: () {},
+          onMainButtonTapped: model.saveData,
           onSignInWithGoogle: model.useGoogleAuthentication,
           form: Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child: Column(
-              children: [
-                InputField(
-                    controller: emailController,
-                    inputType: TextInputType.text,
-                    hint: 'Firstname',
-                    label: 'Firstname',
-                    isPassword: false),
-                verticalSpaceMedium,
-                InputField(
-                    controller: emailController,
-                    inputType: TextInputType.text,
-                    hint: 'Lastname',
-                    label: 'Lastname',
-                    isPassword: false),
-                verticalSpaceMedium,
-                InputField(
-                    controller: emailController,
-                    inputType: TextInputType.emailAddress,
-                    hint: 'Email',
-                    label: 'Email',
-                    isPassword: false),
-                verticalSpaceMedium,
-                InputField(
-                    controller: passwordController,
-                    inputType: TextInputType.visiblePassword,
-                    hint: 'Enter Password',
-                    label: 'Password',
-                    isPassword: true),
-                verticalSpaceMedium,
-                InputField(
-                    controller: confirmPasswordController,
-                    inputType: TextInputType.visiblePassword,
-                    hint: 'Repeat Password',
-                    label: 'Repeat Password',
-                    isPassword: true),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  InputField(
+                      controller: firstNameController,
+                      inputType: TextInputType.text,
+                      hint: 'Firstname',
+                      label: 'Firstname',
+                      isPassword: false),
+                  verticalSpaceMedium,
+                  InputField(
+                      controller: lastNameController,
+                      inputType: TextInputType.text,
+                      hint: 'Lastname',
+                      label: 'Lastname',
+                      isPassword: false),
+                  verticalSpaceMedium,
+                  InputField(
+                      controller: emailController,
+                      inputType: TextInputType.emailAddress,
+                      hint: 'Email',
+                      label: 'Email',
+                      isPassword: false),
+                  verticalSpaceMedium,
+                  InputField(
+                      controller: passwordController,
+                      inputType: TextInputType.visiblePassword,
+                      hint: 'Enter Password',
+                      label: 'Password',
+                      isPassword: true),
+                  verticalSpaceMedium,
+                  InputField(
+                      controller: confirmPasswordController,
+                      inputType: TextInputType.visiblePassword,
+                      hint: 'Repeat Password',
+                      label: 'Repeat Password',
+                      isPassword: true),
+                ],
+              ),
             ),
           ),
           mainButtonTitle: 'SUBMIT',
