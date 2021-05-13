@@ -15,14 +15,17 @@ import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/register/register_view.dart';
+import '../ui/startup/startup_view.dart';
 
 class Routes {
-  static const String homeView = '/';
+  static const String startupView = '/';
+  static const String homeView = '/home-view';
   static const String detailView = '/detail-view';
   static const String profileView = '/profile-view';
   static const String loginView = '/login-view';
   static const String registerView = '/register-view';
   static const all = <String>{
+    startupView,
     homeView,
     detailView,
     profileView,
@@ -35,6 +38,7 @@ class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
+    RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.homeView, page: HomeView),
     RouteDef(Routes.detailView, page: DetailView),
     RouteDef(Routes.profileView, page: ProfileView),
@@ -44,8 +48,14 @@ class StackedRouter extends RouterBase {
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
-    HomeView: (data) {
+    StartupView: (data) {
       return MaterialPageRoute<dynamic>(
+        builder: (context) => const StartupView(),
+        settings: data,
+      );
+    },
+    HomeView: (data) {
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => HomeView(),
         settings: data,
       );
