@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/profile/profile_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -12,89 +13,94 @@ class ProfileView extends StatelessWidget {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-          body: ListView(
+          body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                  color: kEmeraldGreen,
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {}),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child: Text("Profile", style: kTitleTextStyle),
-          ),
-          verticalSpaceRegular,
-          CircleAvatar(
-              backgroundColor: kEmeraldGreen,
-              radius: 100,
-              backgroundImage: NetworkImage(model.user!.image ?? '')),
-          verticalSpaceRegular,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child: Text("Personal info",
-                style: kTitleTextStyle.copyWith(fontSize: 18)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-            child: ListTile(
-              leading: Icon(
-                Icons.email,
-                color: kEmeraldGreen,
+          LeafClipper(),
+          ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                      color: kEmeraldGreen,
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: model.navigateToHome),
+                ),
               ),
-              title: Text(model.user!.email!),
-              trailing: Icon(
-                Icons.verified_user,
-                color: kEmeraldGreen,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+                child: Text("Profile", style: kTitleTextStyle),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-            child: ListTile(
-              leading: Icon(
-                Icons.person,
-                color: kEmeraldGreen,
+              verticalSpaceRegular,
+              CircleAvatar(
+                  backgroundColor: kEmeraldGreen,
+                  radius: 100,
+                  backgroundImage: NetworkImage(model.user!.image ?? '')),
+              verticalSpaceRegular,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+                child: Text("Personal info",
+                    style: kTitleTextStyle.copyWith(fontSize: 18)),
               ),
-              title: Text(model.user!.name!),
-            ),
-          ),
-          verticalSpaceMedium,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child:
-                Text("Security", style: kTitleTextStyle.copyWith(fontSize: 18)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-            child: ListTile(
-              title: Text(
-                "CHANGE PASSWORD",
-                style: kButtonTextStyle.copyWith(
-                    fontWeight: FontWeight.bold, color: kEmeraldGreen),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.email,
+                    color: kEmeraldGreen,
+                  ),
+                  title: Text(model.user!.email!),
+                  trailing: Icon(
+                    Icons.verified_user,
+                    color: kEmeraldGreen,
+                  ),
+                ),
               ),
-            ),
-          ),
-          verticalSpaceMedium,
-          Divider(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child: Text("Danger zone",
-                style: kTitleTextStyle.copyWith(fontSize: 18)),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-            child: ListTile(
-              title: Text(
-                "DELETE ACCOUNT",
-                style: kButtonTextStyle.copyWith(
-                    fontWeight: FontWeight.bold, color: kDangerRed),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.person,
+                    color: kEmeraldGreen,
+                  ),
+                  title: Text(model.user!.name!),
+                ),
               ),
-            ),
+              verticalSpaceMedium,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+                child: Text("Security",
+                    style: kTitleTextStyle.copyWith(fontSize: 18)),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
+                child: ListTile(
+                  title: Text(
+                    "CHANGE PASSWORD",
+                    style: kButtonTextStyle.copyWith(
+                        fontWeight: FontWeight.bold, color: kEmeraldGreen),
+                  ),
+                ),
+              ),
+              verticalSpaceMedium,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+                child: Text("Danger zone",
+                    style: kTitleTextStyle.copyWith(fontSize: 18)),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
+                child: ListTile(
+                  title: Text(
+                    "DELETE ACCOUNT",
+                    style: kButtonTextStyle.copyWith(
+                        fontWeight: FontWeight.bold, color: kDangerRed),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       )),

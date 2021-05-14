@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
-  GoogleMapController? mapController;
-  Location location = new Location();
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -20,15 +13,22 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: [
-            GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              zoomControlsEnabled: false,
-              myLocationEnabled: true,
-              myLocationButtonEnabled: false,
-              scrollGesturesEnabled: false,
-              rotateGesturesEnabled: false,
-              onMapCreated: _onMapCreated,
+            SizedBox(
+              width: screenWidth(context),
+              height: screenHeight(context),
+              child: GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
+                  zoom: 15,
+                ),
+                zoomControlsEnabled: false,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                scrollGesturesEnabled: false,
+                rotateGesturesEnabled: false,
+                onMapCreated: model.onMapCreated,
+              ),
             ),
             Positioned(
               top: 40,
@@ -97,7 +97,7 @@ class HomeView extends StatelessWidget {
                 ),
                 foregroundColor: kPlatinum,
                 backgroundColor: kPlatinum,
-                onPressed: _animateToUser,
+                onPressed: model.animateToUser,
               ),
             ),
           ],
@@ -105,16 +105,6 @@ class HomeView extends StatelessWidget {
       ),
       viewModelBuilder: () => HomeViewModel(),
     );
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  _animateToUser() async {
-    var pos = await location.getLocation();
-    mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(pos.latitude!, pos.longitude!), zoom: 15)));
   }
 }
 
