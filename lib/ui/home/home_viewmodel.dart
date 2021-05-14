@@ -80,10 +80,13 @@ class HomeViewModel extends StreamViewModel<LocationData> {
 
   @override
   void onData(LocationData? data) {
-    mapController!.animateCamera(
-      CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(data!.latitude!, data.longitude!), zoom: 18)),
-    );
+    if (pos!.latitude != data!.latitude || pos!.longitude != data.longitude) {
+      pos = data;
+      mapController!.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(
+            target: LatLng(data.latitude!, data.longitude!), zoom: 15)),
+      );
+    }
     super.onData(data);
   }
 }
