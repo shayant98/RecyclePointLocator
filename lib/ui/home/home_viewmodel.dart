@@ -33,7 +33,7 @@ class HomeViewModel extends StreamViewModel<LocationData> {
 
   void navigatoToDetail() => _navigationService.navigateTo(Routes.detailView);
   void navigatoToQuickFind() =>
-      _navigationService.navigateTo(Routes.detailView);
+      _navigationService.navigateTo(Routes.quickFindView);
   void navigatoToProfile() => _navigationService.navigateTo(Routes.profileView);
   void navigatoToLogin() => _navigationService.navigateTo(Routes.loginView);
 
@@ -80,7 +80,8 @@ class HomeViewModel extends StreamViewModel<LocationData> {
 
   @override
   void onData(LocationData? data) {
-    if (pos!.latitude != data!.latitude || pos!.longitude != data.longitude) {
+    if (pos != null &&
+        (pos!.latitude != data!.latitude || pos!.longitude != data.longitude)) {
       pos = data;
       mapController!.animateCamera(
         CameraUpdate.newCameraPosition(CameraPosition(

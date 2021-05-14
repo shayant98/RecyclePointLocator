@@ -13,7 +13,7 @@ class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> runStartupLogic() async {
-    _locationService.setDeviceLocation();
+    await _locationService.setDeviceLocation();
     if (_userService.hasLoggedInUser) {
       log.v('We have a user session on disk. Sync the user profile ...');
       await _userService.syncUserAccount();

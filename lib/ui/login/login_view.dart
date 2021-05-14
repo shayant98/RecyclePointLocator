@@ -20,6 +20,7 @@ class LoginView extends StatelessWidget with $LoginView {
     return ViewModelBuilder<LoginViewModel>.reactive(
       onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: AuthenticationLayout(
           busy: model.isBusy,
           title: 'Log into your account',

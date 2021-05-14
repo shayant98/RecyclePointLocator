@@ -5,6 +5,7 @@ import 'package:rpl/ui/detail/detail_view.dart';
 import 'package:rpl/ui/home/home_view.dart';
 import 'package:rpl/ui/login/login_view.dart';
 import 'package:rpl/ui/profile/profile_view.dart';
+import 'package:rpl/ui/quick_find/quick_find_view.dart';
 import 'package:rpl/ui/register/register_view.dart';
 import 'package:rpl/ui/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -18,6 +19,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: ProfileView),
   CupertinoRoute(page: LoginView),
   CupertinoRoute(page: RegisterView),
+  CupertinoRoute(page: QuickFindView, fullscreenDialog: true),
 ], dependencies: [
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: BottomSheetService),

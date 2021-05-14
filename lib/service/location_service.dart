@@ -17,6 +17,8 @@ class LocationService {
       return 'no';
     }
     _currentLocation = await _location.getLocation();
+    log.v(
+        "Location set: ${_currentLocation!.latitude} - ${_currentLocation!.longitude}");
   }
 
   LocationData? getDeviceLocation() {

@@ -10,6 +10,7 @@ class ProfileViewModel extends BaseViewModel {
   User? get user => _user;
   final UserService _userService = locator<UserService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
 
   init() {
     _user = _userService.currentUser;
@@ -17,5 +18,14 @@ class ProfileViewModel extends BaseViewModel {
 
   navigateToHome() {
     _navigationService.clearStackAndShow(Routes.homeView);
+  }
+
+  showDeleteSheet() {
+    _bottomSheetService.showBottomSheet(
+        title: "Are you sure?",
+        description: "Deleting your account, will wipe all data related to you",
+        confirmButtonTitle: "Delete My account",
+        cancelButtonTitle: "I want to keep my account",
+        barrierDismissible: true);
   }
 }

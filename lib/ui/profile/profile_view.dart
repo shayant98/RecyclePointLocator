@@ -33,10 +33,16 @@ class ProfileView extends StatelessWidget {
                 child: Text("Profile", style: kTitleTextStyle),
               ),
               verticalSpaceRegular,
-              CircleAvatar(
-                  backgroundColor: kEmeraldGreen,
-                  radius: 100,
-                  backgroundImage: NetworkImage(model.user!.image ?? '')),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: kEmeraldGreen,
+                    radius: 100,
+                    backgroundImage: NetworkImage(model.user!.image ?? ''),
+                  ),
+                ],
+              ),
               verticalSpaceRegular,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
@@ -93,6 +99,7 @@ class ProfileView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
                 child: ListTile(
+                  onTap: model.showDeleteSheet,
                   title: Text(
                     "DELETE ACCOUNT",
                     style: kButtonTextStyle.copyWith(

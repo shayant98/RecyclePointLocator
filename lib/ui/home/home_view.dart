@@ -51,6 +51,7 @@ class HomeView extends StatelessWidget {
               bottom: paddingRegular,
               right: paddingRegular,
               child: FloatingActionButton.extended(
+                heroTag: "quickFind",
                 label: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -67,13 +68,14 @@ class HomeView extends StatelessWidget {
                 ),
                 foregroundColor: kEmeraldGreen,
                 backgroundColor: kEmeraldGreen,
-                onPressed: () {},
+                onPressed: model.navigatoToQuickFind,
               ),
             ),
             Positioned(
               top: 120,
               left: paddingRegular,
               child: FloatingActionButton(
+                heroTag: "radius",
                 child: Text(
                   '${model.radius.toInt()}km',
                   style: kBodyTextStyle.copyWith(
@@ -90,6 +92,7 @@ class HomeView extends StatelessWidget {
               top: paddingMedium,
               left: paddingRegular,
               child: FloatingActionButton(
+                heroTag: "userLoc",
                 child: Icon(
                   Icons.location_on,
                   color: kEmeraldGreen,
