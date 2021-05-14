@@ -210,7 +210,7 @@ class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
           ),
           MaterialButton(
             padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
-            onPressed: () {},
+            onPressed: model.logout,
             child: Row(
               children: [
                 Icon(
