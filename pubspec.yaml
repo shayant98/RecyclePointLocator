@@ -49,6 +49,7 @@ flutter:
 
   assets:
     - assets/fonts/
+    - assets/map_styles/
   fonts:
     - family: Poppins
       fonts:
