@@ -21,3 +21,18 @@ Map<String, dynamic> _$_$_UserToJson(_$_User instance) => <String, dynamic>{
       'email': instance.email,
       'image': instance.image,
     };
+
+_$_RecyclePoint _$_$_RecyclePointFromJson(Map<String, dynamic> json) {
+  return _$_RecyclePoint(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    position: json['position'] as Map<String, dynamic>,
+  );
+}
+
+Map<String, dynamic> _$_$_RecyclePointToJson(_$_RecyclePoint instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'position': instance.position,
+    };

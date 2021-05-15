@@ -1,5 +1,6 @@
 import 'package:rpl/api/firestore_api.dart';
 import 'package:rpl/service/location_service.dart';
+import 'package:rpl/service/recycle_point_service.dart';
 import 'package:rpl/service/user_service.dart';
 import 'package:rpl/ui/detail/detail_view.dart';
 import 'package:rpl/ui/home/home_view.dart';
@@ -27,6 +28,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: FirestoreApi),
   LazySingleton(classType: UserService),
   LazySingleton(classType: LocationService),
+  LazySingleton(classType: RecyclePointService),
   Singleton(classType: FirebaseAuthenticationService)
 ], logger: StackedLogger())
 class AppSetup {}

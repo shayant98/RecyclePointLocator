@@ -36,7 +36,7 @@ class LocationService {
     log.v("Check if GPS is enabled");
     bool _serviceEnabled = await _location.serviceEnabled();
     if (!_serviceEnabled) {
-      log.v("service request result: ${_serviceEnabled}");
+      log.v("service request result: $_serviceEnabled");
       _serviceEnabled = await _location.requestService();
       if (!_serviceEnabled) {
         return false;
@@ -51,7 +51,7 @@ class LocationService {
     PermissionStatus _permissionGranted = await _location.hasPermission();
     if (_permissionGranted != PermissionStatus.granted) {
       _permissionGranted = await _location.requestPermission();
-      log.v("Permission result: ${_permissionGranted}");
+      log.v("Permission result: $_permissionGranted");
       if (_permissionGranted != PermissionStatus.granted) {
         return false;
       }

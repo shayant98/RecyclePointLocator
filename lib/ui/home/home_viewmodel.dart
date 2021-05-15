@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/api/firestore_api.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.router.dart';
 import 'package:rpl/enum/bottom_sheet_type.dart';
@@ -10,12 +12,19 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends StreamViewModel<LocationData> {
+const String _LocationStreamKey = 'location-stream';
+const String _RecyclePointStreamKey = 'recycle-stream';
+
+class HomeViewModel extends MultipleStreamViewModel {
   double radius = 50;
   bool showMenu = false;
   LocationData? pos;
   User? _user;
   User? get user => _user;
+  Set<Marker> _markers = {};
+  Set<Marker> get markers => _markers;
+  List<RecyclePoint> get recyclePointData => dataMap![_RecyclePointStreamKey];
+  bool get isRecyclePointDataReady => dataReady(_RecyclePointStreamKey);
 
   GoogleMapController? mapController;
   Location location = new Location();
@@ -24,9 +33,11 @@ class HomeViewModel extends StreamViewModel<LocationData> {
   final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   final UserService _userService = locator<UserService>();
   final LocationService _locationService = locator<LocationService>();
+  final FirestoreApi _firestoreApi = locator<FirestoreApi>();
   final FirebaseAuthenticationService _firebaseAuthService =
       locator<FirebaseAuthenticationService>();
-  init() async {
+
+  init() {
     pos = _locationService.getDeviceLocation();
     _user = _userService.currentUser;
   }
@@ -54,6 +65,7 @@ class HomeViewModel extends StreamViewModel<LocationData> {
       radius = response.responseData;
     }
     notifyListeners();
+    notifySourceChanged();
   }
 
   void logout() async {
@@ -75,19 +87,58 @@ class HomeViewModel extends StreamViewModel<LocationData> {
   }
 
   @override
-  // TODO: implement stream
-  Stream<LocationData> get stream => _locationService.listenToDeviceLocation();
+  Map<String, StreamData> get streamsMap => {
+        _LocationStreamKey:
+            StreamData<LocationData>(_locationService.listenToDeviceLocation()),
+        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(
+            radius: radius, lat: 5.8448077, long: -55.2393224)),
+      };
 
-  @override
-  void onData(LocationData? data) {
+  void updateUserLocation(LocationData location) {
     if (pos != null &&
-        (pos!.latitude != data!.latitude || pos!.longitude != data.longitude)) {
-      pos = data;
+        (pos!.latitude != location.latitude ||
+            pos!.longitude != location.longitude)) {
+      pos = location;
       mapController!.animateCamera(
         CameraUpdate.newCameraPosition(CameraPosition(
-            target: LatLng(data.latitude!, data.longitude!), zoom: 15)),
+            target: LatLng(location.latitude!, location.longitude!), zoom: 15)),
       );
     }
-    super.onData(data);
+  }
+
+  void _generateMarkers(List<RecyclePoint> recyclePoints) {
+    _markers.clear();
+
+    if (recyclePoints.length > 0) {
+      recyclePoints.forEach((RecyclePoint recyclePoint) {
+        GeoPoint _markPoint = recyclePoint.position['geopoint'];
+        Marker marker = Marker(
+            markerId: MarkerId(recyclePoint.id),
+            position: LatLng(_markPoint.latitude, _markPoint.longitude),
+            infoWindow: InfoWindow(title: recyclePoint.name),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueGreen));
+
+        _markers.add(marker);
+      });
+    }
+  }
+
+  @override
+  void onData(String key, dynamic data) {
+    if (key == _LocationStreamKey) {
+      updateUserLocation(data);
+    }
+
+    if (key == _RecyclePointStreamKey) {
+      _generateMarkers(data);
+    }
+    super.onData(key, data);
+  }
+
+  @override
+  void dispose() {
+    mapController!.dispose();
+    super.dispose();
   }
 }

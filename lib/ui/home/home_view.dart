@@ -18,6 +18,7 @@ class HomeView extends StatelessWidget {
               height: screenHeight(context),
               child: GoogleMap(
                 mapType: MapType.normal,
+                markers: model.markers,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
                   zoom: 15,
@@ -245,7 +246,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) =>
       DraggableScrollableSheet(
-        initialChildSize: 0.2,
+        initialChildSize: 0.3,
         maxChildSize: 0.6,
         minChildSize: 0.2,
         builder: (BuildContext context, ScrollController scrollController) =>
@@ -275,7 +276,11 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                         left: paddingRegular,
                       ),
                       child: Text(
-                        'Points near you',
+                        model.isBusy || !model.isRecyclePointDataReady
+                            ? 'Loading points near you'
+                            : model.recyclePointData.length > 0
+                                ? 'Points near you'
+                                : 'No Points found near you',
                         style: kTitleTextStyle,
                       ),
                     ),
@@ -284,25 +289,37 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                         horizontal: paddingRegular,
                       ),
                       child: Text(
-                        'The following locations have been found',
+                        model.isBusy || !model.isRecyclePointDataReady
+                            ? 'Please wait while we load the closest recyclepoints'
+                            : model.recyclePointData.length > 0
+                                ? 'The following points are closest to you'
+                                : 'we were unable to identify recyclepoints',
                         style: kSubtitleTextStyle,
                       ),
                     ),
                     Expanded(
-                      child: ListView.builder(
-                        controller: scrollController,
-                        itemCount: 20,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: paddingRegular),
-                            child: ListTile(
-                              title: Text('Item $index'),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                        child: model.isBusy || !model.isRecyclePointDataReady
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : model.recyclePointData.length > 0
+                                ? ListView.builder(
+                                    controller: scrollController,
+                                    itemCount:
+                                        model.dataMap!['recycle-stream'].length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: paddingRegular),
+                                        child: ListTile(
+                                          title: Text(
+                                              '${model.recyclePointData[index].name}'),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Container())
                   ],
                 ),
         ),

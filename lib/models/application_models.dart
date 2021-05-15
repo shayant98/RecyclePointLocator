@@ -14,3 +14,15 @@ abstract class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
+
+@freezed
+abstract class RecyclePoint with _$RecyclePoint {
+  factory RecyclePoint({
+    required String id,
+    required String name,
+    required Map<String, dynamic> position,
+  }) = _RecyclePoint;
+
+  factory RecyclePoint.fromJson(Map<String, dynamic> json) =>
+      _$RecyclePointFromJson(json);
+}
