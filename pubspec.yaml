@@ -33,7 +33,7 @@ dependencies:
   stacked_firebase_auth: ^0.2.5
 
   cupertino_icons: ^1.0.3
-  flutter_signin_button: ^2.0.0
+  font_awesome_flutter: ^9.0.0
   json_annotation:
   freezed_annotation:
 

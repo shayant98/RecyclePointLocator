@@ -21,6 +21,8 @@ abstract class RecyclePoint with _$RecyclePoint {
     required String id,
     required String name,
     required Map<String, dynamic> position,
+    required List<String> materials,
+    required String adres,
   }) = _RecyclePoint;
 
   factory RecyclePoint.fromJson(Map<String, dynamic> json) =>

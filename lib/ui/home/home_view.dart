@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/models/application_models.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -57,10 +59,11 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
-                      Icons.search,
+                      FontAwesomeIcons.search,
                       color: kPlatinum,
                       size: 14,
                     ),
+                    horizontalSpaceTiny,
                     Text(
                       'QUICK FIND',
                       style: kButtonTextStyle,
@@ -303,25 +306,136 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                                 child: CircularProgressIndicator(),
                               )
                             : model.recyclePointData.length > 0
-                                ? ListView.builder(
+                                ? ListView.separated(
                                     controller: scrollController,
                                     itemCount:
                                         model.dataMap!['recycle-stream'].length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: paddingRegular),
-                                        child: ListTile(
-                                          title: Text(
-                                              '${model.recyclePointData[index].name}'),
-                                        ),
+                                      return RecyclePointTile(
+                                        recyclePoint:
+                                            model.recyclePointData[index],
                                       );
                                     },
-                                  )
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            verticalSpaceMedium)
                                 : Container())
                   ],
                 ),
         ),
       );
+}
+
+class RecyclePointTile extends StatelessWidget {
+  final RecyclePoint recyclePoint;
+
+  const RecyclePointTile({Key? key, required this.recyclePoint})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+      child: Container(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Icon(
+                FontAwesomeIcons.recycle,
+                color: kEmeraldGreen,
+                size: 32,
+              ),
+            ),
+            horizontalSpaceSmall,
+            Expanded(
+              flex: 8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        recyclePoint.name,
+                        style: kBodyTextStyle.copyWith(
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Row(
+                        children: [
+                          if (recyclePoint.materials.contains('glass'))
+                            CircleAvatar(
+                              radius: 12,
+                              backgroundColor: kEmeraldGreen,
+                              foregroundColor: kPlatinum,
+                              child: Icon(
+                                FontAwesomeIcons.glassMartini,
+                                size: 10,
+                              ),
+                            ),
+                          horizontalSpaceTiny,
+                          if (recyclePoint.materials.contains('paper'))
+                            CircleAvatar(
+                              radius: 12,
+                              backgroundColor: kEmeraldGreen,
+                              foregroundColor: kPlatinum,
+                              child: Icon(
+                                FontAwesomeIcons.boxOpen,
+                                size: 10,
+                              ),
+                            ),
+                          horizontalSpaceTiny,
+                          if (recyclePoint.materials.contains('plastic'))
+                            CircleAvatar(
+                              radius: 12,
+                              backgroundColor: kEmeraldGreen,
+                              foregroundColor: kPlatinum,
+                              child: Icon(
+                                FontAwesomeIcons.shoppingBag,
+                                size: 10,
+                              ),
+                            ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: kEmeraldGreen,
+                          size: 14,
+                        ),
+                        Text(
+                          recyclePoint.adres,
+                          style: kBody2TextStyle,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                    icon: Icon(
+                      Icons.favorite_outline,
+                      color: kEmeraldGreen,
+                    ),
+                    onPressed: () {}),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }

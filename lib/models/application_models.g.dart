@@ -27,6 +27,9 @@ _$_RecyclePoint _$_$_RecyclePointFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     name: json['name'] as String,
     position: json['position'] as Map<String, dynamic>,
+    materials:
+        (json['materials'] as List<dynamic>).map((e) => e as String).toList(),
+    adres: json['adres'] as String,
   );
 }
 
@@ -35,4 +38,6 @@ Map<String, dynamic> _$_$_RecyclePointToJson(_$_RecyclePoint instance) =>
       'id': instance.id,
       'name': instance.name,
       'position': instance.position,
+      'materials': instance.materials,
+      'adres': instance.adres,
     };

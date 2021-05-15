@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -99,16 +100,17 @@ class AuthenticationLayout extends StatelessWidget {
               color: Colors.white,
               height: 50,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Center(
-                    child: Text(
-                      'Sign in with Google',
+                  Icon(
+                    FontAwesomeIcons.google,
+                    color: kDarkJungleGreen,
+                  ),
+                  // horizontalSpaceMedium,
+                  Text('Sign in with Google',
                       style:
-                          kBodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  )
+                          kButtonTextStyle.copyWith(color: kDarkJungleGreen)),
                 ],
               ),
             ),

@@ -225,11 +225,15 @@ class _$RecyclePointTearOff {
   _RecyclePoint call(
       {required String id,
       required String name,
-      required Map<String, dynamic> position}) {
+      required Map<String, dynamic> position,
+      required List<String> materials,
+      required String adres}) {
     return _RecyclePoint(
       id: id,
       name: name,
       position: position,
+      materials: materials,
+      adres: adres,
     );
   }
 
@@ -246,6 +250,8 @@ mixin _$RecyclePoint {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   Map<String, dynamic> get position => throw _privateConstructorUsedError;
+  List<String> get materials => throw _privateConstructorUsedError;
+  String get adres => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -258,7 +264,12 @@ abstract class $RecyclePointCopyWith<$Res> {
   factory $RecyclePointCopyWith(
           RecyclePoint value, $Res Function(RecyclePoint) then) =
       _$RecyclePointCopyWithImpl<$Res>;
-  $Res call({String id, String name, Map<String, dynamic> position});
+  $Res call(
+      {String id,
+      String name,
+      Map<String, dynamic> position,
+      List<String> materials,
+      String adres});
 }
 
 /// @nodoc
@@ -274,6 +285,8 @@ class _$RecyclePointCopyWithImpl<$Res> implements $RecyclePointCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? position = freezed,
+    Object? materials = freezed,
+    Object? adres = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -288,6 +301,14 @@ class _$RecyclePointCopyWithImpl<$Res> implements $RecyclePointCopyWith<$Res> {
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      materials: materials == freezed
+          ? _value.materials
+          : materials // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      adres: adres == freezed
+          ? _value.adres
+          : adres // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -299,7 +320,12 @@ abstract class _$RecyclePointCopyWith<$Res>
           _RecyclePoint value, $Res Function(_RecyclePoint) then) =
       __$RecyclePointCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, Map<String, dynamic> position});
+  $Res call(
+      {String id,
+      String name,
+      Map<String, dynamic> position,
+      List<String> materials,
+      String adres});
 }
 
 /// @nodoc
@@ -317,6 +343,8 @@ class __$RecyclePointCopyWithImpl<$Res> extends _$RecyclePointCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? position = freezed,
+    Object? materials = freezed,
+    Object? adres = freezed,
   }) {
     return _then(_RecyclePoint(
       id: id == freezed
@@ -331,6 +359,14 @@ class __$RecyclePointCopyWithImpl<$Res> extends _$RecyclePointCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
+      materials: materials == freezed
+          ? _value.materials
+          : materials // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      adres: adres == freezed
+          ? _value.adres
+          : adres // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -339,7 +375,11 @@ class __$RecyclePointCopyWithImpl<$Res> extends _$RecyclePointCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RecyclePoint implements _RecyclePoint {
   _$_RecyclePoint(
-      {required this.id, required this.name, required this.position});
+      {required this.id,
+      required this.name,
+      required this.position,
+      required this.materials,
+      required this.adres});
 
   factory _$_RecyclePoint.fromJson(Map<String, dynamic> json) =>
       _$_$_RecyclePointFromJson(json);
@@ -350,10 +390,14 @@ class _$_RecyclePoint implements _RecyclePoint {
   final String name;
   @override
   final Map<String, dynamic> position;
+  @override
+  final List<String> materials;
+  @override
+  final String adres;
 
   @override
   String toString() {
-    return 'RecyclePoint(id: $id, name: $name, position: $position)';
+    return 'RecyclePoint(id: $id, name: $name, position: $position, materials: $materials, adres: $adres)';
   }
 
   @override
@@ -366,7 +410,12 @@ class _$_RecyclePoint implements _RecyclePoint {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.position, position) ||
                 const DeepCollectionEquality()
-                    .equals(other.position, position)));
+                    .equals(other.position, position)) &&
+            (identical(other.materials, materials) ||
+                const DeepCollectionEquality()
+                    .equals(other.materials, materials)) &&
+            (identical(other.adres, adres) ||
+                const DeepCollectionEquality().equals(other.adres, adres)));
   }
 
   @override
@@ -374,7 +423,9 @@ class _$_RecyclePoint implements _RecyclePoint {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(position);
+      const DeepCollectionEquality().hash(position) ^
+      const DeepCollectionEquality().hash(materials) ^
+      const DeepCollectionEquality().hash(adres);
 
   @JsonKey(ignore: true)
   @override
@@ -391,7 +442,9 @@ abstract class _RecyclePoint implements RecyclePoint {
   factory _RecyclePoint(
       {required String id,
       required String name,
-      required Map<String, dynamic> position}) = _$_RecyclePoint;
+      required Map<String, dynamic> position,
+      required List<String> materials,
+      required String adres}) = _$_RecyclePoint;
 
   factory _RecyclePoint.fromJson(Map<String, dynamic> json) =
       _$_RecyclePoint.fromJson;
@@ -402,6 +455,10 @@ abstract class _RecyclePoint implements RecyclePoint {
   String get name => throw _privateConstructorUsedError;
   @override
   Map<String, dynamic> get position => throw _privateConstructorUsedError;
+  @override
+  List<String> get materials => throw _privateConstructorUsedError;
+  @override
+  String get adres => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RecyclePointCopyWith<_RecyclePoint> get copyWith =>

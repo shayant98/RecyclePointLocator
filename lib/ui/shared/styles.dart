@@ -11,7 +11,7 @@ const Color kShadow = Colors.grey;
 
 // TextSize
 const double kTitleTextSize = 24;
-const double kSubtitleTextSize = 12;
+const double kSubtitleTextSize = 13;
 const double kBodyTextSize = 14;
 const double kBody2TextSize = 9;
 
@@ -29,7 +29,7 @@ const TextStyle kTitleTextStyle = TextStyle(
 const TextStyle kSubtitleTextStyle = TextStyle(
     color: kOldLavendar,
     fontSize: kSubtitleTextSize,
-    fontWeight: FontWeight.normal);
+    fontWeight: FontWeight.w500);
 const TextStyle kBodyTextStyle = TextStyle(
     color: kDarkJungleGreen,
     fontSize: kBodyTextSize,
@@ -39,4 +39,4 @@ const TextStyle kBody2TextStyle = TextStyle(
     fontSize: kBody2TextSize,
     fontWeight: FontWeight.normal);
 const TextStyle kButtonTextStyle = TextStyle(
-    color: kPlatinum, fontSize: kBodyTextSize, fontWeight: FontWeight.normal);
+    color: kPlatinum, fontSize: kBodyTextSize, fontWeight: FontWeight.bold);
