@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
+
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/exceptions/firestore_api_exception.dart';
 import 'package:rpl/models/application_models.dart';
@@ -7,8 +10,15 @@ import 'package:rpl/models/application_models.dart';
 class FirestoreApi {
   final log = getLogger('FirestoreApi');
 
+  GeoFlutterFire _geoFlutterFire = new GeoFlutterFire();
+
   final CollectionReference userCollectionReference =
       FirebaseFirestore.instance.collection("users");
+
+  final CollectionReference recycleLocationsCollectionReference =
+      FirebaseFirestore.instance.collection("locations");
+
+  StreamController _locationStreamController = new StreamController.broadcast();
 
   Future<void> createUser({required User user}) async {
     log.i('user:$user');
@@ -54,5 +64,29 @@ class FirestoreApi {
       throw FirestoreApiException(
           message: 'Failed to get user please pass in a valid user id');
     }
+  }
+
+  Stream getLocations(
+      {required double radius, required double long, required double lat}) {
+    log.i('location params: $radius, $long, $lat');
+    GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
+    _geoFlutterFire
+        .collection(collectionRef: recycleLocationsCollectionReference)
+        .within(
+            center: center, radius: radius, field: 'position', strictMode: true)
+        .listen((data) {
+      List recyclePoints = [];
+      if (data.isNotEmpty) {
+        log.v('Locations found. Data: $data');
+        recyclePoints = data.map((location) {
+          final _recyclePoint = location.data() as Map<String, dynamic>;
+          _recyclePoint.putIfAbsent('id', () => location.id);
+          return RecyclePoint.fromJson(_recyclePoint);
+        }).toList();
+      }
+      _locationStreamController.add(recyclePoints);
+    });
+
+    return _locationStreamController.stream;
   }
 }
