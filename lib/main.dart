@@ -22,11 +22,13 @@ class MyApp extends StatelessWidget {
       title: 'RPL',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'Poppins',
-          primaryColor: kEmeraldGreen,
-          accentColor: kEmeraldGreen,
-          splashColor: kEmeraldGreen,
-          backgroundColor: kPlatinum),
+        fontFamily: 'Poppins',
+        primaryColor: kEmeraldGreen,
+        accentColor: kEmeraldGreen,
+        splashColor: kEmeraldGreen,
+        backgroundColor: kPlatinum,
+        shadowColor: kShadow.withOpacity(0.5),
+      ),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
     );
