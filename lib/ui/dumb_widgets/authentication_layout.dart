@@ -43,10 +43,7 @@ class AuthenticationLayout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: IconButton(
-                    color: kEmeraldGreen,
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: onBackPressed),
+                child: IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: onBackPressed),
               ),
             ),
           verticalSpaceSmall,
@@ -73,13 +70,16 @@ class AuthenticationLayout extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: MaterialButton(
                 onPressed: onMainButtonTapped,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: busy!
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(kPlatinum),
+                    ? SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(kPlatinum),
+                          ),
                         ),
                       )
                     : Text(
@@ -95,8 +95,7 @@ class AuthenticationLayout extends StatelessWidget {
             child: MaterialButton(
               elevation: 2,
               onPressed: onSignInWithGoogle,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
               color: Colors.white,
               height: 50,
               child: Row(
@@ -108,9 +107,7 @@ class AuthenticationLayout extends StatelessWidget {
                     color: kDarkJungleGreen,
                   ),
                   // horizontalSpaceMedium,
-                  Text('Sign in with Google',
-                      style:
-                          kButtonTextStyle.copyWith(color: kDarkJungleGreen)),
+                  Text('Sign in with Google', style: kButtonTextStyle.copyWith(color: kDarkJungleGreen)),
                 ],
               ),
             ),
@@ -124,8 +121,7 @@ class AuthenticationLayout extends StatelessWidget {
                   onTap: onCreateAccountTapped as void Function(),
                   child: Text(
                     'CREATE AN ACOUNT',
-                    style: kBodyTextStyle.copyWith(
-                        fontWeight: FontWeight.bold, color: kEmeraldGreen),
+                    style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen),
                   ),
                 )
               ],

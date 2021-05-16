@@ -31,11 +31,17 @@ class UserService {
 
   Future<void> syncOrCreateUserAccount({required User user}) async {
     log.v('SyncOrCreateUserAccount - $user');
+    await syncUserAccount();
+
     if (_currentUser == null) {
       log.v('No user found create new user...');
       await _firestoreApi.createUser(user: user);
       _currentUser = user;
       log.v('_currentUser has been saved');
     }
+  }
+
+  void setCurrentUser(User? user) {
+    _currentUser = user;
   }
 }

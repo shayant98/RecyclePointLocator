@@ -23,6 +23,7 @@ class RegisterView extends StatelessWidget with $RegisterView {
     return ViewModelBuilder<RegisterViewModel>.reactive(
       onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: AuthenticationLayout(
           busy: model.isBusy,
           onBackPressed: model.navigateBack,
@@ -30,45 +31,18 @@ class RegisterView extends StatelessWidget with $RegisterView {
           onSignInWithGoogle: model.useGoogleAuthentication,
           form: Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  InputField(
-                      controller: firstNameController,
-                      inputType: TextInputType.text,
-                      hint: 'Firstname',
-                      label: 'Firstname',
-                      isPassword: false),
-                  verticalSpaceRegular,
-                  InputField(
-                      controller: lastNameController,
-                      inputType: TextInputType.text,
-                      hint: 'Lastname',
-                      label: 'Lastname',
-                      isPassword: false),
-                  verticalSpaceRegular,
-                  InputField(
-                      controller: emailController,
-                      inputType: TextInputType.emailAddress,
-                      hint: 'Email',
-                      label: 'Email',
-                      isPassword: false),
-                  verticalSpaceRegular,
-                  InputField(
-                      controller: passwordController,
-                      inputType: TextInputType.visiblePassword,
-                      hint: 'Enter Password',
-                      label: 'Password',
-                      isPassword: true),
-                  verticalSpaceRegular,
-                  InputField(
-                      controller: confirmPasswordController,
-                      inputType: TextInputType.visiblePassword,
-                      hint: 'Repeat Password',
-                      label: 'Repeat Password',
-                      isPassword: true),
-                ],
-              ),
+            child: Column(
+              children: [
+                InputField(controller: firstNameController, inputType: TextInputType.text, hint: 'Firstname', label: 'Firstname', isPassword: false),
+                verticalSpaceRegular,
+                InputField(controller: lastNameController, inputType: TextInputType.text, hint: 'Lastname', label: 'Lastname', isPassword: false),
+                verticalSpaceRegular,
+                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: 'Email', label: 'Email', isPassword: false),
+                verticalSpaceRegular,
+                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: 'Enter Password', label: 'Password', isPassword: true),
+                verticalSpaceRegular,
+                InputField(controller: confirmPasswordController, inputType: TextInputType.visiblePassword, hint: 'Repeat Password', label: 'Repeat Password', isPassword: true),
+              ],
             ),
           ),
           mainButtonTitle: 'SUBMIT',

@@ -30,19 +30,9 @@ class LoginView extends StatelessWidget with $LoginView {
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: Column(
               children: [
-                InputField(
-                    controller: emailController,
-                    inputType: TextInputType.emailAddress,
-                    hint: 'Email',
-                    label: 'Email',
-                    isPassword: false),
+                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: 'Email', label: 'Email', isPassword: false),
                 verticalSpaceMedium,
-                InputField(
-                    controller: passwordController,
-                    inputType: TextInputType.visiblePassword,
-                    hint: 'Enter Password',
-                    label: 'Password',
-                    isPassword: true),
+                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: 'Enter Password', label: 'Password', isPassword: true),
               ],
             ),
           ),

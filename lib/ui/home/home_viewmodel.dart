@@ -34,8 +34,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   final UserService _userService = locator<UserService>();
   final LocationService _locationService = locator<LocationService>();
   final FirestoreApi _firestoreApi = locator<FirestoreApi>();
-  final FirebaseAuthenticationService _firebaseAuthService =
-      locator<FirebaseAuthenticationService>();
+  final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
 
   init() {
     pos = _locationService.getDeviceLocation();
@@ -43,8 +42,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   }
 
   void navigatoToDetail() => _navigationService.navigateTo(Routes.detailView);
-  void navigatoToQuickFind() =>
-      _navigationService.navigateTo(Routes.quickFindView);
+  void navigatoToQuickFind() => _navigationService.navigateTo(Routes.quickFindView);
   void navigatoToProfile() => _navigationService.navigateTo(Routes.profileView);
   void navigatoToLogin() => _navigationService.navigateTo(Routes.loginView);
 
@@ -58,8 +56,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   }
 
   showRadiusSlider() async {
-    SheetResponse? response = await _bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.FloatingBox, customData: radius);
+    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: BottomSheetType.FloatingBox, customData: radius);
 
     if (response != null) {
       radius = response.responseData;
@@ -70,9 +67,9 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   void logout() async {
     await _firebaseAuthService.logout();
-    _bottomSheetService.showBottomSheet(
-        title: "Successfully Logged out", barrierDismissible: true);
+    _bottomSheetService.showBottomSheet(title: "Successfully Logged out", barrierDismissible: true);
     showMenu = false;
+    _userService.setCurrentUser(null);
     notifyListeners();
   }
 
@@ -82,26 +79,20 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   animateToUser() async {
     var pos = await location.getLocation();
-    mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(pos.latitude!, pos.longitude!), zoom: 15)));
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(pos.latitude!, pos.longitude!), zoom: 15)));
   }
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _LocationStreamKey:
-            StreamData<LocationData>(_locationService.listenToDeviceLocation()),
-        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(
-            radius: radius, lat: 5.8448077, long: -55.2393224)),
+        _LocationStreamKey: StreamData<LocationData>(_locationService.listenToDeviceLocation()),
+        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(radius: radius, lat: 5.8448077, long: -55.2393224)),
       };
 
   void updateUserLocation(LocationData location) {
-    if (pos != null &&
-        (pos!.latitude != location.latitude ||
-            pos!.longitude != location.longitude)) {
+    if (pos != null && (pos!.latitude != location.latitude || pos!.longitude != location.longitude)) {
       pos = location;
       mapController!.animateCamera(
-        CameraUpdate.newCameraPosition(CameraPosition(
-            target: LatLng(location.latitude!, location.longitude!), zoom: 15)),
+        CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(location.latitude!, location.longitude!), zoom: 15)),
       );
     }
   }
@@ -116,8 +107,7 @@ class HomeViewModel extends MultipleStreamViewModel {
             markerId: MarkerId(recyclePoint.id),
             position: LatLng(_markPoint.latitude, _markPoint.longitude),
             infoWindow: InfoWindow(title: recyclePoint.name),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen));
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
 
         _markers.add(marker);
       });

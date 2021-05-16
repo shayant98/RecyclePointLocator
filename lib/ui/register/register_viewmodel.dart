@@ -6,8 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'register_view.form.dart';
 
 class RegisterViewModel extends AuthenticationViewModel {
-  final FirebaseAuthenticationService _firebaseAuthService =
-      locator<FirebaseAuthenticationService>();
+  final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   RegisterViewModel() : super(successRoute: Routes.homeView);

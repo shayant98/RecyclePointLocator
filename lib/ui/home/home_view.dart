@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/models/application_models.dart';
+import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -28,8 +29,6 @@ class HomeView extends StatelessWidget {
                 zoomControlsEnabled: false,
                 myLocationEnabled: true,
                 myLocationButtonEnabled: false,
-                scrollGesturesEnabled: false,
-                rotateGesturesEnabled: false,
                 onMapCreated: model.onMapCreated,
               ),
             ),
@@ -51,41 +50,13 @@ class HomeView extends StatelessWidget {
             ),
             _LocationSheetWidget(),
             Positioned(
-              bottom: paddingRegular,
-              right: paddingRegular,
-              child: FloatingActionButton.extended(
-                heroTag: "quickFind",
-                label: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.search,
-                      color: kPlatinum,
-                      size: 14,
-                    ),
-                    horizontalSpaceTiny,
-                    Text(
-                      'QUICK FIND',
-                      style: kButtonTextStyle,
-                    ),
-                  ],
-                ),
-                foregroundColor: kEmeraldGreen,
-                backgroundColor: kEmeraldGreen,
-                onPressed: model.navigatoToQuickFind,
-              ),
-            ),
-            Positioned(
               top: 120,
               left: paddingRegular,
               child: FloatingActionButton(
                 heroTag: "radius",
                 child: Text(
                   '${model.radius.toInt()}km',
-                  style: kBodyTextStyle.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: kEmeraldGreen,
-                      fontSize: 12),
+                  style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
                 ),
                 foregroundColor: kPlatinum,
                 backgroundColor: kPlatinum,
@@ -108,6 +79,27 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: "quickFind",
+          label: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                FontAwesomeIcons.search,
+                color: kPlatinum,
+                size: 14,
+              ),
+              horizontalSpaceTiny,
+              Text(
+                'QUICK FIND',
+                style: kButtonTextStyle,
+              ),
+            ],
+          ),
+          foregroundColor: kEmeraldGreen,
+          backgroundColor: kEmeraldGreen,
+          onPressed: model.navigatoToQuickFind,
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
@@ -247,13 +239,11 @@ class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
 
 class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
   @override
-  Widget build(BuildContext context, HomeViewModel model) =>
-      DraggableScrollableSheet(
+  Widget build(BuildContext context, HomeViewModel model) => DraggableScrollableSheet(
         initialChildSize: 0.3,
         maxChildSize: 0.6,
         minChildSize: 0.2,
-        builder: (BuildContext context, ScrollController scrollController) =>
-            Container(
+        builder: (BuildContext context, ScrollController scrollController) => Container(
           decoration: BoxDecoration(
               color: kPlatinum,
               boxShadow: [
@@ -264,8 +254,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                   offset: Offset(0, 4), // changes position of shadow
                 ),
               ],
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: model.isBusy
               ? Center(
                   child: CircularProgressIndicator(),
@@ -308,134 +297,16 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                             : model.recyclePointData.length > 0
                                 ? ListView.separated(
                                     controller: scrollController,
-                                    itemCount:
-                                        model.dataMap!['recycle-stream'].length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
+                                    itemCount: model.dataMap!['recycle-stream'].length,
+                                    itemBuilder: (BuildContext context, int index) {
                                       return RecyclePointTile(
-                                        recyclePoint:
-                                            model.recyclePointData[index],
+                                        recyclePoint: model.recyclePointData[index],
                                       );
                                     },
-                                    separatorBuilder:
-                                        (BuildContext context, int index) =>
-                                            verticalSpaceMedium)
+                                    separatorBuilder: (BuildContext context, int index) => verticalSpaceMedium)
                                 : Container())
                   ],
                 ),
         ),
       );
-}
-
-class RecyclePointTile extends StatelessWidget {
-  final RecyclePoint recyclePoint;
-
-  const RecyclePointTile({Key? key, required this.recyclePoint})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-      child: Container(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Icon(
-                FontAwesomeIcons.recycle,
-                color: kEmeraldGreen,
-                size: 32,
-              ),
-            ),
-            horizontalSpaceSmall,
-            Expanded(
-              flex: 8,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        recyclePoint.name,
-                        style: kBodyTextStyle.copyWith(
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Row(
-                        children: [
-                          if (recyclePoint.materials.contains('glass'))
-                            CircleAvatar(
-                              radius: 12,
-                              backgroundColor: kEmeraldGreen,
-                              foregroundColor: kPlatinum,
-                              child: Icon(
-                                FontAwesomeIcons.glassMartini,
-                                size: 10,
-                              ),
-                            ),
-                          horizontalSpaceTiny,
-                          if (recyclePoint.materials.contains('paper'))
-                            CircleAvatar(
-                              radius: 12,
-                              backgroundColor: kEmeraldGreen,
-                              foregroundColor: kPlatinum,
-                              child: Icon(
-                                FontAwesomeIcons.boxOpen,
-                                size: 10,
-                              ),
-                            ),
-                          horizontalSpaceTiny,
-                          if (recyclePoint.materials.contains('plastic'))
-                            CircleAvatar(
-                              radius: 12,
-                              backgroundColor: kEmeraldGreen,
-                              foregroundColor: kPlatinum,
-                              child: Icon(
-                                FontAwesomeIcons.shoppingBag,
-                                size: 10,
-                              ),
-                            ),
-                        ],
-                      )
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: kEmeraldGreen,
-                          size: 14,
-                        ),
-                        Text(
-                          recyclePoint.adres,
-                          style: kBody2TextStyle,
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.favorite_outline,
-                      color: kEmeraldGreen,
-                    ),
-                    onPressed: () {}),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
