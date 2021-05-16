@@ -21,6 +21,6 @@ class StartupViewModel extends BaseViewModel {
       final currentUser = _userService.currentUser;
       log.v('User sync complete. User profile: $currentUser');
     }
-    _navigationService.navigateTo(Routes.homeView);
+    _navigationService.replaceWith(Routes.homeView);
   }
 }
