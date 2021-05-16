@@ -12,8 +12,8 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   final _navigationService = locator<NavigationService>();
   final UserService _userService = locator<UserService>();
-  final FirebaseAuthenticationService _firebaseAuthenticationService =
-      locator<FirebaseAuthenticationService>();
+  final FirebaseAuthenticationService _firebaseAuthenticationService = locator<FirebaseAuthenticationService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
   final String successRoute;
   AuthenticationViewModel({required this.successRoute});
@@ -25,8 +25,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
     log.i('values:$formValueMap');
 
     try {
-      final result =
-          await runBusyFuture(runAuthentication(), throwException: true);
+      final result = await runBusyFuture(runAuthentication(), throwException: true);
 
       _handleAuthenticationResponse(result);
     } on FirestoreApiException catch (e) {
@@ -42,8 +41,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
 
   Future<FirebaseAuthenticationResult> runAuthentication();
 
-  Future<void> _handleAuthenticationResponse(
-      FirebaseAuthenticationResult authenticationResult) async {
+  Future<void> _handleAuthenticationResponse(FirebaseAuthenticationResult authenticationResult) async {
     if (!authenticationResult.hasError && authenticationResult.user != null) {
       final user = authenticationResult.user!;
       await _userService.syncOrCreateUserAccount(
@@ -51,8 +49,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
             id: user.uid,
             email: user.email,
             image: user.photoURL,
-            name: user.displayName ??
-                '${formValueMap['firstName']} ${formValueMap['lastName']}'),
+            name: user.displayName ?? '${formValueMap['firstName']} ${formValueMap['lastName']}'),
       );
       _navigationService.navigateTo(successRoute);
     } else {
@@ -63,6 +60,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
       log.w('Authentication Failed: ${authenticationResult.errorMessage}');
 
       setValidationMessage(authenticationResult.errorMessage);
+      _snackbarService.showSnackbar(message: validationMessage!);
       notifyListeners();
     }
   }

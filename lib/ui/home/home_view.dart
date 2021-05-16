@@ -38,19 +38,21 @@ class HomeView extends StatelessWidget {
               Positioned(
                 top: 40,
                 right: paddingRegular,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      onPressed: model.showExpandedMenuOrLogin,
-                      iconSize: 32,
-                      color: kEmeraldGreen,
-                      icon: Icon(Icons.account_circle_outlined),
-                    ),
-                    if (model.showMenu) _BuildExpandedMenu()
-                  ],
+                child: IconButton(
+                  onPressed: model.showExpandedMenuOrLogin,
+                  iconSize: 32,
+                  color: kEmeraldGreen,
+                  icon: Icon(Icons.account_circle_outlined),
                 ),
               ),
+              if (model.user != null)
+                AnimatedPositioned(
+                  top: 80,
+                  curve: Curves.easeInOut,
+                  right: model.showMenu ? paddingRegular : -300,
+                  duration: Duration(milliseconds: 200),
+                  child: _BuildExpandedMenu(),
+                ),
               _LocationSheetWidget(),
               Positioned(
                 top: 120,
@@ -81,6 +83,11 @@ class HomeView extends StatelessWidget {
                   onPressed: model.animateToUser,
                 ),
               ),
+              // Container(
+              //   height: screenHeight(context),
+              //   width: screenWidth(context),
+              //   color: Colors.red,
+              // )
             ],
           ),
           floatingActionButton: FloatingActionButton.extended(

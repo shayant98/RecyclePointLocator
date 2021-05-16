@@ -18,6 +18,7 @@ class DetailView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: [
+            LeafClipper(),
             ListView(
               children: [
                 Container(

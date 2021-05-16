@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/api/firestore_api.dart';
@@ -17,6 +18,14 @@ const String _LocationStreamKey = 'location-stream';
 const String _RecyclePointStreamKey = 'recycle-stream';
 
 class HomeViewModel extends MultipleStreamViewModel {
+  final _navigationService = locator<NavigationService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
+  final UserService _userService = locator<UserService>();
+  final LocationService _locationService = locator<LocationService>();
+  final RecyclePointService _recyclePointService = locator<RecyclePointService>();
+  final FirestoreApi _firestoreApi = locator<FirestoreApi>();
+  final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
+
   double radius = 50;
   bool showMenu = false;
   LocationData? pos;
@@ -29,14 +38,6 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   GoogleMapController? mapController;
   Location location = new Location();
-
-  final _navigationService = locator<NavigationService>();
-  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
-  final UserService _userService = locator<UserService>();
-  final LocationService _locationService = locator<LocationService>();
-  final RecyclePointService _recyclePointService = locator<RecyclePointService>();
-  final FirestoreApi _firestoreApi = locator<FirestoreApi>();
-  final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
 
   init() {
     pos = _locationService.getDeviceLocation();
