@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/models/application_models.dart';
@@ -13,93 +14,96 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        body: Stack(
-          children: [
-            SizedBox(
-              width: screenWidth(context),
-              height: screenHeight(context),
-              child: GoogleMap(
-                mapType: MapType.normal,
-                markers: model.markers,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
-                  zoom: 15,
-                ),
-                zoomControlsEnabled: false,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                onMapCreated: model.onMapCreated,
-              ),
-            ),
-            Positioned(
-              top: 40,
-              right: paddingRegular,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: model.showExpandedMenuOrLogin,
-                    iconSize: 32,
-                    color: kEmeraldGreen,
-                    icon: Icon(Icons.account_circle_outlined),
-                  ),
-                  if (model.showMenu) _BuildExpandedMenu()
-                ],
-              ),
-            ),
-            _LocationSheetWidget(),
-            Positioned(
-              top: 120,
-              left: paddingRegular,
-              child: FloatingActionButton(
-                heroTag: "radius",
-                child: Text(
-                  '${model.radius.toInt()}km',
-                  style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
-                ),
-                foregroundColor: kPlatinum,
-                backgroundColor: kPlatinum,
-                onPressed: model.showRadiusSlider,
-              ),
-            ),
-            Positioned(
-              top: paddingMedium,
-              left: paddingRegular,
-              child: FloatingActionButton(
-                heroTag: "userLoc",
-                child: Icon(
-                  Icons.location_on,
-                  color: kEmeraldGreen,
-                  size: 24,
-                ),
-                foregroundColor: kPlatinum,
-                backgroundColor: kPlatinum,
-                onPressed: model.animateToUser,
-              ),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          heroTag: "quickFind",
-          label: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(statusBarColor: kPlatinum),
+        child: Scaffold(
+          body: Stack(
             children: [
-              Icon(
-                FontAwesomeIcons.search,
-                color: kPlatinum,
-                size: 14,
+              SizedBox(
+                width: screenWidth(context),
+                height: screenHeight(context),
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  markers: model.markers,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
+                    zoom: 15,
+                  ),
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  onMapCreated: model.onMapCreated,
+                ),
               ),
-              horizontalSpaceTiny,
-              Text(
-                'QUICK FIND',
-                style: kButtonTextStyle,
+              Positioned(
+                top: 40,
+                right: paddingRegular,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: model.showExpandedMenuOrLogin,
+                      iconSize: 32,
+                      color: kEmeraldGreen,
+                      icon: Icon(Icons.account_circle_outlined),
+                    ),
+                    if (model.showMenu) _BuildExpandedMenu()
+                  ],
+                ),
+              ),
+              _LocationSheetWidget(),
+              Positioned(
+                top: 120,
+                left: paddingRegular,
+                child: FloatingActionButton(
+                  heroTag: "radius",
+                  child: Text(
+                    '${model.radius.toInt()}km',
+                    style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
+                  ),
+                  foregroundColor: kPlatinum,
+                  backgroundColor: kPlatinum,
+                  onPressed: model.showRadiusSlider,
+                ),
+              ),
+              Positioned(
+                top: paddingMedium,
+                left: paddingRegular,
+                child: FloatingActionButton(
+                  heroTag: "userLoc",
+                  child: Icon(
+                    Icons.location_on,
+                    color: kEmeraldGreen,
+                    size: 24,
+                  ),
+                  foregroundColor: kPlatinum,
+                  backgroundColor: kPlatinum,
+                  onPressed: model.animateToUser,
+                ),
               ),
             ],
           ),
-          foregroundColor: kEmeraldGreen,
-          backgroundColor: kEmeraldGreen,
-          onPressed: model.navigatoToQuickFind,
+          floatingActionButton: FloatingActionButton.extended(
+            heroTag: "quickFind",
+            label: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  FontAwesomeIcons.search,
+                  color: kPlatinum,
+                  size: 14,
+                ),
+                horizontalSpaceTiny,
+                Text(
+                  'QUICK FIND',
+                  style: kButtonTextStyle,
+                ),
+              ],
+            ),
+            foregroundColor: kEmeraldGreen,
+            backgroundColor: kEmeraldGreen,
+            onPressed: model.navigatoToQuickFind,
+          ),
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
@@ -300,6 +304,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                                     itemCount: model.dataMap!['recycle-stream'].length,
                                     itemBuilder: (BuildContext context, int index) {
                                       return RecyclePointTile(
+                                        onTap: () => model.navigateToDetail(model.recyclePointData[index]),
                                         recyclePoint: model.recyclePointData[index],
                                       );
                                     },
