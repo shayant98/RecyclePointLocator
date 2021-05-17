@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
+import 'package:rpl/ui/dumb_widgets/radius_slider.dart';
 import 'package:rpl/ui/quick_find/quick_find_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -26,7 +27,8 @@ class QuickFindView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
+                    child:
+                        IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
                   ),
                 ),
                 Padding(
@@ -54,8 +56,10 @@ class QuickFindView extends StatelessWidget {
                         onTap: () => model.toggleSelect(RecycleMaterialType.glass),
                         child: CircleAvatar(
                           radius: 24,
-                          backgroundColor: model.selectedMaterials.contains(RecycleMaterialType.glass) ? kEmeraldGreen : kPlatinum,
-                          foregroundColor: model.selectedMaterials.contains(RecycleMaterialType.glass) ? kPlatinum : kEmeraldGreen,
+                          backgroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.glass) ? kEmeraldGreen : kPlatinum,
+                          foregroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.glass) ? kPlatinum : kEmeraldGreen,
                           child: Icon(
                             FontAwesomeIcons.glassMartini,
                             size: 20,
@@ -67,8 +71,10 @@ class QuickFindView extends StatelessWidget {
                         onTap: () => model.toggleSelect(RecycleMaterialType.paper),
                         child: CircleAvatar(
                           radius: 24,
-                          backgroundColor: model.selectedMaterials.contains(RecycleMaterialType.paper) ? kEmeraldGreen : kPlatinum,
-                          foregroundColor: model.selectedMaterials.contains(RecycleMaterialType.paper) ? kPlatinum : kEmeraldGreen,
+                          backgroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.paper) ? kEmeraldGreen : kPlatinum,
+                          foregroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.paper) ? kPlatinum : kEmeraldGreen,
                           child: Icon(
                             FontAwesomeIcons.box,
                             size: 20,
@@ -80,8 +86,10 @@ class QuickFindView extends StatelessWidget {
                         onTap: () => model.toggleSelect(RecycleMaterialType.plastic),
                         child: CircleAvatar(
                           radius: 24,
-                          backgroundColor: model.selectedMaterials.contains(RecycleMaterialType.plastic) ? kEmeraldGreen : kPlatinum,
-                          foregroundColor: model.selectedMaterials.contains(RecycleMaterialType.plastic) ? kPlatinum : kEmeraldGreen,
+                          backgroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.plastic) ? kEmeraldGreen : kPlatinum,
+                          foregroundColor:
+                              model.selectedMaterials.contains(RecycleMaterialType.plastic) ? kPlatinum : kEmeraldGreen,
                           child: Icon(
                             FontAwesomeIcons.shoppingBag,
                             size: 20,
@@ -101,16 +109,7 @@ class QuickFindView extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                  child: Slider(
-                    min: 25.0,
-                    max: 100.0,
-                    divisions: 3,
-                    value: 25,
-                    label: 'Radius of ${25}KM',
-                    activeColor: kEmeraldGreen,
-                    inactiveColor: kEmeraldGreen.withOpacity(0.2),
-                    onChanged: (double value) {},
-                  ),
+                  child: RadiusSlider(radius: 5, onChanged: (value) {}),
                 ),
                 Spacer(),
               ],

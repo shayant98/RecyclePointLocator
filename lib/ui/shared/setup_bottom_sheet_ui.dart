@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/enum/bottom_sheet_type.dart';
+import 'package:rpl/ui/dumb_widgets/radius_slider.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -61,14 +62,8 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
               style: kSubtitleTextStyle,
             ),
             verticalSpaceMedium,
-            Slider(
-              min: 5.0,
-              max: 20.0,
-              value: radius,
-              divisions: 15,
-              label: 'Radius of ${radius}KM',
-              activeColor: kEmeraldGreen,
-              inactiveColor: kEmeraldGreen.withOpacity(0.2),
+            RadiusSlider(
+              radius: radius,
               onChanged: (double value) {
                 setState(() {
                   radius = value;

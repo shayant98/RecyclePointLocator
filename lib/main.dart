@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kEmeraldGreen,
         accentColor: kEmeraldGreen,
         splashColor: kEmeraldGreen,
-        backgroundColor: kPlatinum,
+        scaffoldBackgroundColor: kPlatinum,
         shadowColor: kShadow.withOpacity(0.5),
       ),
       navigatorKey: StackedService.navigatorKey,

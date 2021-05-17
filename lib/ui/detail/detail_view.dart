@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/ui/detail/detail_viewmodel.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
+import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -106,23 +107,7 @@ class _AllowedMaterials extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: screenWidth(context),
-      padding: const EdgeInsets.symmetric(vertical: paddingSmall),
-      decoration: BoxDecoration(
-        color: kPlatinum,
-        boxShadow: [
-          BoxShadow(
-            color: kShadow.withOpacity(0.5), //color of shadow
-            spreadRadius: 2, //spread radius
-            blurRadius: 4, // blur radius
-            offset: Offset(0, 4), // changes position of shadow
-          ),
-        ],
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-      ),
+    return FloatingContainer(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

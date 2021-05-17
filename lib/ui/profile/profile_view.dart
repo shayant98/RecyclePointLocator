@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/profile/profile_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
@@ -22,10 +23,8 @@ class ProfileView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: IconButton(
-                      color: kEmeraldGreen,
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: model.navigateToHome),
+                  child:
+                      IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
                 ),
               ),
               Padding(
@@ -43,75 +42,68 @@ class ProfileView extends StatelessWidget {
                   ),
                 ],
               ),
-              verticalSpaceRegular,
+              verticalSpaceLarge,
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Personal info",
-                    style: kTitleTextStyle.copyWith(fontSize: 18)),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: kEmeraldGreen,
-                  ),
-                  title: Text(model.user!.email!),
-                  trailing: Icon(
-                    Icons.verified_user,
-                    color: kEmeraldGreen,
-                  ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: paddingRegular,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: kEmeraldGreen,
-                  ),
-                  title: Text(model.user!.name!),
-                ),
-              ),
-              verticalSpaceMedium,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Security",
-                    style: kTitleTextStyle.copyWith(fontSize: 18)),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-                child: ListTile(
-                  title: Text(
-                    "CHANGE PASSWORD",
-                    style: kButtonTextStyle.copyWith(
-                        fontWeight: FontWeight.bold, color: kEmeraldGreen),
-                  ),
-                ),
-              ),
-              verticalSpaceMedium,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Danger zone",
-                    style: kTitleTextStyle.copyWith(fontSize: 18)),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingTiny),
-                child: ListTile(
-                  onTap: model.showDeleteSheet,
-                  title: Text(
-                    "DELETE ACCOUNT",
-                    style: kButtonTextStyle.copyWith(
-                        fontWeight: FontWeight.bold, color: kDangerRed),
-                  ),
-                ),
+                child: _BuildInfoContainer(),
               ),
             ],
           ),
         ],
       )),
       viewModelBuilder: () => ProfileViewModel(),
+    );
+  }
+}
+
+class _BuildInfoContainer extends ViewModelWidget<ProfileViewModel> {
+  @override
+  Widget build(BuildContext context, ProfileViewModel model) {
+    return FloatingContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Personal info", style: kHeadingTextStyle),
+          ListTile(
+            leading: Icon(
+              Icons.email,
+              color: kEmeraldGreen,
+            ),
+            title: Text(model.user!.email!),
+            trailing: Icon(
+              Icons.verified_user,
+              color: kEmeraldGreen,
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.person,
+              color: kEmeraldGreen,
+            ),
+            title: Text(model.user!.name!),
+          ),
+          verticalSpaceMedium,
+          Text("Security", style: kHeadingTextStyle),
+          ListTile(
+            title: Text(
+              "CHANGE PASSWORD",
+              style: kButtonTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen),
+            ),
+          ),
+          verticalSpaceMedium,
+          Text("Danger zone", style: kHeadingTextStyle),
+          Divider(),
+          ListTile(
+            onTap: model.showDeleteSheet,
+            title: Text(
+              "DELETE ACCOUNT",
+              style: kButtonTextStyle.copyWith(fontWeight: FontWeight.bold, color: kDangerRed),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
