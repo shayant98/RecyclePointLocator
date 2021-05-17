@@ -61,8 +61,7 @@ class DetailView extends StatelessWidget {
                 verticalSpaceLarge,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                  child: Text("Materials you can recycle",
-                      style: kTitleTextStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+                  child: Text("Materials you can recycle", style: kHeadingTextStyle),
                 ),
                 verticalSpaceRegular,
                 Padding(

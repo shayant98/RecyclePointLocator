@@ -57,7 +57,7 @@ class HomeView extends StatelessWidget {
                 child: FloatingActionButton(
                   heroTag: "radius",
                   child: Text(
-                    '${model.radius.toInt()}km',
+                    '${model.radius.toInt()}KM',
                     style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
                   ),
                   foregroundColor: kPlatinum,
