@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
+import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
+import 'package:rpl/ui/dumb_widgets/transparent_button.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -14,100 +15,94 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(statusBarColor: kPlatinum),
-        child: Scaffold(
-          body: Stack(
-            children: [
-              SizedBox(
-                width: screenWidth(context),
-                height: screenHeight(context),
-                child: RecyclePointMap(
-                  markers: model.markers,
-                  radiusCircle: model.radiusCirlce,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
-                    zoom: model.zoomLevels[model.radius] ?? 12,
-                  ),
-                  onMapCreated: model.onMapCreated,
+      builder: (context, model, child) => Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              onPressed: model.toggleExpandedMenu,
+              iconSize: 32,
+              color: kEmeraldGreen,
+              icon: Icon(Icons.account_circle_outlined),
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            SizedBox(
+              width: screenWidth(context),
+              height: screenHeight(context),
+              child: RecyclePointMap(
+                markers: model.markers,
+                radiusCircle: model.radiusCirlce,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
+                  zoom: model.zoomLevels[model.radius] ?? 12,
                 ),
+                onMapCreated: model.onMapCreated,
               ),
-              Positioned(
-                top: 40,
-                right: paddingRegular,
-                child: IconButton(
-                  onPressed: model.showExpandedMenuOrLogin,
-                  iconSize: 32,
+            ),
+            AnimatedPositioned(
+              top: 90,
+              curve: Curves.easeInOut,
+              right: model.showMenu ? paddingRegular : -300,
+              duration: Duration(milliseconds: 200),
+              child: _BuildExpandedMenu(),
+            ),
+            _LocationSheetWidget(),
+            Positioned(
+              top: 160,
+              left: paddingRegular,
+              child: FloatingActionButton(
+                heroTag: "radius",
+                child: Text(
+                  '${model.radius.toInt()}KM',
+                  style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
+                ),
+                foregroundColor: kPlatinum,
+                backgroundColor: kPlatinum,
+                onPressed: model.showRadiusSlider,
+              ),
+            ),
+            Positioned(
+              top: 80,
+              left: paddingRegular,
+              child: FloatingActionButton(
+                heroTag: "userLoc",
+                child: Icon(
+                  Icons.location_on,
                   color: kEmeraldGreen,
-                  icon: Icon(Icons.account_circle_outlined),
+                  size: 24,
                 ),
+                foregroundColor: kPlatinum,
+                backgroundColor: kPlatinum,
+                onPressed: model.animateToUser,
               ),
-              if (model.user != null)
-                AnimatedPositioned(
-                  top: 80,
-                  curve: Curves.easeInOut,
-                  right: model.showMenu ? paddingRegular : -300,
-                  duration: Duration(milliseconds: 200),
-                  child: _BuildExpandedMenu(),
-                ),
-              _LocationSheetWidget(),
-              Positioned(
-                top: 120,
-                left: paddingRegular,
-                child: FloatingActionButton(
-                  heroTag: "radius",
-                  child: Text(
-                    '${model.radius.toInt()}KM',
-                    style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
-                  ),
-                  foregroundColor: kPlatinum,
-                  backgroundColor: kPlatinum,
-                  onPressed: model.showRadiusSlider,
-                ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: "quickFind",
+          label: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                FontAwesomeIcons.search,
+                color: kPlatinum,
+                size: 14,
               ),
-              Positioned(
-                top: paddingMedium,
-                left: paddingRegular,
-                child: FloatingActionButton(
-                  heroTag: "userLoc",
-                  child: Icon(
-                    Icons.location_on,
-                    color: kEmeraldGreen,
-                    size: 24,
-                  ),
-                  foregroundColor: kPlatinum,
-                  backgroundColor: kPlatinum,
-                  onPressed: model.animateToUser,
-                ),
+              horizontalSpaceTiny,
+              Text(
+                'QUICK FIND',
+                style: kButtonTextStyle,
               ),
-              // Container(
-              //   height: screenHeight(context),
-              //   width: screenWidth(context),
-              //   color: Colors.red,
-              // )
             ],
           ),
-          floatingActionButton: FloatingActionButton.extended(
-            heroTag: "quickFind",
-            label: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  FontAwesomeIcons.search,
-                  color: kPlatinum,
-                  size: 14,
-                ),
-                horizontalSpaceTiny,
-                Text(
-                  'QUICK FIND',
-                  style: kButtonTextStyle,
-                ),
-              ],
-            ),
-            foregroundColor: kEmeraldGreen,
-            backgroundColor: kEmeraldGreen,
-            onPressed: model.navigatoToQuickFind,
-          ),
+          foregroundColor: kEmeraldGreen,
+          backgroundColor: kEmeraldGreen,
+          onPressed: model.navigatoToQuickFind,
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
@@ -122,124 +117,95 @@ class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel model) {
-    return Container(
+    return SizedBox(
       width: screenWidthPercentage(context, percentage: 0.3),
-      height: screenHeightPercentage(context, percentage: 0.3),
-      decoration: BoxDecoration(
-        color: kPlatinum,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            offset: Offset(0, 4),
-            color: kShadow.withOpacity(0.5),
-          )
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MaterialButton(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
-            onPressed: model.navigatoToProfile,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.account_circle_outlined,
-                  size: 32,
-                  color: kEmeraldGreen,
-                ),
-                horizontalSpaceSmall,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+      child: FloatingContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TransparentButton(
+              onPressed: model.user != null ? model.navigatoToProfile : model.navigatoToLogin,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.account_circle_outlined,
+                    color: kEmeraldGreen,
+                  ),
+                  horizontalSpaceSmall,
+                  if (model.user != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          model.user!.name!,
+                          style: kBodyTextStyle,
+                        ),
+                        Text(
+                          model.user!.email!,
+                          style: kBody2TextStyle,
+                        )
+                      ],
+                    )
+                  else
                     Text(
-                      model.user!.name!,
+                      'Sign in',
                       style: kBodyTextStyle,
+                    )
+                ],
+              ),
+            ),
+            Divider(),
+            TransparentButton(
+              onPressed: () {},
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.settings,
+                    color: kEmeraldGreen,
+                  ),
+                  horizontalSpaceSmall,
+                  Text(
+                    'Settings',
+                    style: kBodyTextStyle,
+                  )
+                ],
+              ),
+            ),
+            TransparentButton(
+              onPressed: () {},
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.support,
+                    color: kEmeraldGreen,
+                  ),
+                  horizontalSpaceSmall,
+                  Text(
+                    'Support',
+                    style: kBodyTextStyle,
+                  )
+                ],
+              ),
+            ),
+            if (model.user != null)
+              TransparentButton(
+                onPressed: model.logout,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      color: kEmeraldGreen,
                     ),
+                    horizontalSpaceSmall,
                     Text(
-                      model.user!.email!,
-                      style: kBody2TextStyle,
+                      'Logout',
+                      style: kBodyTextStyle,
                     )
                   ],
-                )
-              ],
-            ),
-          ),
-          Divider(
-            color: kShadow,
-          ),
-          MaterialButton(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
-            onPressed: () {},
-            child: Row(
-              children: [
-                Icon(
-                  Icons.settings,
-                  color: kEmeraldGreen,
                 ),
-                horizontalSpaceSmall,
-                Text(
-                  'Settings',
-                  style: kBodyTextStyle,
-                )
-              ],
-            ),
-          ),
-          MaterialButton(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
-            onPressed: () {},
-            child: Row(
-              children: [
-                Icon(
-                  Icons.support,
-                  color: kEmeraldGreen,
-                ),
-                horizontalSpaceSmall,
-                Text(
-                  'Support',
-                  style: kBodyTextStyle,
-                )
-              ],
-            ),
-          ),
-          MaterialButton(
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: paddingRegular),
-            onPressed: model.logout,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.logout,
-                  color: kEmeraldGreen,
-                ),
-                horizontalSpaceSmall,
-                Text(
-                  'Logout',
-                  style: kBodyTextStyle,
-                )
-              ],
-            ),
-          ),
-          Divider(
-            color: kShadow,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Privacy Policy',
-                style: kBody2TextStyle,
               ),
-              horizontalSpaceSmall,
-              Text(
-                'Who are we?',
-                style: kBody2TextStyle,
-              )
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

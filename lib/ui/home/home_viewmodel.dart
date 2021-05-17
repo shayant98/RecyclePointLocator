@@ -74,13 +74,9 @@ class HomeViewModel extends MultipleStreamViewModel {
     _navigationService.navigateTo(Routes.detailView);
   }
 
-  void showExpandedMenuOrLogin() {
-    if (_userService.hasLoggedInUser) {
-      showMenu = !showMenu;
-      notifyListeners();
-    } else {
-      navigatoToLogin();
-    }
+  void toggleExpandedMenu() {
+    showMenu = !showMenu;
+    notifyListeners();
   }
 
   showRadiusSlider() async {
@@ -100,7 +96,9 @@ class HomeViewModel extends MultipleStreamViewModel {
     await _firebaseAuthService.logout();
     _bottomSheetService.showBottomSheet(title: "Successfully Logged out", barrierDismissible: true);
     showMenu = false;
-    _userService.setCurrentUser(null);
+    _user = null;
+    _userService.setCurrentUser(_user);
+
     notifyListeners();
   }
 
