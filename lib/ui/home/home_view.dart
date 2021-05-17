@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
+import 'package:rpl/ui/dumb_widgets/recycle_point_list.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/dumb_widgets/transparent_button.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
@@ -51,7 +52,6 @@ class HomeView extends StatelessWidget {
               duration: Duration(milliseconds: 200),
               child: _BuildExpandedMenu(),
             ),
-            _LocationSheetWidget(),
             Positioned(
               top: 160,
               left: paddingRegular,
@@ -81,6 +81,7 @@ class HomeView extends StatelessWidget {
                 onPressed: model.animateToUser,
               ),
             ),
+            _LocationSheetWidget(),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -215,7 +216,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) => DraggableScrollableSheet(
         initialChildSize: 0.3,
-        maxChildSize: 0.6,
+        maxChildSize: 0.4,
         minChildSize: 0.2,
         builder: (BuildContext context, ScrollController scrollController) => Container(
           padding: const EdgeInsets.symmetric(vertical: paddingRegular, horizontal: paddingRegular),
@@ -230,89 +231,87 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                 ),
               ],
               borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-          child: model.isBusy
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        AnimatedOpacity(
-                          opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'Loading points near you',
-                            style: kTitleTextStyle,
-                          ),
-                        ),
-                        AnimatedOpacity(
-                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'Points near you',
-                            style: kTitleTextStyle,
-                          ),
-                        ),
-                        AnimatedOpacity(
-                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'No Points found near you',
-                            style: kTitleTextStyle,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        AnimatedOpacity(
-                          opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'Please wait while we load the closest recyclepoints',
-                            style: kSubtitleTextStyle,
-                          ),
-                        ),
-                        AnimatedOpacity(
-                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'The following points are closest to you',
-                            style: kSubtitleTextStyle,
-                          ),
-                        ),
-                        AnimatedOpacity(
-                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
-                          duration: Duration(seconds: 1),
-                          child: Text(
-                            'we were unable to identify recyclepoints',
-                            style: kSubtitleTextStyle,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                        child: model.isBusy || !model.isRecyclePointDataReady
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : model.recyclePointData.length > 0
-                                ? ListView.separated(
-                                    controller: scrollController,
-                                    itemCount: model.dataMap!['recycle-stream'].length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return RecyclePointTile(
-                                        onTap: () => model.navigateToDetail(model.recyclePointData[index]),
-                                        recyclePoint: model.recyclePointData[index],
-                                        showFavouriteIcon: false,
-                                      );
-                                    },
-                                    separatorBuilder: (BuildContext context, int index) => verticalSpaceMedium)
-                                : Container())
-                  ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  height: 4.0,
+                  width: screenWidthPercentage(context, percentage: 0.2),
+                  decoration: BoxDecoration(color: Colors.grey[400], borderRadius: BorderRadius.circular(10.0)),
                 ),
+              ),
+              verticalSpaceRegular,
+              Stack(
+                children: [
+                  AnimatedOpacity(
+                    opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'Loading points near you',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'Points near you',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'No Points found near you',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  AnimatedOpacity(
+                    opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'Please wait while we load the closest recyclepoints',
+                      style: kSubtitleTextStyle,
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'The following points are closest to you',
+                      style: kSubtitleTextStyle,
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
+                    duration: Duration(seconds: 1),
+                    child: Text(
+                      'we were unable to identify recyclepoints',
+                      style: kSubtitleTextStyle,
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: model.isBusy || !model.isRecyclePointDataReady
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : model.recyclePointData.length > 0
+                          ? RecyclePointList(
+                              controller: scrollController,
+                              recyclePoints: model.recyclePointData,
+                            )
+                          : Container())
+            ],
+          ),
         ),
       );
 }
