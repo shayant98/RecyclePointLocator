@@ -22,18 +22,18 @@ class DetailViewModel extends BaseViewModel {
   GoogleMapController? _mapController;
   GoogleMapController? get mapController => _mapController;
 
-  bool _isSelected = false;
-  get isSelected => _isSelected;
-
-  void toggleIsSelected() {
-    _isSelected = !isSelected;
-    notifyListeners();
-  }
+  Marker? _recyclePointMarker;
+  Marker? get recyclePointMarker => _recyclePointMarker;
 
   init() {
-    print(RecycleMaterialType.glass.toString());
     _recyclePoint = _recyclePointService.recyclePoint;
     recyclePointCoordinates = _recyclePoint!.position['geopoint'];
+    _recyclePointMarker = Marker(
+      position: LatLng(recyclePointCoordinates!.latitude, recyclePointCoordinates!.longitude),
+      markerId: MarkerId(
+        recyclePoint!.id,
+      ),
+    );
   }
 
   void onMapCreated(GoogleMapController controller) {

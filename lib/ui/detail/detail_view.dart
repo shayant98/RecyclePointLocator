@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/ui/detail/detail_viewmodel.dart';
+import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
@@ -25,25 +26,13 @@ class DetailView extends StatelessWidget {
                 Container(
                   width: screenWidthPercentage(context),
                   height: screenHeightPercentage(context, percentage: 0.4),
-                  child: GoogleMap(
-                    zoomControlsEnabled: false,
-                    scrollGesturesEnabled: false,
-                    zoomGesturesEnabled: false,
-                    tiltGesturesEnabled: false,
-                    rotateGesturesEnabled: false,
+                  child: RecyclePointMap(
                     onMapCreated: model.onMapCreated,
-                    markers: {
-                      Marker(
-                          position:
-                              LatLng(model.recyclePointCoordinates!.latitude, model.recyclePointCoordinates!.longitude),
-                          markerId: MarkerId(
-                            model.recyclePoint!.id,
-                          ))
-                    },
                     initialCameraPosition: CameraPosition(
                       target: LatLng(model.recyclePointCoordinates!.latitude, model.recyclePointCoordinates!.longitude),
                       zoom: 15,
                     ),
+                    markers: {model.recyclePointMarker!},
                   ),
                 ),
                 verticalSpaceRegular,
@@ -125,8 +114,8 @@ class _AllowedMaterials extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: kShadow.withOpacity(0.5), //color of shadow
-            spreadRadius: 5, //spread radius
-            blurRadius: 10, // blur radius
+            spreadRadius: 2, //spread radius
+            blurRadius: 4, // blur radius
             offset: Offset(0, 4), // changes position of shadow
           ),
         ],

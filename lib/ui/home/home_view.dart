@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
@@ -21,17 +22,13 @@ class HomeView extends StatelessWidget {
               SizedBox(
                 width: screenWidth(context),
                 height: screenHeight(context),
-                child: GoogleMap(
-                  mapType: MapType.normal,
+                child: RecyclePointMap(
                   markers: model.markers,
-                  circles: model.radiusCirlce,
+                  radiusCircle: model.radiusCirlce,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
                     zoom: model.zoomLevels[model.radius] ?? 12,
                   ),
-                  zoomControlsEnabled: false,
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: false,
                   onMapCreated: model.onMapCreated,
                 ),
               ),

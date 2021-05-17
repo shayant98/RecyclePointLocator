@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/navigation/navigation_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
@@ -16,10 +17,8 @@ class NavigationView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: [
-            GoogleMap(
-              myLocationEnabled: true,
+            RecyclePointMap(
               markers: model.markers,
-              zoomControlsEnabled: false,
               initialCameraPosition: CameraPosition(
                 target: LatLng(model.userPosition!.latitude!, model.userPosition!.longitude!),
                 zoom: 15,
@@ -31,7 +30,6 @@ class NavigationView extends StatelessWidget {
                     color: kEmeraldGreen,
                     width: 5,
                     points: model.info!.polylinePoints.map((e) {
-                      print(LatLng(e.latitude, e.longitude));
                       return LatLng(e.latitude, e.longitude);
                     }).toList(),
                   )

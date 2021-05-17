@@ -58,6 +58,8 @@ class NavigationViewModel extends BaseViewModel {
 
   void toggleShowRecyclePoint() {
     _showRecyclePoint = !_showRecyclePoint;
+    log.v(_showRecyclePoint);
+    notifyListeners();
   }
 
   void _buildMarkers(GeoPoint recyclePos) async {
@@ -65,7 +67,7 @@ class NavigationViewModel extends BaseViewModel {
     _markers.clear();
 
     Marker recyclePointMarker = Marker(
-      markerId: MarkerId('user'),
+      markerId: MarkerId('recyclePoint'),
       position: LatLng(recyclePos.latitude, recyclePos.longitude),
       icon: BitmapDescriptor.defaultMarker,
       onTap: toggleShowRecyclePoint,
