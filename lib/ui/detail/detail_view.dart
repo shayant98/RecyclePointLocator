@@ -16,6 +16,7 @@ class DetailView extends StatelessWidget {
     return ViewModelBuilder<DetailViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
+        backgroundColor: kPlatinum,
         body: Stack(
           children: [
             LeafClipper(),
@@ -41,7 +42,7 @@ class DetailView extends StatelessWidget {
                     },
                     initialCameraPosition: CameraPosition(
                       target: LatLng(model.recyclePointCoordinates!.latitude, model.recyclePointCoordinates!.longitude),
-                      zoom: 18,
+                      zoom: 15,
                     ),
                   ),
                 ),
@@ -97,7 +98,7 @@ class DetailView extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           heroTag: "quickFind",
-          onPressed: () {},
+          onPressed: model.navigateToNavigation,
           child: Icon(
             FontAwesomeIcons.locationArrow,
             size: 16,
@@ -118,9 +119,17 @@ class _AllowedMaterials extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth(context),
-      height: 80,
+      padding: const EdgeInsets.symmetric(vertical: paddingSmall),
       decoration: BoxDecoration(
         color: kPlatinum,
+        boxShadow: [
+          BoxShadow(
+            color: kShadow.withOpacity(0.5), //color of shadow
+            spreadRadius: 5, //spread radius
+            blurRadius: 10, // blur radius
+            offset: Offset(0, 4), // changes position of shadow
+          ),
+        ],
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
@@ -146,10 +155,7 @@ class _AllowedMaterials extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: paddingSmall),
-            child: VerticalDivider(),
-          ),
+          VerticalDivider(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -168,10 +174,7 @@ class _AllowedMaterials extends StatelessWidget {
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: paddingSmall),
-            child: VerticalDivider(),
-          ),
+          VerticalDivider(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

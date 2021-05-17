@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import '../ui/detail/detail_view.dart';
 import '../ui/home/home_view.dart';
 import '../ui/login/login_view.dart';
+import '../ui/navigation/navigation_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/quick_find/quick_find_view.dart';
 import '../ui/register/register_view.dart';
@@ -25,6 +26,7 @@ class Routes {
   static const String profileView = '/profile-view';
   static const String loginView = '/login-view';
   static const String registerView = '/register-view';
+  static const String navigationView = '/navigation-view';
   static const String quickFindView = '/quick-find-view';
   static const all = <String>{
     startupView,
@@ -33,6 +35,7 @@ class Routes {
     profileView,
     loginView,
     registerView,
+    navigationView,
     quickFindView,
   };
 }
@@ -47,6 +50,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.registerView, page: RegisterView),
+    RouteDef(Routes.navigationView, page: NavigationView),
     RouteDef(Routes.quickFindView, page: QuickFindView),
   ];
   @override
@@ -91,6 +95,12 @@ class StackedRouter extends RouterBase {
       );
       return CupertinoPageRoute<dynamic>(
         builder: (context) => RegisterView(key: args.key),
+        settings: data,
+      );
+    },
+    NavigationView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const NavigationView(),
         settings: data,
       );
     },

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/app/app.locator.dart';
+import 'package:rpl/app/app.router.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/models/application_models.dart';
 import 'package:rpl/service/recycle_point_service.dart';
@@ -42,6 +43,10 @@ class DetailViewModel extends BaseViewModel {
   void navigateToHome() {
     _recyclePointService.setRecyclePoint(null);
     _navigationService.back();
+  }
+
+  void navigateToNavigation() {
+    _navigationService.navigateTo(Routes.navigationView);
   }
 
   @override

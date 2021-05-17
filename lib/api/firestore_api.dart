@@ -12,11 +12,9 @@ class FirestoreApi {
 
   GeoFlutterFire _geoFlutterFire = new GeoFlutterFire();
 
-  final CollectionReference userCollectionReference =
-      FirebaseFirestore.instance.collection("users");
+  final CollectionReference userCollectionReference = FirebaseFirestore.instance.collection("users");
 
-  final CollectionReference recycleLocationsCollectionReference =
-      FirebaseFirestore.instance.collection("locations");
+  final CollectionReference recycleLocationsCollectionReference = FirebaseFirestore.instance.collection("locations");
 
   StreamController _locationStreamController = new StreamController.broadcast();
 
@@ -28,8 +26,7 @@ class FirestoreApi {
       await userDocument.set(user.toJson());
       log.v('UserCreated at ${userDocument.path}');
     } catch (e) {
-      throw FirestoreApiException(
-          message: 'Failed to create new user', devDetails: '$e');
+      throw FirestoreApiException(message: 'Failed to create new user', devDetails: '$e');
     }
   }
 
@@ -41,8 +38,7 @@ class FirestoreApi {
       await userDocument.set(user.toJson());
       log.v('userUpdated at ${userDocument.path}');
     } catch (e) {
-      throw FirestoreApiException(
-          message: 'Failed to update new user', devDetails: '$e');
+      throw FirestoreApiException(message: 'Failed to update new user', devDetails: '$e');
     }
   }
 
@@ -61,19 +57,17 @@ class FirestoreApi {
 
       return User.fromJson(userData!);
     } else {
-      throw FirestoreApiException(
-          message: 'Failed to get user please pass in a valid user id');
+      throw FirestoreApiException(message: 'Failed to get user please pass in a valid user id');
     }
   }
 
-  Stream getLocations(
-      {required double radius, required double long, required double lat}) {
+  Stream getLocations({required double radius, required double long, required double lat}) {
+    log.i('userid:$radius');
     log.i('location params: $radius, $long, $lat');
     GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
     _geoFlutterFire
         .collection(collectionRef: recycleLocationsCollectionReference)
-        .within(
-            center: center, radius: radius, field: 'position', strictMode: true)
+        .within(center: center, radius: radius, field: 'position', strictMode: true)
         .listen((data) {
       List recyclePoints = [];
       if (data.isNotEmpty) {

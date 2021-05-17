@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rpl/models/application_models.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
@@ -25,9 +24,10 @@ class HomeView extends StatelessWidget {
                 child: GoogleMap(
                   mapType: MapType.normal,
                   markers: model.markers,
+                  circles: model.radiusCirlce,
                   initialCameraPosition: CameraPosition(
                     target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
-                    zoom: 15,
+                    zoom: model.zoomLevels[model.radius] ?? 12,
                   ),
                   zoomControlsEnabled: false,
                   myLocationEnabled: true,
@@ -255,6 +255,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
         maxChildSize: 0.6,
         minChildSize: 0.2,
         builder: (BuildContext context, ScrollController scrollController) => Container(
+          padding: const EdgeInsets.symmetric(vertical: paddingRegular, horizontal: paddingRegular),
           decoration: BoxDecoration(
               color: kPlatinum,
               boxShadow: [
@@ -273,32 +274,61 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: paddingRegular,
-                        left: paddingRegular,
-                      ),
-                      child: Text(
-                        model.isBusy || !model.isRecyclePointDataReady
-                            ? 'Loading points near you'
-                            : model.recyclePointData.length > 0
-                                ? 'Points near you'
-                                : 'No Points found near you',
-                        style: kTitleTextStyle,
-                      ),
+                    Stack(
+                      children: [
+                        AnimatedOpacity(
+                          opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'Loading points near you',
+                            style: kTitleTextStyle,
+                          ),
+                        ),
+                        AnimatedOpacity(
+                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'Points near you',
+                            style: kTitleTextStyle,
+                          ),
+                        ),
+                        AnimatedOpacity(
+                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'No Points found near you',
+                            style: kTitleTextStyle,
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: paddingRegular,
-                      ),
-                      child: Text(
-                        model.isBusy || !model.isRecyclePointDataReady
-                            ? 'Please wait while we load the closest recyclepoints'
-                            : model.recyclePointData.length > 0
-                                ? 'The following points are closest to you'
-                                : 'we were unable to identify recyclepoints',
-                        style: kSubtitleTextStyle,
-                      ),
+                    Stack(
+                      children: [
+                        AnimatedOpacity(
+                          opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'Please wait while we load the closest recyclepoints',
+                            style: kSubtitleTextStyle,
+                          ),
+                        ),
+                        AnimatedOpacity(
+                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'The following points are closest to you',
+                            style: kSubtitleTextStyle,
+                          ),
+                        ),
+                        AnimatedOpacity(
+                          opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
+                          duration: Duration(seconds: 1),
+                          child: Text(
+                            'we were unable to identify recyclepoints',
+                            style: kSubtitleTextStyle,
+                          ),
+                        ),
+                      ],
                     ),
                     Expanded(
                         child: model.isBusy || !model.isRecyclePointDataReady
@@ -313,6 +343,7 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                                       return RecyclePointTile(
                                         onTap: () => model.navigateToDetail(model.recyclePointData[index]),
                                         recyclePoint: model.recyclePointData[index],
+                                        showFavouriteIcon: false,
                                       );
                                     },
                                     separatorBuilder: (BuildContext context, int index) => verticalSpaceMedium)

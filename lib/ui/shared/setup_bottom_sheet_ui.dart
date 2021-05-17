@@ -27,8 +27,7 @@ class _FloatingBoxBottomSheet extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  __FloatingBoxBottomSheetState createState() =>
-      __FloatingBoxBottomSheetState();
+  __FloatingBoxBottomSheetState createState() => __FloatingBoxBottomSheetState();
 }
 
 class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
@@ -63,10 +62,10 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
             ),
             verticalSpaceMedium,
             Slider(
-              min: 25.0,
-              max: 100.0,
-              divisions: 3,
+              min: 5.0,
+              max: 20.0,
               value: radius,
+              divisions: 15,
               label: 'Radius of ${radius}KM',
               activeColor: kEmeraldGreen,
               inactiveColor: kEmeraldGreen.withOpacity(0.2),
@@ -80,10 +79,8 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
             Align(
               alignment: Alignment.centerRight,
               child: MaterialButton(
-                onPressed: () =>
-                    widget.completer(SheetResponse(responseData: radius)),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                onPressed: () => widget.completer(SheetResponse(responseData: radius)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: Text(
                   'CHANGE RADIUS',

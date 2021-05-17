@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/api/firestore_api.dart';
@@ -10,11 +9,11 @@ import 'package:rpl/models/application_models.dart';
 import 'package:rpl/service/location_service.dart';
 import 'package:rpl/service/recycle_point_service.dart';
 import 'package:rpl/service/user_service.dart';
+import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String _LocationStreamKey = 'location-stream';
 const String _RecyclePointStreamKey = 'recycle-stream';
 
 class HomeViewModel extends MultipleStreamViewModel {
@@ -26,13 +25,21 @@ class HomeViewModel extends MultipleStreamViewModel {
   final FirestoreApi _firestoreApi = locator<FirestoreApi>();
   final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
 
-  double radius = 50;
+  Map<double, double> zoomLevels = {
+    5: 12,
+    20: 10.5,
+  };
+
+  double radius = 5;
   bool showMenu = false;
   LocationData? pos;
   User? _user;
   User? get user => _user;
   Set<Marker> _markers = {};
   Set<Marker> get markers => _markers;
+  Set<Circle> _radiusCirlce = {};
+  Set<Circle> get radiusCirlce => _radiusCirlce;
+
   List<RecyclePoint> get recyclePointData => dataMap![_RecyclePointStreamKey];
   bool get isRecyclePointDataReady => dataReady(_RecyclePointStreamKey);
 
@@ -42,6 +49,20 @@ class HomeViewModel extends MultipleStreamViewModel {
   init() {
     pos = _locationService.getDeviceLocation();
     _user = _userService.currentUser;
+    _drawRadiusCircle();
+  }
+
+  _drawRadiusCircle() {
+    _radiusCirlce.clear();
+    Circle newRadiusCircle = Circle(
+      circleId: CircleId("radius"),
+      radius: radius * 1000,
+      fillColor: kEmeraldGreen.withOpacity(0.3),
+      strokeColor: kEmeraldGreen,
+      strokeWidth: 3,
+      center: LatLng(pos!.latitude!, pos!.longitude!),
+    );
+    _radiusCirlce.add(newRadiusCircle);
   }
 
   void navigatoToDetail() => _navigationService.navigateTo(Routes.detailView);
@@ -68,6 +89,8 @@ class HomeViewModel extends MultipleStreamViewModel {
 
     if (response != null) {
       radius = response.responseData;
+      _drawRadiusCircle();
+      mapController?.moveCamera(CameraUpdate.zoomTo(zoomLevels[radius] ?? 12));
     }
     notifyListeners();
     notifySourceChanged();
@@ -88,25 +111,14 @@ class HomeViewModel extends MultipleStreamViewModel {
   animateToUser() async {
     var pos = await location.getLocation();
     mapController?.animateCamera(
-        CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(pos.latitude!, pos.longitude!), zoom: 15)));
+        CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(pos.latitude!, pos.longitude!), zoom: 12)));
   }
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _LocationStreamKey: StreamData<LocationData>(_locationService.listenToDeviceLocation()),
         _RecyclePointStreamKey:
             StreamData(_firestoreApi.getLocations(radius: radius, lat: 5.8448077, long: -55.2393224)),
       };
-
-  void updateUserLocation(LocationData location) {
-    if (pos != null && (pos!.latitude != location.latitude || pos!.longitude != location.longitude)) {
-      pos = location;
-      mapController!.animateCamera(
-        CameraUpdate.newCameraPosition(
-            CameraPosition(target: LatLng(location.latitude!, location.longitude!), zoom: 15)),
-      );
-    }
-  }
 
   void _generateMarkers(List<RecyclePoint> recyclePoints) {
     _markers.clear();
@@ -127,10 +139,6 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   @override
   void onData(String key, dynamic data) {
-    if (key == _LocationStreamKey) {
-      updateUserLocation(data);
-    }
-
     if (key == _RecyclePointStreamKey) {
       _generateMarkers(data);
     }
