@@ -14,45 +14,51 @@ class ProfileView extends StatelessWidget {
     return ViewModelBuilder<ProfileViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            iconTheme: IconThemeData(color: kEmeraldGreen),
+            elevation: 0,
+          ),
           body: Stack(
-        children: [
-          LeafClipper(),
-          ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child:
-                      IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Profile", style: kTitleTextStyle),
-              ),
-              verticalSpaceRegular,
-              Stack(
-                alignment: Alignment.center,
+              LeafClipper(),
+              ListView(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: kEmeraldGreen,
-                    radius: 100,
-                    backgroundImage: NetworkImage(model.user!.image ?? ''),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: paddingSmall),
+                  //   child: Align(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: IconButton(
+                  //         color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
+                  //   ),
+                  // ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
+                    child: Text("Profile", style: kTitleTextStyle),
+                  ),
+                  verticalSpaceRegular,
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: kEmeraldGreen,
+                        radius: 100,
+                        backgroundImage: NetworkImage(model.user!.image ?? ''),
+                      ),
+                    ],
+                  ),
+                  verticalSpaceLarge,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: paddingRegular,
+                    ),
+                    child: _BuildInfoContainer(),
                   ),
                 ],
               ),
-              verticalSpaceLarge,
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: paddingRegular,
-                ),
-                child: _BuildInfoContainer(),
-              ),
             ],
-          ),
-        ],
-      )),
+          )),
       viewModelBuilder: () => ProfileViewModel(),
     );
   }

@@ -9,7 +9,7 @@ class RegisterViewModel extends AuthenticationViewModel {
   final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  RegisterViewModel() : super(successRoute: Routes.homeView);
+  RegisterViewModel() : super(successRoute: Routes.profileView);
 
   @override
   void setFormStatus() {

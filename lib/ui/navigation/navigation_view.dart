@@ -15,6 +15,12 @@ class NavigationView extends StatelessWidget {
     return ViewModelBuilder<NavigationViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: kEmeraldGreen),
+          elevation: 0,
+        ),
         body: Stack(
           children: [
             RecyclePointMap(
@@ -36,10 +42,10 @@ class NavigationView extends StatelessWidget {
               },
               onMapCreated: model.onMapCreated,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: paddingSmall, vertical: paddingRegular),
-              child: IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: paddingSmall, vertical: paddingRegular),
+            //   child: IconButton(color: kEmeraldGreen, icon: Icon(Icons.arrow_back), onPressed: model.navigateToHome),
+            // ),
             AnimatedAlign(
               alignment: model.showRecyclePoint ? Alignment.bottomCenter : Alignment(0, 40),
               curve: Curves.easeInOut,

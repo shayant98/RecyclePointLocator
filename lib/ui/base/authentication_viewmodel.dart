@@ -51,7 +51,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
             image: user.photoURL,
             name: user.displayName ?? '${formValueMap['firstName']} ${formValueMap['lastName']}'),
       );
-      _navigationService.navigateTo(successRoute);
+      _navigationService.replaceWith(successRoute);
     } else {
       if (!authenticationResult.hasError && authenticationResult.user != null) {
         log.wtf('We have no error but the user is null.');
