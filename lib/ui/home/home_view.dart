@@ -9,6 +9,7 @@ import 'package:rpl/ui/dumb_widgets/transparent_button.dart';
 import 'package:rpl/ui/home/home_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
+import 'package:rpl/ui/smart_widgets/expanded_menu/expanded_menu_view.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
@@ -16,7 +17,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       onModelReady: (model) => model.init(),
-      fireOnModelReadyOnce: false,
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(statusBarColor: kPlatinum),
         child: Scaffold(
@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                 curve: Curves.easeInOut,
                 right: model.showMenu ? paddingRegular : -300,
                 duration: Duration(milliseconds: 200),
-                child: _BuildExpandedMenu(),
+                child: ExpandedMenuView(),
               ),
               _LocationSheetWidget(),
               Positioned(
@@ -114,107 +114,6 @@ class HomeView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => HomeViewModel(),
-    );
-  }
-}
-
-class _BuildExpandedMenu extends ViewModelWidget<HomeViewModel> {
-  const _BuildExpandedMenu({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, HomeViewModel model) {
-    return SizedBox(
-      width: screenWidthPercentage(context, percentage: 0.3),
-      child: FloatingContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TransparentButton(
-              onPressed: model.user != null ? model.navigatoToProfile : model.navigatoToLogin,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.account_circle_outlined,
-                    color: kEmeraldGreen,
-                  ),
-                  horizontalSpaceSmall,
-                  if (model.user != null)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          model.user!.name!,
-                          style: kBodyTextStyle,
-                        ),
-                        Text(
-                          model.user!.email!,
-                          style: kBody2TextStyle,
-                        )
-                      ],
-                    )
-                  else
-                    Text(
-                      'Sign in',
-                      style: kBodyTextStyle,
-                    )
-                ],
-              ),
-            ),
-            Divider(),
-            TransparentButton(
-              onPressed: () {},
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.settings,
-                    color: kEmeraldGreen,
-                  ),
-                  horizontalSpaceSmall,
-                  Text(
-                    'Settings',
-                    style: kBodyTextStyle,
-                  )
-                ],
-              ),
-            ),
-            TransparentButton(
-              onPressed: () {},
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.support,
-                    color: kEmeraldGreen,
-                  ),
-                  horizontalSpaceSmall,
-                  Text(
-                    'Support',
-                    style: kBodyTextStyle,
-                  )
-                ],
-              ),
-            ),
-            if (model.user != null)
-              TransparentButton(
-                onPressed: model.logout,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout,
-                      color: kEmeraldGreen,
-                    ),
-                    horizontalSpaceSmall,
-                    Text(
-                      'Logout',
-                      style: kBodyTextStyle,
-                    )
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
     );
   }
 }

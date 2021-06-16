@@ -45,11 +45,7 @@ abstract class AuthenticationViewModel extends FormViewModel {
     if (!authenticationResult.hasError && authenticationResult.user != null) {
       final user = authenticationResult.user!;
       await _userService.syncOrCreateUserAccount(
-        user: User(
-            id: user.uid,
-            email: user.email,
-            image: user.photoURL,
-            name: user.displayName ?? '${formValueMap['firstName']} ${formValueMap['lastName']}'),
+        user: User(id: user.uid, email: user.email, image: user.photoURL, name: user.displayName ?? '${formValueMap['firstName']} ${formValueMap['lastName']}'),
       );
       _navigationService.replaceWith(successRoute);
     } else {

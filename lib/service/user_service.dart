@@ -2,22 +2,17 @@ import 'package:rpl/api/firestore_api.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/models/application_models.dart';
-import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 
-class UserService with ReactiveServiceMixin {
+class UserService {
   final log = getLogger('UserService');
 
   final FirestoreApi _firestoreApi = locator<FirestoreApi>();
   final FirebaseAuthenticationService _firebaseAuthenticationService = locator<FirebaseAuthenticationService>();
 
-  ReactiveValue<User?> _currentUser = ReactiveValue<User?>(null);
-  User? get currentUser => _currentUser.value;
+  User? _currentUser;
+  User? get currentUser => _currentUser;
   bool get hasLoggedInUser => _firebaseAuthenticationService.hasUser;
-
-  UserService() {
-    listenToReactiveValues([_currentUser]);
-  }
 
   Future<void> syncUserAccount() async {
     final firebaseUserId = _firebaseAuthenticationService.firebaseAuth.currentUser!.uid;
@@ -36,7 +31,7 @@ class UserService with ReactiveServiceMixin {
     log.v('SyncOrCreateUserAccount - $user');
     await syncUserAccount();
 
-    if (_currentUser.value == null) {
+    if (_currentUser == null) {
       log.v('No user found create new user...');
       await _firestoreApi.createUser(user: user);
       setCurrentUser(user);
@@ -45,7 +40,7 @@ class UserService with ReactiveServiceMixin {
   }
 
   void setCurrentUser(User? user) {
-    _currentUser.value = user;
+    _currentUser = user;
   }
 
   Future<void> deleteUser(User user) async {
