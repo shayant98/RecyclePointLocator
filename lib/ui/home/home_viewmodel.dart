@@ -23,7 +23,6 @@ class HomeViewModel extends MultipleStreamViewModel {
   final LocationService _locationService = locator<LocationService>();
   final RecyclePointService _recyclePointService = locator<RecyclePointService>();
   final FirestoreApi _firestoreApi = locator<FirestoreApi>();
-  final FirebaseAuthenticationService _firebaseAuthService = locator<FirebaseAuthenticationService>();
 
   Map<double, double> zoomLevels = {
     5: 12,
@@ -65,10 +64,7 @@ class HomeViewModel extends MultipleStreamViewModel {
     _radiusCirlce.add(newRadiusCircle);
   }
 
-  void navigatoToDetail() => _navigationService.navigateTo(Routes.detailView);
   void navigatoToQuickFind() => _navigationService.navigateTo(Routes.quickFindView);
-  void navigatoToProfile() => _navigationService.navigateTo(Routes.profileView);
-  void navigatoToLogin() => _navigationService.navigateTo(Routes.loginView);
   void navigateToDetail(RecyclePoint recyclePoint) {
     _recyclePointService.setRecyclePoint(recyclePoint);
     _navigationService.navigateTo(Routes.detailView);
@@ -89,16 +85,6 @@ class HomeViewModel extends MultipleStreamViewModel {
     }
     notifyListeners();
     notifySourceChanged();
-  }
-
-  void logout() async {
-    await _firebaseAuthService.logout();
-    _bottomSheetService.showBottomSheet(title: "Successfully Logged out", barrierDismissible: true);
-    showMenu = false;
-    _user = null;
-    _userService.setCurrentUser(_user);
-
-    notifyListeners();
   }
 
   void onMapCreated(GoogleMapController controller) {
