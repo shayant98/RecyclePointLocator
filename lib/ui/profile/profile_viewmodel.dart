@@ -1,10 +1,8 @@
 import 'package:rpl/app/app.locator.dart';
-import 'package:rpl/app/app.router.dart';
 import 'package:rpl/models/application_models.dart';
 import 'package:rpl/service/user_service.dart';
 import 'package:rpl/ui/home/home_view.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProfileViewModel extends BaseViewModel {
