@@ -42,6 +42,18 @@ class FirestoreApi {
     }
   }
 
+  Future<void> deleteUser({required User user}) async {
+    log.i('user:$user');
+
+    try {
+      final userDocument = userCollectionReference.doc(user.id);
+      await userDocument.delete();
+      log.v('userDeleted at ${userDocument.path}');
+    } catch (e) {
+      throw FirestoreApiException(message: 'Failed to delete new user', devDetails: '$e');
+    }
+  }
+
   Future<User?> getUser({required String id}) async {
     log.i('userid:$id');
 
@@ -65,10 +77,7 @@ class FirestoreApi {
     log.i('userid:$radius');
     log.i('location params: $radius, $long, $lat');
     GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
-    _geoFlutterFire
-        .collection(collectionRef: recycleLocationsCollectionReference)
-        .within(center: center, radius: radius, field: 'position', strictMode: true)
-        .listen((data) {
+    _geoFlutterFire.collection(collectionRef: recycleLocationsCollectionReference).within(center: center, radius: radius, field: 'position', strictMode: true).listen((data) {
       List recyclePoints = [];
       if (data.isNotEmpty) {
         log.v('Locations found. Data: $data');

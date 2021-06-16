@@ -16,6 +16,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       onModelReady: (model) => model.init(),
+      fireOnModelReadyOnce: false,
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(statusBarColor: kPlatinum),
         child: Scaffold(
