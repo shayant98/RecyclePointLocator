@@ -12,9 +12,7 @@ class RegisterViewModel extends AuthenticationViewModel {
   RegisterViewModel() : super(successRoute: Routes.profileView);
 
   @override
-  void setFormStatus() {
-    // TODO: implement setFormStatus
-  }
+  void setFormStatus() {}
 
   void navigateBack() => _navigationService.back();
 

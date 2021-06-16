@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/api/firestore_api.dart';
@@ -80,8 +81,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   }
 
   showRadiusSlider() async {
-    SheetResponse? response =
-        await _bottomSheetService.showCustomSheet(variant: BottomSheetType.FloatingBox, customData: radius);
+    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: BottomSheetType.FloatingBox, customData: radius);
 
     if (response != null) {
       radius = response.responseData;
@@ -108,14 +108,12 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   animateToUser() async {
     var pos = await location.getLocation();
-    mapController?.animateCamera(
-        CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(pos.latitude!, pos.longitude!), zoom: 12)));
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(pos.latitude!, pos.longitude!), zoom: 12)));
   }
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _RecyclePointStreamKey:
-            StreamData(_firestoreApi.getLocations(radius: radius, lat: 5.8448077, long: -55.2393224)),
+        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(radius: radius, lat: 5.8448077, long: -55.2393224)),
       };
 
   void _generateMarkers(List<RecyclePoint> recyclePoints) {
@@ -127,7 +125,6 @@ class HomeViewModel extends MultipleStreamViewModel {
           markerId: MarkerId(recyclePoint.id),
           position: LatLng(_markPoint.latitude, _markPoint.longitude),
           onTap: () => navigateToDetail(recyclePoint),
-          icon: BitmapDescriptor.defaultMarker,
         );
 
         _markers.add(marker);

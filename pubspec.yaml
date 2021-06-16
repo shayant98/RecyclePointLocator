@@ -28,8 +28,8 @@ dependencies:
   firebase_auth: ^1.1.4
   cloud_firestore: ^2.1.0
 
-  stacked: ^2.1.1
-  stacked_services: ^0.8.5
+  stacked: ^2.1.8
+  stacked_services: ^0.8.6
   stacked_firebase_auth: ^0.2.5
 
   cupertino_icons: ^1.0.3
@@ -50,6 +50,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/map_styles/
+    - assets/images/
   fonts:
     - family: Poppins
       fonts:

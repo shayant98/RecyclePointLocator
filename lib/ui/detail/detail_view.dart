@@ -32,7 +32,7 @@ class DetailView extends StatelessWidget {
                       target: LatLng(model.recyclePointCoordinates!.latitude, model.recyclePointCoordinates!.longitude),
                       zoom: 15,
                     ),
-                    markers: {model.recyclePointMarker!},
+                    markers: model.markers,
                   ),
                 ),
                 verticalSpaceRegular,
