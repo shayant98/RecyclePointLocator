@@ -16,6 +16,8 @@ class ExpandedMenuViewModel extends BaseViewModel {
   User? get user => _user;
   void navigatoToProfile() => _navigationService.navigateTo(Routes.profileView);
   void navigatoToLogin() => _navigationService.navigateTo(Routes.loginView);
+  void navigatoToSettings() => _navigationService.navigateTo(Routes.settingsView);
+  void navigatoToSupport() => _navigationService.navigateTo(Routes.supportView);
 
   void logout() async {
     await _authService.logoutCurrentUser();

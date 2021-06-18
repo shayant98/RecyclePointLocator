@@ -50,7 +50,7 @@ class ExpandedMenuView extends StatelessWidget {
               ),
               Divider(),
               TransparentButton(
-                onPressed: () {},
+                onPressed: model.navigatoToSettings,
                 child: Row(
                   children: [
                     Icon(
@@ -66,7 +66,7 @@ class ExpandedMenuView extends StatelessWidget {
                 ),
               ),
               TransparentButton(
-                onPressed: () {},
+                onPressed: model.navigatoToSupport,
                 child: Row(
                   children: [
                     Icon(

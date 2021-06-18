@@ -17,11 +17,15 @@ import '../ui/navigation/navigation_view.dart';
 import '../ui/profile/profile_view.dart';
 import '../ui/quick_find/quick_find_view.dart';
 import '../ui/register/register_view.dart';
+import '../ui/settings/settings_view.dart';
 import '../ui/startup/startup_view.dart';
+import '../ui/support/support_view.dart';
 
 class Routes {
   static const String startupView = '/';
   static const String homeView = '/home-view';
+  static const String settingsView = '/settings-view';
+  static const String supportView = '/support-view';
   static const String detailView = '/detail-view';
   static const String profileView = '/profile-view';
   static const String loginView = '/login-view';
@@ -31,6 +35,8 @@ class Routes {
   static const all = <String>{
     startupView,
     homeView,
+    settingsView,
+    supportView,
     detailView,
     profileView,
     loginView,
@@ -46,6 +52,8 @@ class StackedRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.homeView, page: HomeView),
+    RouteDef(Routes.settingsView, page: SettingsView),
+    RouteDef(Routes.supportView, page: SupportView),
     RouteDef(Routes.detailView, page: DetailView),
     RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.loginView, page: LoginView),
@@ -65,6 +73,18 @@ class StackedRouter extends RouterBase {
     HomeView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => HomeView(),
+        settings: data,
+      );
+    },
+    SettingsView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SettingsView(),
+        settings: data,
+      );
+    },
+    SupportView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SupportView(),
         settings: data,
       );
     },

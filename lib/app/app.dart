@@ -11,7 +11,9 @@ import 'package:rpl/ui/navigation/navigation_view.dart';
 import 'package:rpl/ui/profile/profile_view.dart';
 import 'package:rpl/ui/quick_find/quick_find_view.dart';
 import 'package:rpl/ui/register/register_view.dart';
+import 'package:rpl/ui/settings/settings_view.dart';
 import 'package:rpl/ui/startup/startup_view.dart';
+import 'package:rpl/ui/support/support_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -19,6 +21,8 @@ import 'package:stacked_services/stacked_services.dart';
 @StackedApp(routes: [
   MaterialRoute(page: StartupView, initial: true),
   CupertinoRoute(page: HomeView),
+  CupertinoRoute(page: SettingsView),
+  CupertinoRoute(page: SupportView),
   CupertinoRoute(page: DetailView),
   CupertinoRoute(page: ProfileView),
   CupertinoRoute(page: LoginView),
