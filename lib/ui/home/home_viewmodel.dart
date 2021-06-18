@@ -11,7 +11,6 @@ import 'package:rpl/service/recycle_point_service.dart';
 import 'package:rpl/service/user_service.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 const String _RecyclePointStreamKey = 'recycle-stream';

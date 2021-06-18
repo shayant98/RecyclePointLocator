@@ -17,6 +17,7 @@ class FirestoreApi {
   final CollectionReference recycleLocationsCollectionReference = FirebaseFirestore.instance.collection("locations");
 
   StreamController _locationStreamController = new StreamController.broadcast();
+  StreamController _closestRPStreamController = new StreamController.broadcast();
 
   Future<void> createUser({required User user}) async {
     log.i('user:$user');
@@ -74,7 +75,6 @@ class FirestoreApi {
   }
 
   Stream getLocations({required double radius, required double long, required double lat}) {
-    log.i('userid:$radius');
     log.i('location params: $radius, $long, $lat');
     GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
     _geoFlutterFire.collection(collectionRef: recycleLocationsCollectionReference).within(center: center, radius: radius, field: 'position', strictMode: true).listen((data) {
@@ -91,5 +91,24 @@ class FirestoreApi {
     });
 
     return _locationStreamController.stream;
+  }
+
+  Stream getLocationsByMaterials({required double radius, required double long, required double lat, required Set<String> materials}) {
+    log.i('location params: $radius, $long, $lat');
+    GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
+    var queryRef = recycleLocationsCollectionReference.where('materials', arrayContainsAny: materials.toList());
+    _geoFlutterFire.collection(collectionRef: queryRef).within(center: center, radius: radius, field: 'position', strictMode: true).listen((data) {
+      List recyclePoints = [];
+      if (data.isNotEmpty) {
+        log.v('Locations found. Data: $data');
+        recyclePoints = data.map((location) {
+          final _recyclePoint = location.data() as Map<String, dynamic>;
+          _recyclePoint.putIfAbsent('id', () => location.id);
+          return RecyclePoint.fromJson(_recyclePoint);
+        }).toList();
+      }
+      _closestRPStreamController.add(recyclePoints);
+    });
+    return _closestRPStreamController.stream;
   }
 }
