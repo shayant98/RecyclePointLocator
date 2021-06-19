@@ -4,13 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.router.dart';
 import 'package:rpl/ui/shared/setup_bottom_sheet_ui.dart';
-import 'package:rpl/ui/shared/styles.dart';
+import 'package:rpl/ui/shared/themes.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ThemeManager.initialise();
   await Firebase.initializeApp();
-  setupLocator();
+  await setupLocator();
   setupBottomSheetUi();
   runApp(MyApp());
 }
@@ -22,19 +24,20 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      title: 'RPL',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        primaryColor: kEmeraldGreen,
-        accentColor: kEmeraldGreen,
-        splashColor: kEmeraldGreen,
-        scaffoldBackgroundColor: kPlatinum,
-        shadowColor: kShadow.withOpacity(0.5),
+    return ThemeBuilder(
+      statusBarColorBuilder: (theme) => theme!.accentColor,
+      defaultThemeMode: ThemeMode.system,
+      darkTheme: AppThemes.darkTheme,
+      lightTheme: AppThemes.lightTheme,
+      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
+        title: 'RPL',
+        theme: regularTheme,
+        darkTheme: darkTheme,
+        themeMode: themeMode,
+        debugShowCheckedModeBanner: false,
+        navigatorKey: StackedService.navigatorKey,
+        onGenerateRoute: StackedRouter().onGenerateRoute,
       ),
-      navigatorKey: StackedService.navigatorKey,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }

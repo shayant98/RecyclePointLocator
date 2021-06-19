@@ -17,7 +17,6 @@ class DetailView extends StatelessWidget {
     return ViewModelBuilder<DetailViewModel>.reactive(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        backgroundColor: kPlatinum,
         body: Stack(
           children: [
             LeafClipper(),

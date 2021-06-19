@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rpl/ui/shared/styles.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 class FloatingContainer extends StatelessWidget {
   final Widget child;
@@ -10,14 +11,16 @@ class FloatingContainer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: paddingSmall, vertical: paddingSmall),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
         boxShadow: [
-          BoxShadow(
-            color: kShadow.withOpacity(0.5), //color of shadow
-            spreadRadius: 2, //spread radius
-            blurRadius: 4, // blur radius
-            offset: Offset(0, 4), // changes position of shadow
-          ),
+          getThemeManager(context).isDarkMode
+              ? BoxShadow()
+              : BoxShadow(
+                  color: kShadow.withOpacity(0.5), //color of shadow
+                  spreadRadius: 2, //spread radius
+                  blurRadius: 4, // blur radius
+                  offset: Offset(0, 4), // changes position of shadow
+                ),
         ],
         borderRadius: BorderRadius.all(
           Radius.circular(20),

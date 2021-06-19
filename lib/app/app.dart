@@ -14,9 +14,11 @@ import 'package:rpl/ui/register/register_view.dart';
 import 'package:rpl/ui/settings/settings_view.dart';
 import 'package:rpl/ui/startup/startup_view.dart';
 import 'package:rpl/ui/support/support_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 @StackedApp(routes: [
   MaterialRoute(page: StartupView, initial: true),
@@ -32,6 +34,8 @@ import 'package:stacked_services/stacked_services.dart';
 ], dependencies: [
   LazySingleton(classType: NavigationService),
   LazySingleton(classType: BottomSheetService),
+  LazySingleton(classType: ThemeService, resolveUsing: ThemeService.getInstance),
+  Presolve(classType: SharedPreferences, presolveUsing: SharedPreferences.getInstance),
   LazySingleton(classType: SnackbarService),
   LazySingleton(classType: FirestoreApi),
   LazySingleton(classType: DirectionsApi),
@@ -39,6 +43,6 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: AuthService),
   LazySingleton(classType: LocationService),
   LazySingleton(classType: RecyclePointService),
-  Singleton(classType: FirebaseAuthenticationService)
+  Singleton(classType: FirebaseAuthenticationService),
 ], logger: StackedLogger())
 class AppSetup {}

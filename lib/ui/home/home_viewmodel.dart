@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/api/firestore_api.dart';
@@ -12,6 +13,7 @@ import 'package:rpl/service/user_service.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 const String _RecyclePointStreamKey = 'recycle-stream';
 
@@ -22,6 +24,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   final LocationService _locationService = locator<LocationService>();
   final RecyclePointService _recyclePointService = locator<RecyclePointService>();
   final FirestoreApi _firestoreApi = locator<FirestoreApi>();
+  final ThemeService _themeService = locator<ThemeService>();
 
   Map<double, double> zoomLevels = {
     5: 12,
@@ -44,7 +47,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   GoogleMapController? mapController;
   Location location = new Location();
 
-  init() {
+  init() async {
     pos = _locationService.getDeviceLocation();
     _user = _userService.currentUser;
     _drawRadiusCircle();
@@ -86,8 +89,9 @@ class HomeViewModel extends MultipleStreamViewModel {
     notifySourceChanged();
   }
 
-  void onMapCreated(GoogleMapController controller) {
+  Future<void> onMapCreated(GoogleMapController controller) async {
     mapController = controller;
+    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
   }
 
   animateToUser() async {

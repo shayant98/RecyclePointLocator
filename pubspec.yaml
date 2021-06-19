@@ -14,6 +14,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  restart_app: ^1.0.3
+
   dio: ^4.0.0
   url_launcher: ^6.0.3
   image_picker: ^0.7.5
@@ -31,6 +33,8 @@ dependencies:
   stacked: ^2.1.8
   stacked_services: ^0.8.6
   stacked_firebase_auth: ^0.2.5
+  stacked_themes: ^0.3.5
+  shared_preferences: ^2.0.5
 
   cupertino_icons: ^1.0.3
   font_awesome_flutter: ^9.0.0
