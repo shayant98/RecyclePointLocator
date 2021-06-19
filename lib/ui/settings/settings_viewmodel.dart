@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:restart_app/restart_app.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
@@ -12,6 +14,9 @@ class SettingsViewModel extends BaseViewModel {
   bool _isDarkMode = false;
   bool get isDarkMode => _isDarkMode;
 
+  String? _selectedLanguage;
+  String? get selectedLanguage => _selectedLanguage;
+
   init() {
     _isDarkMode = _themeService.isDarkMode;
   }
@@ -20,7 +25,14 @@ class SettingsViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  void changeTheme(bool value) {
+  void changeLanguage(String value) {
+    if (_selectedLanguage != value) {
+      _selectedLanguage = value;
+      notifyListeners();
+    }
+  }
+
+  Future<void> changeTheme(bool value) async {
     if (value) {
       _themeService.setThemeMode(ThemeManagerMode.dark);
     } else {
@@ -28,8 +40,10 @@ class SettingsViewModel extends BaseViewModel {
     }
     _isDarkMode = value;
     notifyListeners();
-    _bottomSheetService.showBottomSheet(title: "Theme Changed", description: "Theme changed to ${_themeService.selectedThemeMode.toString()}, Application will now Restart", barrierDismissible: false);
-    Future.delayed(Duration(seconds: 5), () {
+    SheetResponse response = (await _bottomSheetService.showBottomSheet(
+        title: "Changing Theme...", description: "Changing theme to ${_themeService.isDarkMode ? "dark mode" : "light mode"}, to apply fully application will now restart", barrierDismissible: false))!;
+
+    Future.delayed(Duration(seconds: 3), () {
       Restart.restartApp();
     });
   }

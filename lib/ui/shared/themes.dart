@@ -5,7 +5,7 @@ class AppThemes {
   static final darkTheme = ThemeData(
     fontFamily: 'Poppins',
     primaryColor: kEmeraldGreen,
-    accentColor: kDarkJungleGreen,
+    accentColor: kEmeraldGreen,
     splashColor: kEmeraldGreen,
     scaffoldBackgroundColor: kDarkJungleGreen,
     toggleableActiveColor: kEmeraldGreen,
@@ -16,7 +16,7 @@ class AppThemes {
   static final lightTheme = ThemeData(
     fontFamily: 'Poppins',
     primaryColor: kEmeraldGreen,
-    accentColor: kDarkJungleGreen,
+    accentColor: kEmeraldGreen,
     splashColor: kEmeraldGreen,
     toggleableActiveColor: kEmeraldGreen,
     colorScheme: ColorScheme.light(),

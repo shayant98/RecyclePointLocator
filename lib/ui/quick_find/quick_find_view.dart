@@ -149,11 +149,15 @@ class QuickFindView extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           heroTag: "quickFind",
-          onPressed: () {},
-          child: Icon(
-            model.isBusy ? FontAwesomeIcons.search : FontAwesomeIcons.search,
-            size: 16,
-          ),
+          onPressed: model.onTap,
+          child: model.isBusy
+              ? CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(kPlatinum),
+                )
+              : Icon(
+                  FontAwesomeIcons.search,
+                  size: 16,
+                ),
         ),
       ),
       viewModelBuilder: () => QuickFindViewModel(),

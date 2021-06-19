@@ -55,7 +55,36 @@ class SettingsView extends StatelessWidget {
                             ),
                             Switch.adaptive(value: model.isDarkMode, onChanged: model.changeTheme)
                           ],
-                        )
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Language",
+                              style: kBodyTextStyle,
+                            ),
+                            DropdownButton(
+                              hint: model.selectedLanguage == null ? Text('Dropdown', style: kSubtitleTextStyle) : Text(model.selectedLanguage!, style: kSubtitleTextStyle),
+                              onChanged: (val) => model.changeLanguage(val.toString()),
+                              items: [
+                                DropdownMenuItem(
+                                  value: 'NL',
+                                  child: Text(
+                                    'Nederlands',
+                                    style: kSubtitleTextStyle,
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'EN',
+                                  child: Text(
+                                    'English',
+                                    style: kSubtitleTextStyle,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),
