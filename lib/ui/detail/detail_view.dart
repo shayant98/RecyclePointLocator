@@ -72,12 +72,23 @@ class DetailView extends StatelessWidget {
             Positioned(
               top: paddingRegular,
               left: paddingSmall,
+              right: paddingSmall,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: IconButton(
-                  color: kEmeraldGreen,
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: model.navigateToHome,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      color: kEmeraldGreen,
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: model.navigateToHome,
+                    ),
+                    IconButton(
+                      color: kEmeraldGreen,
+                      icon: Icon(Icons.favorite_rounded),
+                      onPressed: model.navigateToHome,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -40,10 +40,10 @@ class SettingsViewModel extends BaseViewModel {
     }
     _isDarkMode = value;
     notifyListeners();
-    SheetResponse response = (await _bottomSheetService.showBottomSheet(
-        title: "Changing Theme...", description: "Changing theme to ${_themeService.isDarkMode ? "Darkmode" : "Lightmode"}, to apply fully application will now restart", barrierDismissible: false))!;
+    _bottomSheetService.showBottomSheet(
+        title: "Changing Theme...", description: "Changing theme to ${_themeService.isDarkMode ? "Darkmode" : "Lightmode"}, to apply fully application will now restart", barrierDismissible: false);
 
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Restart.restartApp();
     });
   }
