@@ -113,4 +113,34 @@ class FirestoreApi {
     });
     return _closestRPStreamController.stream;
   }
+
+  Future<bool> getUserFavouriteById({required String uId, required String rpId}) async {
+    QuerySnapshot document = await userCollectionReference.doc(uId).collection("favourites").where("id", isEqualTo: rpId).get();
+    return document.size > 0;
+  }
+
+  Future<void> unfavouriteById({required String uId, required String rpId}) async {
+    log.i('unfavourite recyclePoint:$rpId');
+    try {
+      QuerySnapshot snapshot = await userCollectionReference.doc(uId).collection("favourites").where("id", isEqualTo: rpId).get();
+      for (QueryDocumentSnapshot doc in snapshot.docs) {
+        await doc.reference.delete();
+        log.v('RP Unfavourited at ${doc.reference.path}');
+      }
+    } catch (e) {
+      throw FirestoreApiException(message: 'Failed to unfavourite recyclepoint', devDetails: '$e');
+    }
+  }
+
+  favouriteById({required String uId, required RecyclePoint recyclePoint}) async {
+    log.i('favourite recyclePoint:${recyclePoint.name}');
+
+    try {
+      final recyclePointDoc = userCollectionReference.doc(uId).collection('favourites').doc();
+      await recyclePointDoc.set(recyclePoint.toJson());
+      log.v('RP Favourited at ${recyclePointDoc.path}');
+    } catch (e) {
+      throw FirestoreApiException(message: 'Failed to favourite recyclepoint', devDetails: '$e');
+    }
+  }
 }

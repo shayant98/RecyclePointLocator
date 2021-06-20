@@ -69,29 +69,7 @@ class DetailView extends StatelessWidget {
                 verticalSpaceLarge,
               ],
             ),
-            Positioned(
-              top: paddingRegular,
-              left: paddingSmall,
-              right: paddingSmall,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      color: kEmeraldGreen,
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: model.navigateToHome,
-                    ),
-                    IconButton(
-                      color: kEmeraldGreen,
-                      icon: Icon(Icons.favorite_rounded),
-                      onPressed: model.navigateToHome,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            DetailHeader(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -104,6 +82,39 @@ class DetailView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => DetailViewModel(),
+    );
+  }
+}
+
+class DetailHeader extends ViewModelWidget<DetailViewModel> {
+  const DetailHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, DetailViewModel model) {
+    return Positioned(
+      top: paddingRegular,
+      left: paddingSmall,
+      right: paddingSmall,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: kEmeraldGreen,
+              icon: Icon(Icons.arrow_back),
+              onPressed: model.navigateToHome,
+            ),
+            IconButton(
+              color: kEmeraldGreen,
+              icon: model.isFavourite ? Icon(Icons.favorite_rounded) : Icon(Icons.favorite_outline_rounded),
+              onPressed: model.toggleFavourite,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
