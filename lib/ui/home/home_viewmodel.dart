@@ -78,7 +78,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   }
 
   showRadiusSlider() async {
-    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: BottomSheetType.FloatingBox, customData: radius);
+    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: _themeService.isDarkMode ? BottomSheetType.DarkFloatingBox : BottomSheetType.LightFloatingBox, customData: radius);
 
     if (response != null) {
       radius = response.responseData;

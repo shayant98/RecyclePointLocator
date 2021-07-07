@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:rpl/api/directions_api.dart';
@@ -11,6 +12,7 @@ import 'package:rpl/service/location_service.dart';
 import 'package:rpl/service/recycle_point_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 class NavigationViewModel extends BaseViewModel {
   final log = getLogger('NavigationViewModel');
@@ -18,6 +20,8 @@ class NavigationViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final LocationService _locationService = locator<LocationService>();
   final RecyclePointService _recyclePointService = locator<RecyclePointService>();
+  final ThemeService _themeService = locator<ThemeService>();
+
   final DirectionsApi _directionsApi = locator<DirectionsApi>();
 
   Set<Marker> _markers = {};
@@ -88,7 +92,10 @@ class NavigationViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onMapCreated(GoogleMapController controller) => _mapController = controller;
+  Future<void> onMapCreated(GoogleMapController controller) async {
+    _mapController = controller;
+    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
+  }
 
   @override
   void dispose() {

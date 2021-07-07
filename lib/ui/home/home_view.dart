@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Overlay;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/overlay.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
@@ -10,6 +11,7 @@ import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:rpl/ui/smart_widgets/expanded_menu/expanded_menu_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_themes/stacked_themes.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -47,8 +49,10 @@ class HomeView extends StatelessWidget {
                 child: IconButton(
                   onPressed: model.toggleExpandedMenu,
                   iconSize: 32,
-                  color: kEmeraldGreen,
-                  icon: Icon(Icons.account_circle_outlined),
+                  color: getThemeManager(context).isDarkMode ? kPhthaloGreen : kEmeraldGreen,
+                  icon: Icon(
+                    Icons.account_circle,
+                  ),
                 ),
               ),
               _LocationSheetWidget(),
@@ -149,27 +153,27 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                       children: [
                         AnimatedOpacity(
                           opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'Loading points near you',
+                            LocaleKeys.rp_card_title_loading,
                             style: kTitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                         AnimatedOpacity(
                           opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'Points near you',
+                            LocaleKeys.rp_card_title,
                             style: kTitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                         AnimatedOpacity(
                           opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'No Points found near you',
+                            LocaleKeys.rp_card_title_empty,
                             style: kTitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                       ],
                     ),
@@ -177,27 +181,27 @@ class _LocationSheetWidget extends ViewModelWidget<HomeViewModel> {
                       children: [
                         AnimatedOpacity(
                           opacity: model.isBusy || !model.isRecyclePointDataReady ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'Please wait while we load the closest recyclepoints',
+                            LocaleKeys.rp_card_subtitle_loading,
                             style: kSubtitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                         AnimatedOpacity(
                           opacity: model.isRecyclePointDataReady && model.recyclePointData.length > 0 ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'The following points are closest to you',
+                            LocaleKeys.rp_card_subtitle,
                             style: kSubtitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                         AnimatedOpacity(
                           opacity: model.isRecyclePointDataReady && model.recyclePointData.length < 1 ? 1 : 0,
-                          duration: Duration(seconds: 1),
+                          duration: Duration(milliseconds: 200),
                           child: Text(
-                            'we were unable to identify recyclepoints',
+                            LocaleKeys.rp_card_subtitle_empty,
                             style: kSubtitleTextStyle,
-                          ),
+                          ).tr(),
                         ),
                       ],
                     ),

@@ -14,11 +14,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  easy_localization: ^3.0.0
+
   restart_app: ^1.0.3
 
   dio: ^4.0.0
   url_launcher: ^6.0.3
-  image_picker: ^0.7.5
 
   google_maps_flutter: ^2.0.3
   location: ^4.1.1
@@ -55,6 +56,7 @@ flutter:
     - assets/fonts/
     - assets/map_styles/
     - assets/images/
+    - assets/translations/
   fonts:
     - family: Poppins
       fonts:

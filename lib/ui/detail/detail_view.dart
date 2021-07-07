@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/ui/detail/detail_viewmodel.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
@@ -66,7 +67,7 @@ class DetailView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
                   child: _AllowedMaterials(),
                 ),
-                verticalSpaceLarge,
+                verticalSpaceTiny,
               ],
             ),
             DetailHeader(),
@@ -119,73 +120,83 @@ class DetailHeader extends ViewModelWidget<DetailViewModel> {
   }
 }
 
-class _AllowedMaterials extends StatelessWidget {
+class _AllowedMaterials extends ViewModelWidget<DetailViewModel> {
   const _AllowedMaterials({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, DetailViewModel model) {
     return FloatingContainer(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: kEmeraldGreen,
-                foregroundColor: kPlatinum,
-                child: Icon(
-                  FontAwesomeIcons.glassMartini,
-                  size: 20,
-                ),
+          if (model.recyclePoint!.materials.contains("glass"))
+            GestureDetector(
+              onTap: () => model.materialOnTap(RecycleMaterialType.glass),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundColor: kEmeraldGreen,
+                    foregroundColor: kPlatinum,
+                    child: Icon(
+                      FontAwesomeIcons.glassMartini,
+                      size: 20,
+                    ),
+                  ),
+                  Text(
+                    "Glass",
+                    style: kBodyTextStyle,
+                  )
+                ],
               ),
-              Text(
-                "Glass",
-                style: kBodyTextStyle,
-              )
-            ],
-          ),
-          VerticalDivider(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: kEmeraldGreen,
-                foregroundColor: kPlatinum,
-                child: Icon(
-                  FontAwesomeIcons.box,
-                  size: 20,
-                ),
+            ),
+          if (model.recyclePoint!.materials.contains("paper"))
+            GestureDetector(
+              onTap: () => model.materialOnTap(RecycleMaterialType.paper),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundColor: kEmeraldGreen,
+                    foregroundColor: kPlatinum,
+                    child: Icon(
+                      FontAwesomeIcons.box,
+                      size: 20,
+                    ),
+                  ),
+                  Text(
+                    "Paper",
+                    style: kBodyTextStyle,
+                  )
+                ],
               ),
-              Text(
-                "Paper",
-                style: kBodyTextStyle,
-              )
-            ],
-          ),
-          VerticalDivider(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: kEmeraldGreen,
-                foregroundColor: kPlatinum,
-                child: Icon(
-                  FontAwesomeIcons.shoppingBag,
-                  size: 20,
-                ),
+            ),
+          if (model.recyclePoint!.materials.contains("plastic"))
+            GestureDetector(
+              onTap: () => model.materialOnTap(RecycleMaterialType.plastic),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundColor: kEmeraldGreen,
+                    foregroundColor: kPlatinum,
+                    child: Icon(
+                      FontAwesomeIcons.shoppingBag,
+                      size: 20,
+                    ),
+                  ),
+                  Text(
+                    "Plastic",
+                    style: kBodyTextStyle,
+                  )
+                ],
               ),
-              Text(
-                "Plastic",
-                style: kBodyTextStyle,
-              )
-            ],
-          ),
+            ),
         ],
       ),
     );

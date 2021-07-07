@@ -32,6 +32,7 @@ class RecyclePointTile extends StatelessWidget {
                     size: 36,
                   ),
                 ),
+                VerticalDivider(),
                 horizontalSpaceMedium,
                 Expanded(
                   flex: showFavouriteIcon ? 8 : 19,
@@ -84,6 +85,7 @@ class RecyclePointTile extends StatelessWidget {
                           )
                         ],
                       ),
+                      Divider(),
                       verticalSpaceTiny,
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -93,6 +95,7 @@ class RecyclePointTile extends StatelessWidget {
                             color: kEmeraldGreen,
                             size: 14,
                           ),
+                          horizontalSpaceTiny,
                           Expanded(
                             child: Text(
                               recyclePoint.adres,

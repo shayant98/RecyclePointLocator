@@ -1,0 +1,8 @@
+{
+    "rp_card_title": "Points near you",
+    "rp_card_title_loading": "Loading points near you",
+    "rp_card_title_empty": "No Points found near you",
+    "rp_card_subtitle": "The following points are closest to you",
+    "rp_card_subtitle_loading": "Please wait while we load the closest recyclepoints",
+    "rp_card_subtitle_empty": "we were unable to identify recyclepoints"
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
+import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/recycle_point_tile.dart';
 import 'package:rpl/ui/navigation/navigation_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
@@ -53,33 +54,25 @@ class NavigationView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingRegular, vertical: paddingRegular),
                 child: Wrap(children: [
-                  Container(
-                      padding: const EdgeInsets.symmetric(vertical: paddingRegular, horizontal: paddingRegular),
-                      decoration: BoxDecoration(
-                          color: kPlatinum,
-                          boxShadow: [
-                            BoxShadow(
-                              color: kShadow.withOpacity(0.5), //color of shadow
-                              spreadRadius: 5, //spread radius
-                              blurRadius: 10, // blur radius
-                              offset: Offset(0, 4), // changes position of shadow
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Recyclepoint Selected',
-                            style: kTitleTextStyle,
-                          ),
-                          verticalSpaceRegular,
-                          RecyclePointTile(
-                            recyclePoint: model.recyclePoint!,
-                            showFavouriteIcon: false,
-                          ),
-                        ],
-                      )),
+                  GestureDetector(
+                    // onTapv  : (DragDownDetails dragDownDetails) => model.toggleShowRecyclePoint(),
+                    child: FloatingContainer(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Recyclepoint Selected',
+                          style: kTitleTextStyle,
+                        ),
+                        Divider(),
+                        verticalSpaceRegular,
+                        RecyclePointTile(
+                          recyclePoint: model.recyclePoint!,
+                          showFavouriteIcon: false,
+                        ),
+                      ],
+                    )),
+                  ),
                 ]),
               ),
             ),

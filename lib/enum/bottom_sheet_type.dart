@@ -1,1 +1,1 @@
-enum BottomSheetType { FloatingBox }
+enum BottomSheetType { DarkFloatingBox, LightFloatingBox }

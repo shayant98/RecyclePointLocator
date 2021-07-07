@@ -10,8 +10,8 @@ void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
 
   final builders = {
-    BottomSheetType.FloatingBox: (context, sheetRequest, completer) =>
-        _FloatingBoxBottomSheet(request: sheetRequest, completer: completer)
+    BottomSheetType.LightFloatingBox: (context, sheetRequest, completer) => _FloatingBoxBottomSheet(request: sheetRequest, completer: completer),
+    BottomSheetType.DarkFloatingBox: (context, sheetRequest, completer) => _DarkFloatingBoxBottomSheet(request: sheetRequest, completer: completer),
   };
 
   bottomSheetService.setCustomSheetBuilders(builders);
@@ -48,6 +48,79 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
         padding: EdgeInsets.all(25),
         decoration: BoxDecoration(
           color: kPlatinum,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Change search radius',
+              style: kTitleTextStyle,
+            ),
+            Text(
+              'Change the radius for more recycle locations',
+              style: kSubtitleTextStyle,
+            ),
+            verticalSpaceMedium,
+            RadiusSlider(
+              radius: radius,
+              onChanged: (double value) {
+                setState(() {
+                  radius = value;
+                });
+              },
+            ),
+            verticalSpaceMedium,
+            Align(
+              alignment: Alignment.centerRight,
+              child: MaterialButton(
+                onPressed: () => widget.completer(SheetResponse(responseData: radius)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                color: kEmeraldGreen,
+                child: Text(
+                  'CHANGE RADIUS',
+                  style: kButtonTextStyle,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ]);
+  }
+}
+
+class _DarkFloatingBoxBottomSheet extends StatefulWidget {
+  final SheetRequest request;
+  final Function(SheetResponse) completer;
+
+  _DarkFloatingBoxBottomSheet({
+    Key? key,
+    required this.request,
+    required this.completer,
+  }) : super(key: key);
+
+  @override
+  __DarkFloatingBoxBottomSheetState createState() => __DarkFloatingBoxBottomSheetState();
+}
+
+class __DarkFloatingBoxBottomSheetState extends State<_DarkFloatingBoxBottomSheet> {
+  double radius = 25;
+
+  @override
+  void initState() {
+    radius = widget.request.customData;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(children: [
+      Container(
+        margin: EdgeInsets.all(paddingMedium),
+        padding: EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: kPhthaloGreen,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(

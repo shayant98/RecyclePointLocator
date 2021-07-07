@@ -17,7 +17,7 @@ class FloatingContainer extends StatelessWidget {
               ? BoxShadow()
               : BoxShadow(
                   color: kShadow.withOpacity(0.5), //color of shadow
-                  spreadRadius: 2, //spread radius
+                  spreadRadius: 0, //spread radius
                   blurRadius: 4, // blur radius
                   offset: Offset(0, 4), // changes position of shadow
                 ),

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/app/app.router.dart';
+import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/enum/snackbar_type.dart';
 import 'package:rpl/exceptions/firestore_api_exception.dart';
 import 'package:rpl/models/application_models.dart';
@@ -19,6 +21,7 @@ class DetailViewModel extends BaseViewModel {
   final RecyclePointService _recyclePointService = locator<RecyclePointService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final UserService _userService = locator<UserService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
   final ThemeService _themeService = locator<ThemeService>();
 
   GeoPoint? recyclePointCoordinates;
@@ -100,6 +103,22 @@ class DetailViewModel extends BaseViewModel {
 
   void navigateToNavigation() {
     _navigationService.navigateTo(Routes.navigationView);
+  }
+
+  materialOnTap(RecycleMaterialType materialType) {
+    switch (materialType) {
+      case RecycleMaterialType.glass:
+        _bottomSheetService.showBottomSheet(title: "Wat houdt glass in?", description: "Alle glassoorten");
+        break;
+      case RecycleMaterialType.paper:
+        _bottomSheetService.showBottomSheet(title: "wat houdt paper in?", description: "Alle papier soorten");
+        break;
+      case RecycleMaterialType.plastic:
+        _bottomSheetService.showBottomSheet(title: "wat houdt plastic in?", description: "Alle plastic in");
+        break;
+      default:
+        _bottomSheetService.showBottomSheet(title: "Geen Materiaal", description: "Selecteer");
+    }
   }
 
   @override
