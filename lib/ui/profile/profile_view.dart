@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/profile/profile_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -34,7 +36,7 @@ class ProfileView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Profile", style: kTitleTextStyle),
+                child: Text(LocaleKeys.profile_title, style: kTitleTextStyle).tr(),
               ),
               verticalSpaceRegular,
               Stack(
@@ -70,7 +72,7 @@ class _BuildInfoContainer extends ViewModelWidget<ProfileViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Personal info", style: kHeadingTextStyle),
+          Text(LocaleKeys.profile_card_personal_title, style: kHeadingTextStyle).tr(),
           ListTile(
             leading: Icon(
               Icons.email,
@@ -90,22 +92,22 @@ class _BuildInfoContainer extends ViewModelWidget<ProfileViewModel> {
             title: Text(model.user!.name!),
           ),
           verticalSpaceMedium,
-          Text("Security", style: kHeadingTextStyle),
+          Text(LocaleKeys.profile_card_security_title, style: kHeadingTextStyle).tr(),
           ListTile(
             title: Text(
-              "CHANGE PASSWORD",
+              LocaleKeys.profile_card_change_password,
               style: kButtonTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen),
-            ),
+            ).tr(),
           ),
           verticalSpaceMedium,
-          Text("Danger zone", style: kHeadingTextStyle),
+          Text(LocaleKeys.profile_card_danger_title, style: kHeadingTextStyle).tr(),
           Divider(),
           ListTile(
             onTap: model.showDeleteSheet,
             title: Text(
-              "DELETE ACCOUNT",
+              LocaleKeys.profile_card_delete_account,
               style: kButtonTextStyle.copyWith(fontWeight: FontWeight.bold, color: kDangerRed),
-            ),
+            ).tr(),
           ),
         ],
       ),

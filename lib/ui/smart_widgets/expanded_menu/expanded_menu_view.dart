@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/transparent_button.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:rpl/ui/smart_widgets/expanded_menu/expanded_menu_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ExpandedMenuView extends StatelessWidget {
   @override
@@ -42,9 +44,9 @@ class ExpandedMenuView extends StatelessWidget {
                       )
                     else
                       Text(
-                        'Sign in',
+                        LocaleKeys.expanded_menu_login,
                         style: kBodyTextStyle,
-                      )
+                      ).tr()
                   ],
                 ),
               ),
@@ -59,9 +61,9 @@ class ExpandedMenuView extends StatelessWidget {
                     ),
                     horizontalSpaceSmall,
                     Text(
-                      'Settings',
+                      LocaleKeys.expanded_menu_settings,
                       style: kBodyTextStyle,
-                    )
+                    ).tr()
                   ],
                 ),
               ),
@@ -75,9 +77,9 @@ class ExpandedMenuView extends StatelessWidget {
                     ),
                     horizontalSpaceSmall,
                     Text(
-                      'Support',
+                      LocaleKeys.expanded_menu_about_us,
                       style: kBodyTextStyle,
-                    )
+                    ).tr()
                   ],
                 ),
               ),
@@ -92,9 +94,9 @@ class ExpandedMenuView extends StatelessWidget {
                       ),
                       horizontalSpaceSmall,
                       Text(
-                        'Logout',
+                        LocaleKeys.expanded_menu_logout,
                         style: kBodyTextStyle,
-                      )
+                      ).tr()
                     ],
                   ),
                 ),

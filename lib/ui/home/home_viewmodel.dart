@@ -101,7 +101,7 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   @override
   Map<String, StreamData> get streamsMap => {
-        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(radius: radius, lat: 5.8448077, long: -55.2393224)),
+        _RecyclePointStreamKey: StreamData(_firestoreApi.getLocations(radius: radius)),
       };
 
   void _generateMarkers(List<RecyclePoint> recyclePoints) {

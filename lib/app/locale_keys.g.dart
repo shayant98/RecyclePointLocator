@@ -12,7 +12,7 @@ abstract class  LocaleKeys {
   static const radius_card_button = 'radius_card_button';
   static const expanded_menu_login = 'expanded_menu_login';
   static const expanded_menu_settings = 'expanded_menu_settings';
-  static const expanded_menu_support = 'expanded_menu_support';
+  static const expanded_menu_about_us = 'expanded_menu_about_us';
   static const expanded_menu_logout = 'expanded_menu_logout';
   static const login_title = 'login_title';
   static const login_subtitle = 'login_subtitle';
@@ -41,6 +41,11 @@ abstract class  LocaleKeys {
   static const navigation_card_tilte = 'navigation_card_tilte';
   static const settings_title = 'settings_title';
   static const settings_subtitle = 'settings_subtitle';
+  static const about_us_title = 'about_us_title';
+  static const about_us_subtitle = 'about_us_subtitle';
+  static const about_us_about_us_card_title = 'about_us_about_us_card_title';
+  static const about_us_about_us_card_description = 'about_us_about_us_card_description';
+  static const about_us_contact_card_title = 'about_us_contact_card_title';
   static const settings_appearance_card_title = 'settings_appearance_card_title';
   static const settings_dark_mode = 'settings_dark_mode';
   static const language_dark_mode = 'language_dark_mode';

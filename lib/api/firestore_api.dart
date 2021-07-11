@@ -2,12 +2,17 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:location/location.dart';
+import 'package:rpl/app/app.locator.dart';
 
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/exceptions/firestore_api_exception.dart';
 import 'package:rpl/models/application_models.dart';
+import 'package:rpl/service/location_service.dart';
 
 class FirestoreApi {
+  final LocationService _locationService = locator<LocationService>();
+
   final log = getLogger('FirestoreApi');
 
   GeoFlutterFire _geoFlutterFire = new GeoFlutterFire();
@@ -74,9 +79,10 @@ class FirestoreApi {
     }
   }
 
-  Stream getLocations({required double radius, required double long, required double lat}) {
-    log.i('location params: $radius, $long, $lat');
-    GeoFirePoint center = _geoFlutterFire.point(latitude: lat, longitude: long);
+  Stream getLocations({required double radius}) {
+    LocationData? pos = _locationService.getDeviceLocation();
+
+    GeoFirePoint center = _geoFlutterFire.point(latitude: pos!.latitude!, longitude: pos.longitude!);
     _geoFlutterFire.collection(collectionRef: recycleLocationsCollectionReference).within(center: center, radius: radius, field: 'position', strictMode: true).listen((data) {
       List<RecyclePoint> recyclePoints = [];
       if (data.isNotEmpty) {
