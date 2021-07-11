@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/base_leaf_layout.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AuthenticationLayout extends StatelessWidget {
   final String title;
@@ -51,14 +53,14 @@ class AuthenticationLayout extends StatelessWidget {
             child: Text(
               title,
               style: kTitleTextStyle,
-            ),
+            ).tr(),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: Text(
               subtitle,
               style: kSubtitleTextStyle,
-            ),
+            ).tr(),
           ),
           verticalSpaceMedium,
           form,
@@ -84,7 +86,7 @@ class AuthenticationLayout extends StatelessWidget {
                     : Text(
                         mainButtonTitle,
                         style: kButtonTextStyle,
-                      ),
+                      ).tr(),
               ),
             ),
           ),
@@ -106,7 +108,7 @@ class AuthenticationLayout extends StatelessWidget {
                     color: kDarkJungleGreen,
                   ),
                   // horizontalSpaceMedium,
-                  Text('Sign in with Google', style: kButtonTextStyle.copyWith(color: kDarkJungleGreen)),
+                  Text(LocaleKeys.login_google_button, style: kButtonTextStyle.copyWith(color: kDarkJungleGreen)).tr(),
                 ],
               ),
             ),
@@ -119,9 +121,9 @@ class AuthenticationLayout extends StatelessWidget {
                 GestureDetector(
                   onTap: onCreateAccountTapped as void Function(),
                   child: Text(
-                    'CREATE AN ACOUNT',
+                    LocaleKeys.login_create_account_button,
                     style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen),
-                  ),
+                  ).tr(),
                 )
               ],
             ),

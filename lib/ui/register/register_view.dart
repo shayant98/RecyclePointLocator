@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/authentication_layout.dart';
 import 'package:rpl/ui/dumb_widgets/input_field.dart';
 import 'package:rpl/ui/register/register_view.form.dart';
@@ -33,21 +34,26 @@ class RegisterView extends StatelessWidget with $RegisterView {
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: Column(
               children: [
-                InputField(controller: firstNameController, inputType: TextInputType.text, hint: 'Firstname', label: 'Firstname', isPassword: false),
+                InputField(controller: firstNameController, inputType: TextInputType.text, hint: LocaleKeys.create_account_firstname_field, label: LocaleKeys.create_account_firstname_field, isPassword: false),
                 verticalSpaceRegular,
-                InputField(controller: lastNameController, inputType: TextInputType.text, hint: 'Lastname', label: 'Lastname', isPassword: false),
+                InputField(controller: lastNameController, inputType: TextInputType.text, hint: LocaleKeys.create_account_lastname_field, label: LocaleKeys.create_account_lastname_field, isPassword: false),
                 verticalSpaceRegular,
-                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: 'Email', label: 'Email', isPassword: false),
+                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: LocaleKeys.create_account_email_field, label: LocaleKeys.create_account_email_field, isPassword: false),
                 verticalSpaceRegular,
-                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: 'Enter Password', label: 'Password', isPassword: true),
+                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: LocaleKeys.create_account_password_field, label: LocaleKeys.create_account_password_field, isPassword: true),
                 verticalSpaceRegular,
-                InputField(controller: confirmPasswordController, inputType: TextInputType.visiblePassword, hint: 'Repeat Password', label: 'Repeat Password', isPassword: true),
+                InputField(
+                    controller: confirmPasswordController,
+                    inputType: TextInputType.visiblePassword,
+                    hint: LocaleKeys.create_account_repeat_password_field,
+                    label: LocaleKeys.create_account_repeat_password_field,
+                    isPassword: true),
               ],
             ),
           ),
-          mainButtonTitle: 'SUBMIT',
-          subtitle: 'Fill in the required fields to create an account',
-          title: 'Create an account',
+          mainButtonTitle: LocaleKeys.create_account_button,
+          subtitle: LocaleKeys.create_account_subtitle,
+          title: LocaleKeys.create_account_title,
         ),
       ),
       viewModelBuilder: () => RegisterViewModel(),

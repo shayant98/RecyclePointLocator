@@ -10,6 +10,7 @@ class AppThemes {
     scaffoldBackgroundColor: kDarkJungleGreen,
     backgroundColor: kDarkJungleGreen,
     toggleableActiveColor: kEmeraldGreen,
+    canvasColor: kDarkJungleGreen,
     floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: kEmeraldGreen, foregroundColor: kPlatinum),
     colorScheme: ColorScheme.dark(
       primary: kEmeraldGreen,

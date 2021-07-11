@@ -13,14 +13,12 @@ class FloatingContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
         boxShadow: [
-          getThemeManager(context).isDarkMode
-              ? BoxShadow()
-              : BoxShadow(
-                  color: kShadow.withOpacity(0.5), //color of shadow
-                  spreadRadius: 0, //spread radius
-                  blurRadius: 4, // blur radius
-                  offset: Offset(0, 4), // changes position of shadow
-                ),
+          BoxShadow(
+            color: getThemeManager(context).isDarkMode ? Colors.black38 : Colors.black12, //color of shadow
+            spreadRadius: 0, //spread radius
+            blurRadius: 4, // blur radius
+            offset: Offset(1, 2), // changes position of shadow
+          ),
         ],
         borderRadius: BorderRadius.all(
           Radius.circular(20),

@@ -131,6 +131,8 @@ class HomeViewModel extends MultipleStreamViewModel {
   @override
   void dispose() {
     mapController!.dispose();
+    showMenu = false;
+    notifyListeners();
     super.dispose();
   }
 }

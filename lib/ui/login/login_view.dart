@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/authentication_layout.dart';
 import 'package:rpl/ui/dumb_widgets/input_field.dart';
 import 'package:rpl/ui/login/login_view.form.dart';
@@ -23,16 +24,16 @@ class LoginView extends StatelessWidget with $LoginView {
         resizeToAvoidBottomInset: false,
         body: AuthenticationLayout(
           busy: model.isBusy,
-          title: 'Log into your account',
-          subtitle: 'Enter your login credentials to continue',
-          mainButtonTitle: 'LOGIN',
+          title: LocaleKeys.login_title,
+          subtitle: LocaleKeys.login_subtitle,
+          mainButtonTitle: LocaleKeys.login_button,
           form: Padding(
             padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
             child: Column(
               children: [
-                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: 'Email', label: 'Email', isPassword: false),
+                InputField(controller: emailController, inputType: TextInputType.emailAddress, hint: LocaleKeys.login_email_field, label: LocaleKeys.login_email_field, isPassword: false),
                 verticalSpaceMedium,
-                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: 'Enter Password', label: 'Password', isPassword: true),
+                InputField(controller: passwordController, inputType: TextInputType.visiblePassword, hint: LocaleKeys.login_password_field, label: LocaleKeys.login_password_field, isPassword: true),
               ],
             ),
           ),

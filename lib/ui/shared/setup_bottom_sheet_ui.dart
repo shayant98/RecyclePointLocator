@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rpl/app/app.locator.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/enum/bottom_sheet_type.dart';
 import 'package:rpl/ui/dumb_widgets/radius_slider.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void setupBottomSheetUi() {
   final bottomSheetService = locator<BottomSheetService>();
@@ -54,13 +56,13 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Change search radius',
+              LocaleKeys.radius_card_title,
               style: kTitleTextStyle,
-            ),
+            ).tr(),
             Text(
-              'Change the radius for more recycle locations',
+              LocaleKeys.radius_card_subtitle,
               style: kSubtitleTextStyle,
-            ),
+            ).tr(),
             verticalSpaceMedium,
             RadiusSlider(
               radius: radius,
@@ -78,9 +80,9 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: Text(
-                  'CHANGE RADIUS',
+                  LocaleKeys.radius_card_button,
                   style: kButtonTextStyle,
-                ),
+                ).tr(),
               ),
             )
           ],
@@ -127,13 +129,13 @@ class __DarkFloatingBoxBottomSheetState extends State<_DarkFloatingBoxBottomShee
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Change search radius',
+              LocaleKeys.radius_card_title,
               style: kTitleTextStyle,
-            ),
+            ).tr(),
             Text(
-              'Change the radius for more recycle locations',
+              LocaleKeys.radius_card_subtitle,
               style: kSubtitleTextStyle,
-            ),
+            ).tr(),
             verticalSpaceMedium,
             RadiusSlider(
               radius: radius,
@@ -151,9 +153,9 @@ class __DarkFloatingBoxBottomSheetState extends State<_DarkFloatingBoxBottomShee
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: Text(
-                  'CHANGE RADIUS',
+                  LocaleKeys.radius_card_button,
                   style: kButtonTextStyle,
-                ),
+                ).tr(),
               ),
             )
           ],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
@@ -37,8 +38,8 @@ class _InputFieldState extends State<InputField> {
               : true
           : false,
       decoration: InputDecoration(
-        labelText: widget.label,
-        hintText: widget.hint,
+        labelText: tr(widget.label),
+        hintText: tr(widget.hint),
         fillColor: Colors.white,
         suffixIcon: (widget.isPassword == true)
             ? (_showPassword

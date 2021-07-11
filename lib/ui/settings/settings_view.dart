@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/base_leaf_layout.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/settings/settings_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_themes/stacked_themes.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsView extends StatelessWidget {
   @override
@@ -26,11 +27,11 @@ class SettingsView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Settings", style: kTitleTextStyle),
+                child: Text(LocaleKeys.settings_title, style: kTitleTextStyle).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                child: Text("Quickly find the nearest recyclepoint", style: kSubtitleTextStyle),
+                child: Text(LocaleKeys.settings_subtitle, style: kSubtitleTextStyle).tr(),
               ),
               Padding(
                 padding: const EdgeInsets.all(paddingRegular),
@@ -41,18 +42,18 @@ class SettingsView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Appearance",
+                          LocaleKeys.settings_appearance_card_title,
                           style: kHeadingTextStyle,
-                        ),
+                        ).tr(),
                         Divider(),
                         verticalSpaceMedium,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Dark Mode",
+                              LocaleKeys.settings_dark_mode,
                               style: kBodyTextStyle,
-                            ),
+                            ).tr(),
                             Switch.adaptive(value: model.isDarkMode, onChanged: model.changeTheme)
                           ],
                         ),
@@ -60,29 +61,24 @@ class SettingsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Language",
+                              LocaleKeys.language_dark_mode,
                               style: kBodyTextStyle,
-                            ),
+                            ).tr(),
                             DropdownButton(
-                              hint: model.selectedLanguage == null ? Text('Dropdown', style: kSubtitleTextStyle) : Text(model.selectedLanguage!, style: kSubtitleTextStyle),
-                              onChanged: (val) => model.changeLanguage(val.toString()),
-                              items: [
-                                DropdownMenuItem(
-                                  value: 'NL',
-                                  child: Text(
-                                    'Nederlands',
-                                    style: kSubtitleTextStyle,
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'EN',
-                                  child: Text(
-                                    'English',
-                                    style: kSubtitleTextStyle,
-                                  ),
-                                )
-                              ],
-                            )
+                              hint: Text(context.locale.languageCode.toString().toUpperCase()),
+                              onChanged: (Locale? locale) => context.setLocale(locale!),
+                              items: context.supportedLocales
+                                  .map(
+                                    (locale) => DropdownMenuItem(
+                                      value: locale,
+                                      child: Text(
+                                        "${locale.toString() == 'nl' ? '🇳🇱' : locale.toString() == 'en' ? "🇬🇧" : ""} -  ${locale.languageCode.toUpperCase()}",
+                                        style: kSubtitleTextStyle,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                           ],
                         ),
                       ],
@@ -93,22 +89,6 @@ class SettingsView extends StatelessWidget {
             ],
           ),
         ),
-        // body: CustomScrollView(
-        //   slivers: [
-        //     // SliverAppBar(
-        //     //   expandedHeight: screenHeightPercentage(context, percentage: 0.3),
-        //     //   centerTitle: true,
-        //     //   backgroundColor: kPlatinum,
-        //     //   title: Text(
-        //     //     "Settings",
-        //     //     style: kTitleTextStyle,
-        //     //   ),
-        //     // ),
-        //     // SliverToBoxAdapter(
-        //     //   child: BaseLeafLayout(child: Container()),
-        //     // )
-        //   ],
-        // ),
       ),
       viewModelBuilder: () => SettingsViewModel(),
     );
