@@ -12,6 +12,7 @@ import 'package:rpl/ui/smart_widgets/expanded_menu/expanded_menu_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -28,70 +29,74 @@ class HomeView extends StatelessWidget {
           }
         },
         child: Scaffold(
-          body: Stack(
-            children: [
-              SizedBox(
-                width: screenWidth(context),
-                height: screenHeight(context),
-                child: RecyclePointMap(
-                  markers: model.markers,
-                  radiusCircle: model.radiusCirlce,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
-                    zoom: model.zoomLevels[model.radius] ?? 12,
-                  ),
-                  onMapCreated: model.onMapCreated,
-                ),
-              ),
-              Positioned(
-                top: 40,
-                right: paddingRegular,
-                child: IconButton(
-                  onPressed: model.toggleExpandedMenu,
-                  iconSize: 32,
-                  color: getThemeManager(context).isDarkMode ? kPhthaloGreen : kEmeraldGreen,
-                  icon: Icon(
-                    Icons.account_circle,
+          body: VisibilityDetector(
+            key: Key("home-map"),
+            onVisibilityChanged: (info) => model.onPageNotVisible(info),
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: screenWidth(context),
+                  height: screenHeight(context),
+                  child: RecyclePointMap(
+                    markers: model.markers,
+                    radiusCircle: model.radiusCirlce,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(model.pos!.latitude!, model.pos!.longitude!),
+                      zoom: model.zoomLevels[model.radius] ?? 12,
+                    ),
+                    onMapCreated: model.onMapCreated,
                   ),
                 ),
-              ),
-              _LocationSheetWidget(),
-              Positioned(
-                top: 120,
-                left: paddingRegular,
-                child: FloatingActionButton(
-                  heroTag: "radius",
-                  child: Text(
-                    '${model.radius.toInt()}KM',
-                    style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
+                Positioned(
+                  top: 40,
+                  right: paddingRegular,
+                  child: IconButton(
+                    onPressed: model.toggleExpandedMenu,
+                    iconSize: 32,
+                    color: getThemeManager(context).isDarkMode ? kPhthaloGreen : kEmeraldGreen,
+                    icon: Icon(
+                      Icons.account_circle,
+                    ),
                   ),
-                  backgroundColor: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
-                  onPressed: model.showRadiusSlider,
                 ),
-              ),
-              Positioned(
-                top: paddingMedium,
-                left: paddingRegular,
-                child: FloatingActionButton(
-                  heroTag: "userLoc",
-                  child: Icon(
-                    Icons.location_on,
-                    color: kEmeraldGreen,
-                    size: 24,
+                _LocationSheetWidget(),
+                Positioned(
+                  top: 120,
+                  left: paddingRegular,
+                  child: FloatingActionButton(
+                    heroTag: "radius",
+                    child: Text(
+                      '${model.radius.toInt()}KM',
+                      style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold, color: kEmeraldGreen, fontSize: 12),
+                    ),
+                    backgroundColor: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
+                    onPressed: model.showRadiusSlider,
                   ),
-                  backgroundColor: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
-                  onPressed: model.animateToUser,
                 ),
-              ),
-              model.showMenu ? Overlay(onTap: model.toggleExpandedMenu) : Container(),
-              AnimatedPositioned(
-                top: 90,
-                curve: Curves.easeInOut,
-                right: model.showMenu ? paddingRegular : -300,
-                duration: Duration(milliseconds: 200),
-                child: ExpandedMenuView(),
-              ),
-            ],
+                Positioned(
+                  top: paddingMedium,
+                  left: paddingRegular,
+                  child: FloatingActionButton(
+                    heroTag: "userLoc",
+                    child: Icon(
+                      Icons.location_on,
+                      color: kEmeraldGreen,
+                      size: 24,
+                    ),
+                    backgroundColor: getThemeManager(context).isDarkMode ? kPhthaloGreen : kPlatinum,
+                    onPressed: model.animateToUser,
+                  ),
+                ),
+                model.showMenu ? Overlay(onTap: model.toggleExpandedMenu) : Container(),
+                AnimatedPositioned(
+                  top: 90,
+                  curve: Curves.easeInOut,
+                  right: model.showMenu ? paddingRegular : -300,
+                  duration: Duration(milliseconds: 200),
+                  child: ExpandedMenuView(),
+                ),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton.extended(
             heroTag: "quickFind",

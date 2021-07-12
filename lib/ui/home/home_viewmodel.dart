@@ -14,6 +14,7 @@ import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
+import 'package:visibility_detector/src/visibility_detector.dart';
 
 const String _RecyclePointStreamKey = 'recycle-stream';
 
@@ -120,6 +121,14 @@ class HomeViewModel extends MultipleStreamViewModel {
     }
   }
 
+  void onPageNotVisible(VisibilityInfo info) {
+    double visiblePercentage = info.visibleFraction * 100;
+    if (visiblePercentage == 0.0) {
+      showMenu = false;
+      notifyListeners();
+    }
+  }
+
   @override
   void onData(String key, dynamic data) {
     if (key == _RecyclePointStreamKey) {
@@ -131,8 +140,6 @@ class HomeViewModel extends MultipleStreamViewModel {
   @override
   void dispose() {
     mapController!.dispose();
-    showMenu = false;
-    notifyListeners();
     super.dispose();
   }
 }
