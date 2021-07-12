@@ -9,6 +9,7 @@ import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
 class QuickFindView extends StatelessWidget {
   const QuickFindView({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class QuickFindView extends StatelessWidget {
                   child: Text(
                     LocaleKeys.quick_find_materials_title,
                     style: kTitleTextStyle.copyWith(fontSize: 18),
-                  ),
+                  ).tr(),
                 ),
                 verticalSpaceRegular,
                 Padding(
@@ -124,7 +125,7 @@ class QuickFindView extends StatelessWidget {
                                 height: 5.0,
                                 width: 5.0,
                                 decoration: new BoxDecoration(
-                                  color: Colors.black,
+                                  color: getThemeManager(context).isDarkMode ? kPlatinum : kDarkJungleGreen,
                                   shape: BoxShape.circle,
                                 ),
                               ),
