@@ -19,28 +19,28 @@ dependencies:
   restart_app: ^1.0.3
 
   dio: ^4.0.0
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.9
 
-  google_maps_flutter: ^2.0.3
-  location: ^4.1.1
+  google_maps_flutter: ^2.0.6
+  location: ^4.3.0
 
-  geoflutterfire2: ^2.3.5
+  geoflutterfire2: ^2.3.8
   flutter_polyline_points: ^1.0.0
 
   firebase_core: ^1.1.1
   firebase_auth: ^1.1.4
   cloud_firestore: ^2.1.0
 
-  stacked: ^2.1.8
-  stacked_services: ^0.8.6
+  stacked: ^2.2.2
+  stacked_services: ^0.8.10
   stacked_firebase_auth: ^0.2.5
-  stacked_themes: ^0.3.5
+  stacked_themes: ^0.3.6
   shared_preferences: ^2.0.5
 
   cupertino_icons: ^1.0.3
   font_awesome_flutter: ^9.0.0
   json_annotation:
-  freezed_annotation:
+  freezed_annotation: ^0.14.2
   visibility_detector: ^0.2.0
 
 dev_dependencies:

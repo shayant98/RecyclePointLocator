@@ -14,7 +14,6 @@ import 'package:rpl/ui/shared/styles.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
-import 'package:visibility_detector/src/visibility_detector.dart';
 
 const String _RecyclePointStreamKey = 'recycle-stream';
 
@@ -79,7 +78,7 @@ class HomeViewModel extends MultipleStreamViewModel {
   }
 
   showRadiusSlider() async {
-    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: _themeService.isDarkMode ? BottomSheetType.DarkFloatingBox : BottomSheetType.LightFloatingBox, customData: radius);
+    SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: _themeService.isDarkMode ? BottomSheetType.DarkFloatingBox : BottomSheetType.LightFloatingBox, data: radius);
 
     if (response != null) {
       radius = response.responseData;
@@ -92,7 +91,7 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
+    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : await controller.setMapStyle(null);
   }
 
   animateToUser() async {
@@ -121,7 +120,7 @@ class HomeViewModel extends MultipleStreamViewModel {
     }
   }
 
-  void onPageNotVisible(VisibilityInfo info) {
+  void onPageNotVisible(info) {
     double visiblePercentage = info.visibleFraction * 100;
     if (visiblePercentage == 0.0) {
       showMenu = false;

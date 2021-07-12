@@ -76,7 +76,7 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
             Align(
               alignment: Alignment.centerRight,
               child: MaterialButton(
-                onPressed: () => widget.completer(SheetResponse(responseData: radius)),
+                onPressed: () => widget.completer(SheetResponse(data: radius)),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: Text(
@@ -149,7 +149,7 @@ class __DarkFloatingBoxBottomSheetState extends State<_DarkFloatingBoxBottomShee
             Align(
               alignment: Alignment.centerRight,
               child: MaterialButton(
-                onPressed: () => widget.completer(SheetResponse(responseData: radius)),
+                onPressed: () => widget.completer(SheetResponse(data: radius)),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
                 color: kEmeraldGreen,
                 child: Text(

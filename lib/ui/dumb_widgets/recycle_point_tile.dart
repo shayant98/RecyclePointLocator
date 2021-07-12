@@ -50,36 +50,48 @@ class RecyclePointTile extends StatelessWidget {
                           Row(
                             children: [
                               if (recyclePoint.materials.contains('glass'))
-                                CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: kEmeraldGreen,
-                                  foregroundColor: kPlatinum,
-                                  child: Icon(
-                                    FontAwesomeIcons.glassMartini,
-                                    size: 8,
-                                  ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: kEmeraldGreen,
+                                      foregroundColor: kPlatinum,
+                                      child: Icon(
+                                        FontAwesomeIcons.glassMartini,
+                                        size: 8,
+                                      ),
+                                    ),
+                                    horizontalSpaceTiny
+                                  ],
                                 ),
-                              horizontalSpaceTiny,
                               if (recyclePoint.materials.contains('paper'))
-                                CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: kEmeraldGreen,
-                                  foregroundColor: kPlatinum,
-                                  child: Icon(
-                                    FontAwesomeIcons.box,
-                                    size: 8,
-                                  ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: kEmeraldGreen,
+                                      foregroundColor: kPlatinum,
+                                      child: Icon(
+                                        FontAwesomeIcons.box,
+                                        size: 8,
+                                      ),
+                                    ),
+                                    horizontalSpaceTiny,
+                                  ],
                                 ),
-                              horizontalSpaceTiny,
                               if (recyclePoint.materials.contains('plastic'))
-                                CircleAvatar(
-                                  radius: 10,
-                                  backgroundColor: kEmeraldGreen,
-                                  foregroundColor: kPlatinum,
-                                  child: Icon(
-                                    FontAwesomeIcons.shoppingBag,
-                                    size: 8,
-                                  ),
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: kEmeraldGreen,
+                                      foregroundColor: kPlatinum,
+                                      child: Icon(
+                                        FontAwesomeIcons.shoppingBag,
+                                        size: 8,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                             ],
                           )

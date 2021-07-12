@@ -94,7 +94,7 @@ class DetailViewModel extends BaseViewModel {
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     _mapController = controller;
-    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
+    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : await controller.setMapStyle(null);
   }
 
   void navigateToHome() {
