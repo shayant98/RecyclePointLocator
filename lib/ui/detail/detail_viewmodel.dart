@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/app/app.router.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/enum/snackbar_type.dart';
 import 'package:rpl/exceptions/firestore_api_exception.dart';
@@ -108,13 +109,19 @@ class DetailViewModel extends BaseViewModel {
   materialOnTap(RecycleMaterialType materialType) {
     switch (materialType) {
       case RecycleMaterialType.glass:
-        _bottomSheetService.showBottomSheet(title: "Wat houdt glass in?", description: "Alle glassoorten");
+        _bottomSheetService.showBottomSheet(title: tr(LocaleKeys.detail_glass_card_title), description: tr(LocaleKeys.detail_glass_card_description));
         break;
       case RecycleMaterialType.paper:
-        _bottomSheetService.showBottomSheet(title: "wat houdt paper in?", description: "Alle papier soorten");
+        _bottomSheetService.showBottomSheet(
+          title: tr(LocaleKeys.detail_paper_card_title),
+          description: tr(LocaleKeys.detail_paper_card_description),
+        );
         break;
       case RecycleMaterialType.plastic:
-        _bottomSheetService.showBottomSheet(title: "wat houdt plastic in?", description: "Alle plastic in");
+        _bottomSheetService.showBottomSheet(
+          title: tr(LocaleKeys.detail_plastic_card_title),
+          description: tr(LocaleKeys.detail_plastic_card_description),
+        );
         break;
       default:
         _bottomSheetService.showBottomSheet(title: "Geen Materiaal", description: "Selecteer");

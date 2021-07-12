@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/enum/material_type.dart';
 import 'package:rpl/ui/detail/detail_viewmodel.dart';
 import 'package:rpl/ui/dumb_widgets/Recycle_point_map.dart';
@@ -9,6 +10,7 @@ import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DetailView extends StatelessWidget {
   const DetailView({Key? key}) : super(key: key);
@@ -46,8 +48,8 @@ class DetailView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "#1234",
-                          style: kBodyTextStyle.copyWith(color: kShadow),
+                          model.recyclePoint!.id.toString(),
+                          style: kBody2TextStyle.copyWith(color: kShadow),
                         ),
                       ],
                     )
@@ -60,7 +62,7 @@ class DetailView extends StatelessWidget {
                 verticalSpaceLarge,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                  child: Text("Materials you can recycle", style: kHeadingTextStyle),
+                  child: Text(LocaleKeys.details_materials_title, style: kHeadingTextStyle).tr(),
                 ),
                 verticalSpaceRegular,
                 Padding(
@@ -147,9 +149,9 @@ class _AllowedMaterials extends ViewModelWidget<DetailViewModel> {
                     ),
                   ),
                   Text(
-                    "Glass",
+                    LocaleKeys.material_glass,
                     style: kBodyTextStyle,
-                  )
+                  ).tr()
                 ],
               ),
             ),
@@ -169,9 +171,9 @@ class _AllowedMaterials extends ViewModelWidget<DetailViewModel> {
                     ),
                   ),
                   Text(
-                    "Paper",
+                    LocaleKeys.material_paper,
                     style: kBodyTextStyle,
-                  )
+                  ).tr()
                 ],
               ),
             ),
@@ -191,9 +193,9 @@ class _AllowedMaterials extends ViewModelWidget<DetailViewModel> {
                     ),
                   ),
                   Text(
-                    "Plastic",
+                    LocaleKeys.material_plastic,
                     style: kBodyTextStyle,
-                  )
+                  ).tr()
                 ],
               ),
             ),

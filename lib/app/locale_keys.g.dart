@@ -37,7 +37,16 @@ abstract class  LocaleKeys {
   static const profile_card_danger_title = 'profile_card_danger_title';
   static const profile_card_delete_account = 'profile_card_delete_account';
   static const profile_card_change_password = 'profile_card_change_password';
+  static const material_glass = 'material_glass';
+  static const material_plastic = 'material_plastic';
+  static const material_paper = 'material_paper';
   static const details_materials_title = 'details_materials_title';
+  static const detail_glass_card_title = 'detail_glass_card_title';
+  static const detail_paper_card_title = 'detail_paper_card_title';
+  static const detail_plastic_card_title = 'detail_plastic_card_title';
+  static const detail_glass_card_description = 'detail_glass_card_description';
+  static const detail_paper_card_description = 'detail_paper_card_description';
+  static const detail_plastic_card_description = 'detail_plastic_card_description';
   static const navigation_card_tilte = 'navigation_card_tilte';
   static const settings_title = 'settings_title';
   static const settings_subtitle = 'settings_subtitle';
