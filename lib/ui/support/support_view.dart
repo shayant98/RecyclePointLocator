@@ -90,6 +90,7 @@ class SupportView extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "quickFind",
           onPressed: model.navigateToGoogleMaps,
           child: Icon(FontAwesomeIcons.map),
         ),
