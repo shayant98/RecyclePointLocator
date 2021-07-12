@@ -58,5 +58,19 @@ abstract class  LocaleKeys {
   static const settings_appearance_card_title = 'settings_appearance_card_title';
   static const settings_dark_mode = 'settings_dark_mode';
   static const language_dark_mode = 'language_dark_mode';
+  static const quick_find_title = 'quick_find_title';
+  static const quick_find_subtitle = 'quick_find_subtitle';
+  static const quick_find_materials_title = 'quick_find_materials_title';
+  static const quick_find_radius = 'quick_find_radius';
+  static const quick_find_summary = 'quick_find_summary';
+  static const quick_find_radius_to_search = 'quick_find_radius_to_search';
+  static const quick_find_no_material_error_title = 'quick_find_no_material_error_title';
+  static const quick_find_no_material_error_description = 'quick_find_no_material_error_description';
+  static const quick_find_rp_found_title = 'quick_find_rp_found_title';
+  static const quick_find_rp_found_description = 'quick_find_rp_found_description';
+  static const quick_find_rp_not_found_error_title = 'quick_find_rp_not_found_error_title';
+  static const quick_find_rp_not_found_error_description = 'quick_find_rp_not_found_error_description';
+  static const quick_find_rp_found_navigate_button = 'quick_find_rp_found_navigate_button';
+  static const quick_find_rp_found_cancel_button = 'quick_find_rp_found_cancel_button';
 
 }

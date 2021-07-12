@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:rpl/app/app.locator.dart';
 import 'package:rpl/app/app.logger.dart';
 import 'package:rpl/app/app.router.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/enum/snackbar_type.dart';
 import 'package:rpl/models/application_models.dart';
 import 'package:rpl/service/recycle_point_service.dart';
@@ -43,8 +45,8 @@ class QuickFindViewModel extends BaseViewModel {
     if (_selectedMaterials.length < 1) {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 2),
-        title: "Something went wrong...",
-        message: "Please select a material type",
+        title: tr(LocaleKeys.quick_find_no_material_error_title),
+        message: tr(LocaleKeys.quick_find_no_material_error_description),
         variant: _themeService.isDarkMode ? SnackbarType.darkMode : SnackbarType.lightMode,
       );
       return;
@@ -54,18 +56,19 @@ class QuickFindViewModel extends BaseViewModel {
     if (recyclePoint == null) {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 2),
-        title: "Sorry...",
-        message: "No recyclepoints found",
+        title: tr(LocaleKeys.quick_find_rp_not_found_error_title),
+        message: tr(LocaleKeys.quick_find_rp_not_found_error_description),
         variant: _themeService.isDarkMode ? SnackbarType.darkMode : SnackbarType.lightMode,
       );
       return;
     }
     SheetResponse? response = await _dialogService.showBottomSheet(
-        title: "Recyclepoint found...",
-        barrierDismissible: false,
-        description: "Recyclepoint ${recyclePoint.name} found - ${recyclePoint.adres}",
-        cancelButtonTitle: "Cancel",
-        confirmButtonTitle: "Navigate to recyclepoint");
+      title: tr(LocaleKeys.quick_find_rp_found_title),
+      barrierDismissible: false,
+      description: tr(LocaleKeys.quick_find_rp_found_description, args: [recyclePoint.name, recyclePoint.adres]),
+      cancelButtonTitle: tr(LocaleKeys.quick_find_rp_found_cancel_button),
+      confirmButtonTitle: tr(LocaleKeys.quick_find_rp_found_navigate_button),
+    );
 
     if (response != null) {
       if (response.confirmed) {

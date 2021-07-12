@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rpl/enum/material_type.dart';
+import 'package:rpl/app/locale_keys.g.dart';
 import 'package:rpl/ui/dumb_widgets/floating_container.dart';
 import 'package:rpl/ui/dumb_widgets/leaf_clipper.dart';
 import 'package:rpl/ui/dumb_widgets/radius_slider.dart';
@@ -8,6 +8,7 @@ import 'package:rpl/ui/quick_find/quick_find_viewmodel.dart';
 import 'package:rpl/ui/shared/styles.dart';
 import 'package:rpl/ui/shared/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class QuickFindView extends StatelessWidget {
   const QuickFindView({Key? key}) : super(key: key);
@@ -33,17 +34,17 @@ class QuickFindView extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                  child: Text("Quick Find", style: kTitleTextStyle),
+                  child: Text(LocaleKeys.quick_find_title, style: kTitleTextStyle).tr(),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
-                  child: Text("Quickly find the nearest recyclepoint", style: kSubtitleTextStyle),
+                  child: Text(LocaleKeys.quick_find_subtitle, style: kSubtitleTextStyle).tr(),
                 ),
                 verticalSpaceLarge,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
                   child: Text(
-                    "Materials to recycle",
+                    LocaleKeys.quick_find_materials_title,
                     style: kTitleTextStyle.copyWith(fontSize: 18),
                   ),
                 ),
@@ -97,9 +98,9 @@ class QuickFindView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
                   child: Text(
-                    "Search radius",
+                    LocaleKeys.quick_find_radius,
                     style: kTitleTextStyle.copyWith(fontSize: 18),
-                  ),
+                  ).tr(),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: paddingRegular),
@@ -113,9 +114,9 @@ class QuickFindView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Summary",
+                          LocaleKeys.quick_find_summary,
                           style: kTitleTextStyle,
-                        ),
+                        ).tr(),
                         for (var material in model.selectedMaterials)
                           Row(
                             children: [
@@ -136,9 +137,9 @@ class QuickFindView extends StatelessWidget {
                           ),
                         verticalSpaceMedium,
                         Text(
-                          'Radius to search: ${model.radius.toString()} KM',
+                          LocaleKeys.quick_find_radius_to_search,
                           style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold),
-                        )
+                        ).tr(args: [model.radius.toString()])
                       ],
                     ),
                   ),

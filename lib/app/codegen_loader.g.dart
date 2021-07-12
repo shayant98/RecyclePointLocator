@@ -71,7 +71,21 @@ class CodegenLoader extends AssetLoader{
   "about_us_contact_card_title": "Contact",
   "settings_appearance_card_title": "Uiterlijk",
   "settings_dark_mode": "Nacht modus",
-  "language_dark_mode": "Taal"
+  "language_dark_mode": "Taal",
+  "quick_find_title": "Quick Find",
+  "quick_find_subtitle": "Quickly find the nearest recyclepoint",
+  "quick_find_materials_title": "Materials to recycle",
+  "quick_find_radius": "Search radius",
+  "quick_find_summary": "summary",
+  "quick_find_radius_to_search": "Radius to search {} KM",
+  "quick_find_no_material_error_title": "Something went wrong...",
+  "quick_find_no_material_error_description": "Please select a material type",
+  "quick_find_rp_found_title": "Recyclepoint found...",
+  "quick_find_rp_found_description": "Recyclepoint {} found - {}",
+  "quick_find_rp_not_found_error_title": "Sorry...",
+  "quick_find_rp_not_found_error_description": "No recyclepoints found",
+  "quick_find_rp_found_navigate_button": "Navigate to recyclepoint",
+  "quick_find_rp_found_cancel_button": "Cancel"
 };
 static const Map<String,dynamic> en = {
   "rp_card_title": "Points near you",
@@ -130,7 +144,21 @@ static const Map<String,dynamic> en = {
   "settings_subtitle": "Change application settings",
   "settings_appearance_card_title": "Appearance",
   "settings_dark_mode": "Dark Mode",
-  "language_dark_mode": "Language"
+  "language_dark_mode": "Language",
+  "quick_find_title": "Quick Find",
+  "quick_find_subtitle": "Quickly find the nearest recyclepoint",
+  "quick_find_materials_title": "Materials to recycle",
+  "quick_find_radius": "Search radius",
+  "quick_find_summary": "summary",
+  "quick_find_radius_to_search": "Radius to search {} KM",
+  "quick_find_no_material_error_title": "Something went wrong...",
+  "quick_find_no_material_error_description": "Please select a material type",
+  "quick_find_rp_found_title": "Recyclepoint found...",
+  "quick_find_rp_found_description": "Recyclepoint {} found - {}",
+  "quick_find_rp_not_found_error_title": "Sorry...",
+  "quick_find_rp_not_found_error_description": "No recyclepoints found",
+  "quick_find_rp_found_navigate_button": "Navigate to recyclepoint",
+  "quick_find_rp_found_cancel_button": "Cancel"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"nl": nl, "en": en};
 }
