@@ -12,9 +12,7 @@ class AppThemes {
     toggleableActiveColor: kEmeraldGreen,
     canvasColor: kDarkJungleGreen,
     floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: kEmeraldGreen, foregroundColor: kPlatinum),
-    colorScheme: ColorScheme.dark(
-      primary: kEmeraldGreen,
-    ),
+    colorScheme: ColorScheme.dark(primary: kEmeraldGreen, surface: kEmeraldGreen),
     shadowColor: kDarkJungleGreen.withOpacity(0.5),
   );
   static final lightTheme = ThemeData(

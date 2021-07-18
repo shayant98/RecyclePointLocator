@@ -54,18 +54,6 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
-
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon/icon.png"
-
-flutter_native_splash:
-  color: "#ECECEC"
-  image: assets/icon/icon.png
-  color_dark: "#06231B"
-  android12: true
-
   assets:
     - assets/fonts/
     - assets/map_styles/
@@ -79,3 +67,14 @@ flutter_native_splash:
           weight: 500
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+flutter_native_splash:
+  color: "#ECECEC"
+  image: assets/icon/icon.png
+  color_dark: "#06231B"
+  android12: true

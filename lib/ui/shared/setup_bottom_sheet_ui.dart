@@ -38,7 +38,7 @@ class __FloatingBoxBottomSheetState extends State<_FloatingBoxBottomSheet> {
 
   @override
   void initState() {
-    radius = widget.request.customData;
+    radius = widget.request.data;
     super.initState();
   }
 
@@ -111,7 +111,7 @@ class __DarkFloatingBoxBottomSheetState extends State<_DarkFloatingBoxBottomShee
 
   @override
   void initState() {
-    radius = widget.request.customData;
+    radius = widget.request.data;
     super.initState();
   }
 
