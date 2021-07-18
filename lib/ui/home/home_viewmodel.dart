@@ -91,7 +91,7 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : await controller.setMapStyle(null);
+    _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
   }
 
   animateToUser() async {
