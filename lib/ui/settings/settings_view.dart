@@ -72,7 +72,7 @@ class SettingsView extends StatelessWidget {
                                     (locale) => DropdownMenuItem(
                                       value: locale,
                                       child: Text(
-                                        "${locale.toString() == 'nl' ? '🇳🇱' : locale.toString() == 'en' ? "🇬🇧" : ""} -  ${locale.languageCode.toUpperCase()}",
+                                        "${locale.toString() == 'nl' ? '🇳🇱' : locale.toString() == 'en' ? "🇬🇧" : locale.toString() == 'pt' ? "🇧🇷" : ""} -  ${locale.languageCode.toUpperCase()}",
                                         style: kSubtitleTextStyle,
                                       ),
                                     ),

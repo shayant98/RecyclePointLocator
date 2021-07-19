@@ -21,7 +21,7 @@ Future<void> main() async {
   setupSnackbarUi();
   runApp(EasyLocalization(
     child: MyApp(),
-    supportedLocales: [Locale('en'), Locale('nl')],
+    supportedLocales: [Locale('en'), Locale('nl'), Locale('pt')],
     useOnlyLangCode: true,
     path: 'assets/translations',
     assetLoader: CodegenLoader(),
