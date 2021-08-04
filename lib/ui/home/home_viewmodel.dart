@@ -48,7 +48,6 @@ class HomeViewModel extends MultipleStreamViewModel {
 
   GoogleMapController? mapController;
   Location location = new Location();
-  Completer<GoogleMapController> _controller = Completer();
 
   init() async {
     pos = _locationService.getDeviceLocation();
@@ -83,8 +82,8 @@ class HomeViewModel extends MultipleStreamViewModel {
   showRadiusSlider() async {
     SheetResponse? response = await _bottomSheetService.showCustomSheet(variant: _themeService.isDarkMode ? BottomSheetType.DarkFloatingBox : BottomSheetType.LightFloatingBox, data: radius);
 
-    if (response != null || response?.responseData == radius) {
-      radius = response?.responseData;
+    if (response != null || response?.data == radius) {
+      radius = response?.data;
       _drawRadiusCircle();
       mapController?.moveCamera(CameraUpdate.zoomTo(zoomLevels[radius] ?? 12));
     }
@@ -96,7 +95,6 @@ class HomeViewModel extends MultipleStreamViewModel {
     mapController = controller;
     print("Dark mode ${_themeService.isDarkMode}");
     _themeService.isDarkMode ? await controller.setMapStyle(await rootBundle.loadString('assets/map_styles/dark.json')) : null;
-    _controller.complete(controller);
   }
 
   animateToUser() async {

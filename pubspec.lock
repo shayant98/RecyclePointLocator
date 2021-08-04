@@ -384,7 +384,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.4"
+    version: "4.3.4"
   get_it:
     dependency: transitive
     description:
@@ -809,7 +809,7 @@ packages:
       name: stacked_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.10"
+    version: "0.8.13"
   stacked_themes:
     dependency: "direct main"
     description:

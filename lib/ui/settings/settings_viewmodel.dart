@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:restart_app/restart_app.dart';
 import 'package:rpl/app/app.locator.dart';
+import 'package:rpl/ui/home/home_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -22,7 +23,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void navigateToHome() {
-    _navigationService.back();
+    _navigationService.replaceWithTransition(HomeView(), transition: 'leftToRight');
   }
 
   void changeLanguage(String value) {
