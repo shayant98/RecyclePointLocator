@@ -1,7 +1,9 @@
 
-# Recycle Point Locator
+<img src="Icon-512.png" width="240"/>
 
+# Recycle Point Locator
 Find the nearest recyclepoints based on your location. save frequently used recyclepoints for easier access
+
 
 
 ## Features
@@ -15,7 +17,7 @@ Find the nearest recyclepoints based on your location. save frequently used recy
   
 ## Screenshots
 
-<img src="Home 2.png" width="240" /> <img src="Home 2.png" width="240" /> <img src="Home 2.png" width="240" />
+<img src="Home 2.png" width="240" /> <img src="Login.png" width="240" />
   
 ## Technology we used
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
