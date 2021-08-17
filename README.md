@@ -15,8 +15,7 @@ Find the nearest recyclepoints based on your location. save frequently used recy
   
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
+<img src="Home 2.png" width="240" /> <img src="Home 2.png" width="240" /> <img src="Home 2.png" width="240" />
   
 ## Technology we used
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
